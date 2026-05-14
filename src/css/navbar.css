@@ -1,0 +1,34 @@
+/* General styles for menu links */
+.menu-link {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+/* Styles for the active link */
+.menu-link.active {
+    color: red;
+}
+
+/* Underline effect */
+.menu-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background-color: red;
+    transition: width 0.3s ease;
+}
+
+/* Underline for the active link */
+.menu-link.active::after {
+    width: 100%;
+}
+
+/* Hover effect to show underline smoothly */
+.menu-link:hover::after {
+    width: 100%;
+}

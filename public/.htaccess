@@ -1,0 +1,14 @@
+Options -MultiViews
+RewriteEngine On
+
+# Redirect API requests to the Node.js app running on port 8000
+RewriteCond %{REQUEST_URI} ^/api
+RewriteRule ^(.*)$ http://localhost:8000/$1 [P,L]
+
+# Serve static files if they exist
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Redirect all other requests to index.html for React routing
+RewriteRule ^ index.html [QSA,L]

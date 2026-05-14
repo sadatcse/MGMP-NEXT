@@ -1,0 +1,160 @@
+/* Importing Poppins Font */
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.poppins {
+    font-family: "Poppins", sans-serif;
+}
+
+
+
+.bebas-neue-regular {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.acme-regular {
+    font-family: "Acme", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply font-roboto overflow-x-hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-oswald font-bold uppercase;
+    }
+
+    .h1 {
+        @apply text-white text-7xl lg:text-[128px] tracking-[-3px];
+        @apply sm:text-5xl md:text-6xl;
+    }
+
+    .h2 {
+        @apply text-[36px];
+        @apply sm:text-[30px] md:text-[32px];
+    }
+
+    .h3 {
+        @apply text-[32px];
+        @apply sm:text-[28px] md:text-[30px];
+    }
+
+    .h4 {
+        @apply text-[26px];
+        @apply sm:text-[24px] md:text-[25px];
+    }
+
+    .h5 {
+        @apply text-[22px];
+        @apply sm:text-[20px] md:text-[21px];
+    }
+}
+
+.active {
+    @apply text-accent;
+}
+
+/* swiper pagination styles */
+.swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+    @apply bg-accent;
+}
+
+.right-inner-shadow {
+    box-shadow: inset -35px 0 35px rgba(231, 231, 231, 0.25);
+}
+
+
+/* dashboard styles */
+.routes {
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Add transition properties */
+}
+
+.routes:hover {
+    --tw-bg-opacity: 1;
+    background-color: #d1d1d173;
+}
+
+.routes.active {
+    background-color: rgba(243, 217, 183, 0.336);
+    color: rgba(148, 104, 62, 0.747);
+}
+
+/* pagination button animation */
+@keyframes wakeUp {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  
+  @keyframes sleep {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.8); }
+    100% { transform: scale(1); }
+  }
+  
+  .active-button {
+    animation: wakeUp 0.5s ease-in-out;
+  }
+  
+  .inactive-button {
+    animation: sleep 0.5s ease-in-out;
+  }
+  
+  .transition-colors {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+  
+
+/* Apply styles for the select */
+/* select {
+    transition: border-color 0.3s ease-in-out;
+}
+
+select:focus {
+    border-color: #3182ce;
+}
+
+select:hover {
+    border-color: #63b3ed;
+} */
+
+/* Style for the icons */
+.relative .w-5.h-5 {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Rotate icon when select is open */
+.relative .w-5.h-5.up {
+    transform: rotate(180deg);
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #fbbf24; /* Yellow scrollbar thumb */
+    border-radius: 10px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: black;
+  }
+  

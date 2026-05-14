@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /webadmin/
+Disallow: /under/
+Disallow: /dashboard/
+
+Sitemap: https://www.multigympremium.com/sitemap.xml
