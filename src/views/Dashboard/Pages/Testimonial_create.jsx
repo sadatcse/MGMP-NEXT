@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-quill/dist/quill.snow.css';
@@ -9,6 +10,7 @@ import ImageUpload from '../../../components/Utility/ImageUploadcpanel';
 import axios from 'axios';
 const Testimonial_create = () => {
     const axiosSecure = UseAxioSecure();
+    const router = useRouter();
     const [imageurl, setimageurl] = useState('');
  
 
@@ -44,6 +46,19 @@ const Testimonial_create = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        if (!imageurl) {
+            Swal.fire({
+                icon: "warning",
+                title: "Image Required",
+                text: "Please upload an image or enter a direct image URL.",
+                background: '#1a1a1a',
+                color: '#fff',
+                confirmButtonColor: '#dc2626'
+            });
+            return;
+        }
+
         formData.image=imageurl;
 
         // Format the date to include only month, day, and year
@@ -69,15 +84,11 @@ const Testimonial_create = () => {
                 icon: "success",
                 title: "Success!",
                 text: "Testimonial added successfully",
-            });
-
-            // Optionally, reset form fields after successful submission
-            setFormData({
-                title: '',
-                name: '',
-                comment: '',
-                image: '',
-                date: new Date(),
+                background: '#1a1a1a',
+                color: '#fff',
+                confirmButtonColor: '#dc2626'
+            }).then(() => {
+                router.push('/dashboard/testimonial_view');
             });
 
         } catch (error) {
@@ -156,7 +167,7 @@ const Testimonial_create = () => {
                                 id="image"
                                 name="image"
                                 value={imageurl}
-                                onChange={handleChange}
+                                onChange={(e) => setimageurl(e.target.value)}
                                 className="appearance-none text-sm border shadow-sm rounded-xl w-full py-4 px-3 text-gray-700  focus:outline-none focus:shadow-outline"
                                 placeholder="Enter image URL"
                             />

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import ReactQuill from 'react-quill';
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
 import UseAxioSecure from '../../../Hook/UseAxioSecure';
 import Swal from 'sweetalert2';
@@ -11,6 +13,7 @@ import ImageUpload from '../../../components/Utility/ImageUploadcpanel';
 
 const Blog_create = () => {
     const axiosSecure = UseAxioSecure();
+    const router = useRouter();
     const [imageurl, setImageUrl] = useState('');
     const axiosPublic = useAxiosPublic();
 
@@ -81,6 +84,11 @@ const Blog_create = () => {
                 icon: "success",
                 title: "Success!",
                 text: "Blog added successfully",
+                background: '#1a1a1a',
+                color: '#fff',
+                confirmButtonColor: '#dc2626'
+            }).then(() => {
+                router.push('/dashboard/blog_view');
             });
     
         } catch (error) {
@@ -183,7 +191,7 @@ const Blog_create = () => {
                                 id="image"
                                 name="image"
                                 value={imageurl}
-                                onChange={handleChange}
+                                onChange={(e) => setImageUrl(e.target.value)}
                                 className="appearance-none text-sm border shadow-sm rounded-xl w-full py-4 px-3 text-gray-700  focus:outline-none focus:shadow-outline"
                                 placeholder="Enter image URL"
                             />

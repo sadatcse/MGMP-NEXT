@@ -50,8 +50,8 @@ function UseAxiosSecure() {
       const status = error?.response?.status;
       if (status === 401 || status === 403) {
         handleLogOut();
-        return Promise.reject(error);
       }
+      return Promise.reject(error);
     }
   );
 

@@ -5,36 +5,42 @@ import Swal from 'sweetalert2';
 const ImageUpload = ({ setImageUrl, setPreviewImageUrl }) => {
     const handleImageUpload = async (e) => {
         const imageFile = e.target.files[0];
+        if (!imageFile) return;
+
         const formData = new FormData();
         formData.append('image', imageFile);
 
+        const uploadUrl = `/api/upload`;
+
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/image/upload/`, formData, {
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            const response = await axios.post(uploadUrl, formData);
 
-            const data = response.data;
-
-            if (response.status === 200) {
+            if (response.status === 200 && response.data?.success) {
+                const uploadedUrl = response.data.data.url;
+                
                 if (setImageUrl) {
-                    setImageUrl(data.path);
+                    setImageUrl(uploadedUrl);
                 }
                 if (setPreviewImageUrl) {
-                    setPreviewImageUrl(data.path);
+                    setPreviewImageUrl(uploadedUrl);
                 }
+                
                 Swal.fire({
                     icon: 'success',
                     title: 'Success!',
-                    text: 'Image uploaded successfully',
+                    text: 'Image uploaded successfully to server uploads folder',
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    confirmButtonColor: '#dc2626'
                 });
             } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error!',
-                    text: data.message || 'Failed to upload image',
+                    text: 'Failed to upload image to host',
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    confirmButtonColor: '#dc2626'
                 });
             }
         } catch (error) {
@@ -42,14 +48,21 @@ const ImageUpload = ({ setImageUrl, setPreviewImageUrl }) => {
             Swal.fire({
                 icon: 'error',
                 title: 'Error!',
-                text: 'Failed to upload image',
+                text: error.response?.data?.message || error.response?.data?.error?.message || error.message || 'Failed to upload image',
+                background: '#1a1a1a',
+                color: '#fff',
+                confirmButtonColor: '#dc2626'
             });
         }
     };
 
     return (
-        <div className="form-control border rounded-lg shadow-sm my-6">
-            <input onChange={handleImageUpload} type="file" className="file-input outline-none focus:outline-none" />
+        <div className="form-control border border-white/10 bg-black/40 rounded-2xl p-2 w-full my-2">
+            <input 
+                onChange={handleImageUpload} 
+                type="file" 
+                className="file-input file-input-bordered bg-transparent text-white w-full outline-none focus:outline-none cursor-pointer" 
+            />
         </div>
     );
 };

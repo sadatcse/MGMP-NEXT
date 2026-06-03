@@ -32,28 +32,64 @@ const Team = () => {
   }
 
   return (
-    <div className="container mx-auto grid grid-cols-6 mb-12">
-      <h1 className="text-4xl font-semibold text-center mb-3 py-4 col-span-full dark:text-white">Meet the team</h1>
-      <div className="col-span-full md:col-span-4">
-        <div className="w-full text-lg relative z-[1] group overflow-hidden p-8 hidden md:block dark:text-white dark:border text-neutral-800">
-          <div className="h-0 group-hover:h-full w-full duration-200 transition-all absolute top-0 left-0 rounded-full scale-150 dark:bg-neutral-800 bg-[#E9F1FA] z-[-1] text-lg showBg"></div>
-          <p><b className="text-xl">Name: </b> {teamData[currentTeam]?.full_name}</p>
-          <p><b className="text-xl">Title: </b> {teamData[currentTeam]?.position_title}</p>
-          <p><b className="text-xl">Description: </b> {teamData[currentTeam]?.bio} </p>
-          <div className="absolute top-1/2 right-8 text-xl space-y-3 -translate-y-1/2">
-            <a href={`https://instagram.com/${teamData[currentTeam]?.Instagram}`} className="w-8 h-8 flex justify-center items-center rounded-full dark:text-black bg-white"><FaInstagram /></a>
-            <a href={`tel:${teamData[currentTeam]?.mobile}`} className="w-8 h-8 flex justify-center items-center rounded-full dark:text-black bg-white"><FaPhone /></a>
-            <a href={`https://facebook.com/${teamData[currentTeam]?.facebook}`} className="w-8 h-8 flex justify-center items-center rounded-full dark:text-black bg-white"><FaFacebook /></a>
+    <div className="container mx-auto px-4 mb-24">
+      <div className="max-w-3xl mx-auto text-center mb-12">
+        <p className="text-red-600 font-bold uppercase tracking-widest text-sm mb-4">Experts</p>
+        <h2 className="text-4xl md:text-5xl font-black dark:text-white uppercase tracking-tight">Meet the <span className="text-custom-yellow">Team</span></h2>
+        <div className="w-20 h-1.5 bg-red-600 mx-auto mt-4 rounded-full"></div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
+        <div className="lg:col-span-4 flex flex-col gap-6">
+          {/* Detailed Info Card */}
+          <div className="w-full relative z-[1] group overflow-hidden p-10 rounded-[2rem] border border-gray-100 dark:border-white/10 shadow-xl transition-all duration-500">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent dark:from-white/5 z-[-2]"></div>
+            <div className="h-0 group-hover:h-full w-full duration-500 transition-all absolute top-0 left-0 rounded-full scale-[2] bg-custom-yellow/5 z-[-1]"></div>
+            
+            <div className="space-y-4 pr-12">
+              <div className="space-y-1">
+                <p className="text-custom-yellow font-black uppercase tracking-[0.2em] text-sm">Professional Trainer</p>
+                <h3 className="text-3xl md:text-4xl font-black dark:text-white tracking-tight uppercase">{teamData[currentTeam]?.full_name}</h3>
+              </div>
+              
+              <div className="w-12 h-1 bg-red-600 rounded-full"></div>
+              
+              <div className="space-y-3 pt-2">
+                <p className="text-lg font-bold dark:text-gray-200 uppercase tracking-wide">{teamData[currentTeam]?.position_title}</p>
+                <p className="text-gray-500 dark:text-gray-400 leading-relaxed font-medium italic">"{teamData[currentTeam]?.bio}"</p>
+              </div>
+            </div>
+
+            <div className="absolute top-10 right-10 flex flex-col gap-4">
+              <a href={`https://instagram.com/${teamData[currentTeam]?.Instagram}`} className="w-10 h-10 flex justify-center items-center rounded-xl bg-white dark:bg-white/10 shadow-lg text-black dark:text-white hover:bg-custom-yellow hover:text-black transition-all duration-300">
+                <FaInstagram />
+              </a>
+              <a href={`tel:${teamData[currentTeam]?.mobile}`} className="w-10 h-10 flex justify-center items-center rounded-xl bg-white dark:bg-white/10 shadow-lg text-black dark:text-white hover:bg-custom-yellow hover:text-black transition-all duration-300">
+                <FaPhone />
+              </a>
+              <a href={`https://facebook.com/${teamData[currentTeam]?.facebook}`} className="w-10 h-10 flex justify-center items-center rounded-xl bg-white dark:bg-white/10 shadow-lg text-black dark:text-white hover:bg-custom-yellow hover:text-black transition-all duration-300">
+                <FaFacebook />
+              </a>
+            </div>
+          </div>
+
+          {/* Grid of Team Members */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-2 max-h-[500px] overflow-y-auto custom-scrollbar">
+            {teamData && teamData.map((member, idx) => (
+              <TeamCard key={idx} position={idx} member={member} setCurrentTeam={setCurrentTeam} currentTeam={currentTeam} />
+            ))}
           </div>
         </div>
-        <div className="w-full p-4 grid grid-cols-1 sm:grid-cols-2 justify-center lg:grid-cols-4 md:max-h-[400px] md:overflow-auto gap-6 bg-white border-b">
-          {teamData && teamData.map((member, idx) => (
-            <TeamCard key={idx} position={idx} member={member} setCurrentTeam={setCurrentTeam} currentTeam={currentTeam} />
-          ))}
+
+        {/* Highlight Image */}
+        <div className="lg:col-span-2 hidden md:flex flex-col items-center justify-center p-6 bg-neutral-900 rounded-[3rem] border border-white/5 shadow-2xl relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <img 
+            src={teamData[currentTeam]?.image_url} 
+            alt="team member image" 
+            className="w-full h-full object-cover object-top rounded-[2rem] transition-transform duration-700 group-hover:scale-105" 
+          />
         </div>
-      </div>
-      <div className="col-span-2 hidden md:flex justify-center items-center bg-neutral-800 dark:bg-neutral-800 dark:border dark:border-l-0">
-        <img src={teamData[currentTeam]?.image_url} alt="team member image" className="max-h-[500px]" />
       </div>
     </div>
   );

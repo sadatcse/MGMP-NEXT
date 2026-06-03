@@ -6,6 +6,7 @@ import Title from './Title';
 import CustomButton from './CustomButton';
 import Spinner from "../Utility/Spinner";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
+import { motion } from 'framer-motion';
 
 const Team = () => {
   const [trainerData, setTrainerData] = useState([]);
@@ -14,112 +15,108 @@ const Team = () => {
 
   useEffect(() => {
     let timeoutId;
-
     const fetchTrainerData = async () => {
       try {
         const response = await axiosPublic.get('/trainer/get-all');
         setTrainerData(response.data);
         setLoading(false);
-        clearTimeout(timeoutId); // Clear the timeout if data loads successfully
+        clearTimeout(timeoutId);
       } catch (error) {
         console.error('Error fetching trainer data:', error);
         setLoading(false);
       }
     };
-
     fetchTrainerData();
-
-    // Set a timeout to refetch the data if it doesn't load within 3 seconds
     timeoutId = setTimeout(() => {
-      if (loading) {
-        fetchTrainerData();
-      }
+      if (loading) fetchTrainerData();
     }, 3000);
-
-    // Clean up the timeout when the component unmounts
     return () => clearTimeout(timeoutId);
   }, [axiosPublic, loading]);
-
-  const sliceText = (text, count) => {
-    const words = text.split(' ');
-    if (words.length > count) {
-      return words.slice(0, count).join(' ') + '...';
-    }
-    return text;
-  };
 
   const selectedTrainers = trainerData.slice(0, 4);
 
   return (
-    <div className='container mx-auto px-4 py-10 h-full flex flex-col items-center justify-center'>
-      <Title title="TEAM MEMBERS" subtitle="TEAM OF EXPERT COACHES" />
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          {/* trainers grid */}
-          <div className='w-full grid gap-14 md:gap-5 grid-cols-1 md:grid-cols-2 xl:grid-cols-4'>
-            {selectedTrainers.map((trainer) => (
-              <div className='flex flex-col items-center text-center' key={trainer._id}>
-                {/* image */}
-                <div className='relative mx-auto'>
-                  <Link href={`/trainers/${trainer.short_name}`}>
-                    <img 
-                      src={trainer.image_url} 
-                      alt={trainer.full_name} 
-                      className='rounded-lg bg-gray-50 w-full border h-96' 
-                    />
-                  </Link>
-                </div>
-                {/* name */}
-                <Link href={`/trainers/${trainer.short_name}`}>
-                  <h4 className='h4 mt-1 mb-2'>{trainer.full_name}</h4>
-                </Link>
-                {/* role */}
-                <p className='uppercase text-xs tracking-[3px] mb-2'>Fitness Trainer</p>
-                {/* certifications */}
-                <p className='mb-5 px-3 mx-auto text-base'>{trainer.certification}</p>
-                {/* socials */}
-                <div className='flex justify-center gap-5'>
-                  {trainer.Instagram && (
-                    <a 
-                      href={`https://www.instagram.com/${trainer.Instagram}`} 
-                      target='_blank' 
-                      rel='noopener noreferrer' 
-                      className='hover:text-accent transition-all'
-                    >
-                      <FaInstagram className='text-2xl' />
-                    </a>
-                  )}
-                  {trainer.facebook && (
-                    <a 
-                      href={`https://www.facebook.com/${trainer.facebook}`} 
-                      target='_blank' 
-                      rel='noopener noreferrer' 
-                      className='hover:text-accent transition-all'
-                    >
-                      <FaFacebook className='text-2xl' />
-                    </a>
-                  )}
-                  {trainer.mobile && (
-                    <a 
-                      href={`tel:${trainer.mobile}`} 
-                      className='hover:text-accent transition-all'
-                    >
-                      <FaMobileAlt className='text-2xl' />
-                    </a>
-                  )}
-                </div>
-              </div>
-            ))}
+    <section className='py-24 bg-[#0a0a0a]'>
+      <div className='container mx-auto px-4'>
+        <div className="mb-16">
+          <Title title="Our Experts" subtitle="Meet Our Team" />
+        </div>
+        
+        {loading ? (
+          <div className="flex justify-center py-20">
+            <Spinner />
           </div>
-          {/* btn */}
-          <div className='mt-9'>
-            <Link href="/trainers"><CustomButton containerStyles='btn' text='See all trainers' /></Link>
-          </div>
-        </>
-      )}
-    </div>
+        ) : (
+          <>
+            {/* Trainers Grid */}
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
+              {selectedTrainers.map((trainer, index) => (
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className='group flex flex-col items-center bg-white/5 border border-white/5 rounded-[2rem] p-8 premium-card' 
+                  key={trainer._id}
+                >
+                  {/* Image Container */}
+                  <div className='relative w-full aspect-[4/5] mb-6 overflow-hidden rounded-2xl'>
+                    <Link href={`/trainers/${trainer.short_name}`}>
+                      <img 
+                        src={trainer.image_url} 
+                        alt={trainer.full_name} 
+                        className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110' 
+                      />
+                    </Link>
+                    {/* Subtle Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </div>
+
+                  {/* Info */}
+                  <div className="text-center space-y-2 w-full">
+                    <Link href={`/trainers/${trainer.short_name}`}>
+                      <h4 className='text-xl font-black text-white uppercase tracking-tight group-hover:text-custom-yellow transition-colors'>{trainer.full_name}</h4>
+                    </Link>
+                    <p className='text-red-600 font-bold uppercase text-[10px] tracking-[0.3em]'>Elite Fitness Coach</p>
+                    <p className='text-gray-400 text-xs font-medium line-clamp-2 min-h-[2rem]'>{trainer.certification}</p>
+                    
+                    {/* Socials - Polished */}
+                    <div className='flex justify-center gap-4 pt-4 border-t border-white/5 mt-4 group-hover:border-white/10 transition-colors'>
+                      {[
+                        { icon: FaInstagram, link: trainer.Instagram, prefix: 'https://www.instagram.com/' },
+                        { icon: FaFacebook, link: trainer.facebook, prefix: 'https://www.facebook.com/' },
+                        { icon: FaMobileAlt, link: trainer.mobile, prefix: 'tel:' }
+                      ].map((social, sIndex) => (
+                        social.link && (
+                          <a 
+                            key={sIndex}
+                            href={social.prefix + social.link} 
+                            target='_blank' 
+                            rel='noopener noreferrer' 
+                            className='w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:bg-custom-yellow hover:text-black transition-all duration-300'
+                          >
+                            <social.icon size={18} />
+                          </a>
+                        )
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* View All Button */}
+            <div className='mt-16 text-center'>
+              <Link href="/trainers">
+                <button className="px-10 py-4 bg-transparent border-2 border-white/10 text-white font-black uppercase tracking-widest rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-500">
+                    Explore All Experts
+                </button>
+              </Link>
+            </div>
+          </>
+        )}
+      </div>
+    </section>
   );
 };
 

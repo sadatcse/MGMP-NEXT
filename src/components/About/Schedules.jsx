@@ -4,41 +4,37 @@ const Schedules = () => {
     const rowClass = "border text-center font-normal md:py-6"
     const headClass = "border bg-red-600 text-white  font-semibold text-center md:text-base poppins"
     return (
-        <div className='md:py-16 py-5'>
-            <div className='mx-auto w-[90%]'>
-                <p className='text-2xl md:text-6xl font-extrabold text-center text-[#ebc270] mb-4 md:mb-10'>SCHEDULE</p>
+        <div className='py-16 md:py-24 bg-white'>
+            <div className='container mx-auto px-4'>
+                <p className='text-4xl md:text-6xl font-black text-center text-custom-yellow mb-12 uppercase tracking-tighter'>Our Schedule</p>
+                
                 {/* For gentelmen */}
-                <section>
-                    {/* heading */}
-                    <div className='mb-7 py-3 border'>
-                        <p className='text-center font-bold text-red-600 md:text-3xl'>HOURS OF OPERATION</p>
+                <section className="max-w-6xl mx-auto mb-20">
+                    <div className='mb-6 py-4 bg-red-600 rounded-t-2xl shadow-lg'>
+                        <p className='text-center font-black text-white md:text-3xl tracking-widest uppercase'>Hours of Operation</p>
                     </div>
-                    {/* table*/}
-                    <div className="overflow-x-auto">
-                        <table className="table">
-                            {/* head */}
+                    <div className="overflow-x-auto rounded-b-2xl border-x border-b border-gray-200 shadow-xl">
+                        <table className="w-full border-collapse">
                             <thead>
-                                <tr>
-                                    <th className={`${headClass}`}>Saturday</th>
-                                    <th className={`${headClass}`}>Sunday</th>
-                                    <th className={`${headClass}`}>Monday</th>
-                                    <th className={`${headClass}`}>Tuesday</th>
-                                    <th className={`${headClass}`}>Wednesday</th>
-                                    <th className={`${headClass}`}>Thursday</th>
-                                    <th className={`${headClass}`}>Friday</th>
-
+                                <tr className="bg-gray-50 border-b border-gray-200">
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm border-r border-gray-200">Saturday</th>
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm border-r border-gray-200">Sunday</th>
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm border-r border-gray-200">Monday</th>
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm border-r border-gray-200">Tuesday</th>
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm border-r border-gray-200">Wednesday</th>
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm border-r border-gray-200">Thursday</th>
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm">Friday</th>
                                 </tr>
                             </thead>
-                            <tbody className='border'>
-                                {/* row 1 */}
-                                <tr>
-                                    <th className={`${rowClass}`}>7am - 11pm</th>
-                                    <th className={`${rowClass}`}>7am - 11pm</th>
-                                    <th className={`${rowClass}`}>7am - 11pm</th>
-                                    <th className={`${rowClass}`}>7am - 11pm</th>
-                                    <th className={`${rowClass}`}>7am - 11pm</th>
-                                    <th className={`${rowClass}`}>7am - 11pm</th>
-                                    <th className={`${rowClass}`}>3:30 - 10:30pm</th>
+                            <tbody>
+                                <tr className="hover:bg-gray-50 transition-colors">
+                                    <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">7am - 11pm</td>
+                                    <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">7am - 11pm</td>
+                                    <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">7am - 11pm</td>
+                                    <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">7am - 11pm</td>
+                                    <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">7am - 11pm</td>
+                                    <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">7am - 11pm</td>
+                                    <td className="p-8 text-center text-lg font-bold text-red-600 italic tracking-tight">3:30 - 10:30pm</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -46,38 +42,35 @@ const Schedules = () => {
                 </section>
 
                 {/* For ladies */}
-                <section className='mt-16'>
-                    <p className='text-center font-semibold mb-9'>(EXCEPT “LADIES ONLY HOURS” ALL OTHER TIME WILL BE CO-ED/ MIXED)</p>
-                    {/* heading */}
-                    <div className='mb-7 py-3 border'>
-                        <p className='text-center font-bold text-red-600 md:text-3xl'>LADIES ONLY HOURS</p>
+                <section className="max-w-6xl mx-auto">
+                    <p className='text-center text-gray-500 font-bold mb-8 uppercase tracking-widest text-sm opacity-80'>
+                        (Except “Ladies Only Hours” all other time will be Co-ed/ Mixed)
+                    </p>
+                    <div className='mb-6 py-4 bg-neutral-800 rounded-t-2xl shadow-lg'>
+                        <p className='text-center font-black text-custom-yellow md:text-3xl tracking-widest uppercase'>Ladies Only Hours</p>
                     </div>
-                    {/* table*/}
-                    <div className="overflow-x-auto">
-                        <table className="table">
-                            {/* head */}
+                    <div className="overflow-x-auto rounded-b-2xl border-x border-b border-gray-200 shadow-xl">
+                        <table className="w-full border-collapse">
                             <thead>
-                                <tr>
-                                    <th className={`${headClass}`}>Saturday</th>
-                                    <th className={`${headClass}`}>Sunday</th>
-                                    <th className={`${headClass}`}>Monday</th>
-                                    <th className={`${headClass}`}>Tuesday</th>
-                                    <th className={`${headClass}`}>Wednesday</th>
-                                    <th className={`${headClass}`}>Thursday</th>
-                                    <th className={`${headClass}`}>Friday</th>
-
+                                <tr className="bg-gray-50 border-b border-gray-200">
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm border-r border-gray-200">Saturday</th>
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm border-r border-gray-200">Sunday</th>
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm border-r border-gray-200">Monday</th>
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm border-r border-gray-200">Tuesday</th>
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm border-r border-gray-200">Wednesday</th>
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm border-r border-gray-200">Thursday</th>
+                                    <th className="p-5 font-bold text-gray-700 uppercase tracking-wider text-sm">Friday</th>
                                 </tr>
                             </thead>
-                            <tbody className='border'>
-                                {/* row 1 */}
-                                <tr>
-                                    <th className={`${rowClass}`}>7am - 11pm</th>
-                                    <th className={`${rowClass}`}>7am - 11pm</th>
-                                    <th className={`${rowClass}`}>7am - 11pm</th>
-                                    <th className={`${rowClass}`}>7am - 11pm</th>
-                                    <th className={`${rowClass}`}>7am - 11pm</th>
-                                    <th className={`${rowClass}`}>7am - 11pm</th>
-                                    <th className={`${rowClass}`}>Closed</th>
+                            <tbody>
+                                <tr className="hover:bg-gray-50 transition-colors">
+                                    <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">10am - 1pm</td>
+                                    <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">10am - 1pm</td>
+                                    <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">10am - 1pm</td>
+                                    <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">10am - 1pm</td>
+                                    <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">10am - 1pm</td>
+                                    <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">10am - 1pm</td>
+                                    <td className="p-8 text-center text-lg font-bold text-red-600 italic tracking-tight">Closed</td>
                                 </tr>
                             </tbody>
                         </table>

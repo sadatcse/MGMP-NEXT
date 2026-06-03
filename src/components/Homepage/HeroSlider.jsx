@@ -5,7 +5,6 @@ import image1 from "../../assets/img/hero/bg.png";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import CustomButton from './CustomButton';
-import SwiperNavButtons from './SwiperNavButtons';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../../lib/variants';
 import Link from 'next/link';
@@ -63,7 +62,7 @@ const HeroSlider = () => {
               initial='hidden'
               whileInView={'show'}
               viewport={{ once: false, amount: 0.2 }}
-              className='text-custom-yellow italic text-center lg:text-center mb-4'
+              className='text-custom-yellow text-center lg:text-center mb-4'
             >
               we do everything we can to help you become your best self for the rest of your life.
             </motion.p>
@@ -83,7 +82,6 @@ const HeroSlider = () => {
           </div>
         </div>
       </SwiperSlide>
-
     </Swiper>
   );
 };

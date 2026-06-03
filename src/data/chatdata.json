@@ -1,0 +1,391 @@
+{
+  "gymProfile": {
+    "name": "Multigym Premium",
+    "chairman": "Abul Kalam Azad",
+    "tagline": "We're more than just a fitness club — we provide the tools, support, and resources you need to achieve your goals.",
+    "description": "Premium fitness and wellness center in Dhaka, Bangladesh with modern equipment, certified trainers, nutrition guidance, and group classes.",
+    "support": {
+      "email": "info@multigympremium.com",
+      "androidApp": "Google Play Store",
+      "iosApp": "Gym Assistants by Urelaa Soft"
+    }
+  },
+  "branches": [
+    {
+      "branchName": "Shiya Masjid",
+      "floor": "Ladies",
+      "effectiveDate": "2026-05-07"
+    }
+  ],
+  "operatingHours": {
+    "coEd": {
+      "saturdayToThursday": "7:00 AM - 11:00 PM",
+      "friday": "3:30 PM - 10:30 PM"
+    },
+    "ladiesOnly": {
+      "saturdayToThursday": "7:00 AM - 11:00 PM",
+      "friday": "Closed"
+    },
+    "ramadanSchedule": {
+      "description": "Special workouts before Suhoor and after Iftar."
+    }
+  },
+  "membershipPlans": [
+    {
+      "planName": "Weekly Pass",
+      "price": 2000,
+      "regularPrice": 2500,
+      "duration": "1 Week",
+      "admissionFeeRequired": false,
+      "benefits": [
+        "Full Gym Access"
+      ]
+    },
+    {
+      "planName": "Elite Monthly",
+      "price": 2500,
+      "duration": "1 Month",
+      "admissionFeeRequired": true,
+      "admissionFee": 3500,
+      "benefits": [
+        "Full Gym Access",
+        "Health Advice",
+        "Trainer Support"
+      ]
+    },
+    {
+      "planName": "Monthly No Admission",
+      "price": 5000,
+      "regularPrice": 6000,
+      "duration": "1 Month",
+      "admissionFeeRequired": false,
+      "benefits": [
+        "Full Gym Access"
+      ]
+    },
+    {
+      "planName": "Quarterly",
+      "price": 9000,
+      "duration": "3 Months",
+      "admissionFeeRequired": false,
+      "benefits": [
+        "Full Gym Access"
+      ]
+    },
+    {
+      "planName": "Semi-Yearly Pro",
+      "price": 16000,
+      "duration": "6 Months",
+      "admissionFeeRequired": false,
+      "benefits": [
+        "Full Gym Access",
+        "Guest Pass",
+        "Priority Support"
+      ]
+    },
+    {
+      "planName": "Annual",
+      "price": 28000,
+      "duration": "12 Months",
+      "admissionFeeRequired": false,
+      "benefits": [
+        "Full Gym Access"
+      ]
+    }
+  ],
+  "regularClassSchedule": {
+    "metadata": {
+      "branch": "Shiya Masjid",
+      "floor": "Ladies",
+      "effectiveDate": "2026-05-07"
+    },
+    "weeklySchedule": [
+      {
+        "day": "Saturday",
+        "classes": [
+          {
+            "time": "9:30 am",
+            "name": "Tabata + Abs + Biceps + Triceps",
+            "instructor": "Fatema Begum"
+          },
+          {
+            "time": "11:00 am",
+            "name": "Zumba",
+            "instructor": "Karobi Sultana"
+          },
+          {
+            "time": "1:00 pm",
+            "name": "Tabata + Abs + Biceps + Triceps",
+            "instructor": "Fatema Begum"
+          },
+          {
+            "time": "5:10 pm",
+            "name": "Yoga",
+            "instructor": "Jinat Ferdousi Jaky"
+          },
+          {
+            "time": "7:00 pm",
+            "name": "HIIT/Stepper /Circuit + Yoga",
+            "instructor": "Karobi Sultana"
+          },
+          {
+            "time": "8:45 pm",
+            "name": "Yoga",
+            "instructor": "Jinat Ferdousi Jaky"
+          }
+        ]
+      },
+      {
+        "day": "Sunday",
+        "classes": [
+          {
+            "time": "9:30 am",
+            "name": "Zumba + Leg + Shoulder",
+            "instructor": "Fatema Begum"
+          },
+          {
+            "time": "11:00 am",
+            "name": "Upper Body",
+            "instructor": "Karobi Sultana"
+          },
+          {
+            "time": "1:00 pm",
+            "name": "Zumba + Leg + Shoulder",
+            "instructor": "Fatema Begum"
+          },
+          {
+            "time": "5:10 pm",
+            "name": "Zumba + Cardio (Tabata)",
+            "instructor": "Jinat Ferdousi Jaky"
+          },
+          {
+            "time": "7:00 pm",
+            "name": "Zumba+Abs",
+            "instructor": "Karobi Sultana"
+          },
+          {
+            "time": "8:45 pm",
+            "name": "Zumba + Cardio (Tabata)",
+            "instructor": "Jinat Ferdousi Jaky"
+          }
+        ]
+      },
+      {
+        "day": "Monday",
+        "classes": [
+          {
+            "time": "9:30 am",
+            "name": "Yoga",
+            "instructor": "Fatema Begum"
+          },
+          {
+            "time": "11:00 am",
+            "name": "Stepper/HIIT/Tabata+Yoga",
+            "instructor": "Karobi Sultana"
+          },
+          {
+            "time": "1:00 pm",
+            "name": "Yoga",
+            "instructor": "Fatema Begum"
+          },
+          {
+            "time": "5:10 pm",
+            "name": "Aerobics + HIT Full Body",
+            "instructor": "Jinat Ferdousi Jaky"
+          },
+          {
+            "time": "7:00 pm",
+            "name": "Lower Body",
+            "instructor": "Karobi Sultana"
+          },
+          {
+            "time": "8:45 pm",
+            "name": "Aerobics + HIT Full Body",
+            "instructor": "Jinat Ferdousi Jaky"
+          }
+        ]
+      },
+      {
+        "day": "Tuesday",
+        "classes": [
+          {
+            "time": "9:30 am",
+            "name": "Aerobics + Abs + Back",
+            "instructor": "Fatema Begum"
+          },
+          {
+            "time": "11:00 am",
+            "name": "Zumba+Abs",
+            "instructor": "Karobi Sultana"
+          },
+          {
+            "time": "1:00 pm",
+            "name": "Aerobics + Abs + Back",
+            "instructor": "Fatema Begum"
+          },
+          {
+            "time": "5:10 pm",
+            "name": "Power Yoga",
+            "instructor": "Jinat Ferdousi Jaky"
+          },
+          {
+            "time": "7:00 pm",
+            "name": "Upper Body + Abs",
+            "instructor": "Karobi Sultana"
+          },
+          {
+            "time": "8:45 pm",
+            "name": "Power Yoga",
+            "instructor": "Jinat Ferdousi Jaky"
+          }
+        ]
+      },
+      {
+        "day": "Wednesday",
+        "classes": [
+          {
+            "time": "9:30 am",
+            "name": "Steppers + Legs + Chest",
+            "instructor": "Fatema Begum"
+          },
+          {
+            "time": "11:00 am",
+            "name": "Lower Body",
+            "instructor": "Karobi Sultana"
+          },
+          {
+            "time": "1:00 pm",
+            "name": "Steppers + Legs + Chest",
+            "instructor": "Fatema Begum"
+          },
+          {
+            "time": "5:10 pm",
+            "name": "Aerobics + Upper Body",
+            "instructor": "Jinat Ferdousi Jaky"
+          },
+          {
+            "time": "7:00 pm",
+            "name": "Yoga Flow/Power Yoga+ Pilates",
+            "instructor": "Karobi Sultana"
+          },
+          {
+            "time": "8:45 pm",
+            "name": "Aerobics + Upper Body",
+            "instructor": "Jinat Ferdousi Jaky"
+          }
+        ]
+      },
+      {
+        "day": "Thursday",
+        "classes": [
+          {
+            "time": "9:30 am",
+            "name": "Power Yoga",
+            "instructor": "Fatema Begum"
+          },
+          {
+            "time": "11:00 am",
+            "name": "Yoga/Power Yoga/Pilates",
+            "instructor": "Karobi Sultana"
+          },
+          {
+            "time": "1:00 pm",
+            "name": "Power Yoga",
+            "instructor": "Fatema Begum"
+          },
+          {
+            "time": "5:10 pm",
+            "name": "Zumba + Leg Day",
+            "instructor": "Jinat Ferdousi Jaky"
+          },
+          {
+            "time": "7:00 pm",
+            "name": "Zumba",
+            "instructor": "Karobi Sultana"
+          },
+          {
+            "time": "8:45 pm",
+            "name": "Zumba + Leg Day",
+            "instructor": "Jinat Ferdousi Jaky"
+          }
+        ]
+      }
+    ]
+  },
+  "services": {
+    "fitnessPrograms": [
+      "Weight Loss",
+      "Muscle Gain",
+      "Cardio Training",
+      "HIIT",
+      "Yoga",
+      "Pilates",
+      "Aerobics",
+      "Zumba"
+    ],
+    "specializedTraining": [
+      "Personal Training",
+      "Women Fitness",
+      "Strength Training",
+      "Body Transformation"
+    ],
+    "wellnessAmenities": [
+      "Locker Facility",
+      "Air Conditioned Workout Area",
+      "Prayer Area",
+      "Private Workout Space"
+    ],
+    "additionalServices": [
+      "Nutrition Guidance",
+      "Fitness Assessment",
+      "Mobile App Support"
+    ]
+  },
+  "policies": {
+    "modestyCompliance": {
+      "dressCode": "Modest and comfortable gym wear encouraged.",
+      "femaleTrainerAvailable": true,
+      "privateWorkoutSpaces": true
+    },
+    "membershipPolicies": {
+      "vatIncluded": true,
+      "admissionFee": 3500
+    },
+    "dataPrivacy": {
+      "cookies": [
+        "Essential",
+        "Analytics",
+        "Marketing"
+      ],
+      "encryptedTransit": false
+    }
+  },
+  "staff": [
+    {
+      "name": "Fatema Begum",
+      "role": "Fitness Instructor"
+    },
+    {
+      "name": "Karobi Sultana",
+      "role": "Fitness Instructor"
+    },
+    {
+      "name": "Jinat Ferdousi Jaky",
+      "role": "Yoga & Cardio Instructor"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Do you have ladies-only timing?",
+      "answer": "Yes, dedicated ladies-only schedules are available."
+    },
+    {
+      "question": "Is VAT included?",
+      "answer": "Yes, all membership prices include VAT."
+    },
+    {
+      "question": "Do you provide personal training?",
+      "answer": "Yes, certified trainers are available."
+    }
+  ]
+}

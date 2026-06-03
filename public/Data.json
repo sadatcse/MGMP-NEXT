@@ -50,79 +50,73 @@
     "category": "Strength Training Machines"
   },
   {
-      "name": "Ball & Knee Raise",
-      "image": "https://cdn-fppag.nitrocdn.com/VIOjzysiGBlZxckNPXlVwBrKeaQglthT/assets/images/optimized/rev-da825c7/www.mifitness.co.za/wp-content/uploads/2021/07/37ba169d-c0f3-46b0-8e1e-7a878d2f9149-700x700.jpg",
-      "category": "Core Training Equipment"
-    },
-    {
-      "name": "Incline Bench Press",
-      "image": "https://cdn-fppag.nitrocdn.com/VIOjzysiGBlZxckNPXlVwBrKeaQglthT/assets/images/optimized/rev-da825c7/www.mifitness.co.za/wp-content/uploads/2020/09/5116dc00-e8ab-4d53-94d9-5bf6b2b4a552-768x768.jpg",
-      "category": "Chest Machines"
-    },
-    {
-      "name": "Leg Extension",
-      "image": "https://www.mifitness.co.za/wp-content/uploads/2020/09/SH-G6908-01.png",
-      "category": "Leg Machines"
-    },
-    {
-      "name": "Abdominal",
-      "image": "https://www.mifitness.co.za/wp-content/uploads/2024/04/Shua-Ab-Crunch.jpg",
-      "category": "Core Training Equipment"
-    },
-    {
-      "name": "Weight Plate Tree",
-      "image": "https://www.mifitness.co.za/wp-content/uploads/2020/09/c6e19d5a-2333-4f06-9516-c07d860fa6ca.jpg",
-      "category": "Strength Training Machines"
-    },
-    {
-      "name": "Calf Raise Trainer",
-      "image": "https://cdn-fppag.nitrocdn.com/VIOjzysiGBlZxckNPXlVwBrKeaQglthT/assets/images/optimized/rev-da825c7/www.mifitness.co.za/wp-content/uploads/2021/03/SH-G6910-01-700x522.png",
-      "category": "Leg Machines"
-    },
-    {
-      "name": "Type Rowing Trainer",
-      "image": "https://cdn-fppag.nitrocdn.com/VIOjzysiGBlZxckNPXlVwBrKeaQglthT/assets/images/optimized/rev-da825c7/www.mifitness.co.za/wp-content/uploads/2020/09/SH-G6904-01-700x522.png",
-      "category": "Back Machines"
-    },
-    {
-      "name": "Seated Pull Down",
-      "image": "https://www.fitnessbodystrong.com/uploads/201712641/p201704011434116442241.jpg",
-      "category": "Back Machines"
-    },
-    {
-      "name": "Seated Arm Curl",
-      "image": "https://www.fitnessbodystrong.com/uploads/202112641/seated-arm-curl48360534099.jpg",
-      "category": "Biceps and Triceps Machines"
-    },
-    {
-      "name": "Leg Press",
-      "image": "https://www.fitnessbodystrong.com/uploads/202212641/leg-press02361453943.jpg",
-      "category": "Leg Machines"
-    },
-    {
-      "name": "Commercial Elliptical",
-      "image": "https://shahsports.com.bd/wp-content/uploads/2023/11/image-removebg-preview-4-21.png",
-      "category": "Cardio Machines"
-    },
-    {
-      "name": "Rowing Machine",
-      "image": "https://images.activefitnessstore.com/product-large/SH-R8100/SH-R8100-1.jpg",
-      "category": "Cardio Machines"
-    },
-    {
-      "name": "Hack Squat",
-      "image": "https://www.mifitness.co.za/wp-content/uploads/2020/09/SH-G6913-01-1.png",
-      "category": "Leg Machines"
-    },
-    {
-      "name": "Lat Pull Down",
-      "image": "https://www.mifitness.co.za/wp-content/uploads/2020/09/SH-G6903-01.png",
-      "category": "Back Machines"
-    }
+    "name": "Ball & Knee Raise",
+    "image": "https://cdn-fppag.nitrocdn.com/VIOjzysiGBlZxckNPXlVwBrKeaQglthT/assets/images/optimized/rev-da825c7/www.mifitness.co.za/wp-content/uploads/2021/07/37ba169d-c0f3-46b0-8e1e-7a878d2f9149-700x700.jpg",
+    "category": "Core Training Equipment"
+  },
+  {
+    "name": "Incline Bench Press",
+    "image": "https://cdn-fppag.nitrocdn.com/VIOjzysiGBlZxckNPXlVwBrKeaQglthT/assets/images/optimized/rev-da825c7/www.mifitness.co.za/wp-content/uploads/2020/09/5116dc00-e8ab-4d53-94d9-5bf6b2b4a552-768x768.jpg",
+    "category": "Chest Machines"
+  },
+  {
+    "name": "Leg Extension",
+    "image": "https://www.mifitness.co.za/wp-content/uploads/2020/09/SH-G6908-01.png",
+    "category": "Leg Machines"
+  },
+  {
+    "name": "Abdominal",
+    "image": "https://www.mifitness.co.za/wp-content/uploads/2024/04/Shua-Ab-Crunch.jpg",
+    "category": "Core Training Equipment"
+  },
+  {
+    "name": "Weight Plate Tree",
+    "image": "https://www.mifitness.co.za/wp-content/uploads/2020/09/c6e19d5a-2333-4f06-9516-c07d860fa6ca.jpg",
+    "category": "Strength Training Machines"
+  },
+  {
+    "name": "Calf Raise Trainer",
+    "image": "https://cdn-fppag.nitrocdn.com/VIOjzysiGBlZxckNPXlVwBrKeaQglthT/assets/images/optimized/rev-da825c7/www.mifitness.co.za/wp-content/uploads/2021/03/SH-G6910-01-700x522.png",
+    "category": "Leg Machines"
+  },
+  {
+    "name": "Type Rowing Trainer",
+    "image": "https://cdn-fppag.nitrocdn.com/VIOjzysiGBlZxckNPXlVwBrKeaQglthT/assets/images/optimized/rev-da825c7/www.mifitness.co.za/wp-content/uploads/2020/09/SH-G6904-01-700x522.png",
+    "category": "Back Machines"
+  },
+  {
+    "name": "Seated Pull Down",
+    "image": "https://www.fitnessbodystrong.com/uploads/201712641/p201704011434116442241.jpg",
+    "category": "Back Machines"
+  },
+  {
+    "name": "Seated Arm Curl",
+    "image": "https://www.fitnessbodystrong.com/uploads/202112641/seated-arm-curl48360534099.jpg",
+    "category": "Biceps and Triceps Machines"
+  },
+  {
+    "name": "Leg Press",
+    "image": "https://www.fitnessbodystrong.com/uploads/202212641/leg-press02361453943.jpg",
+    "category": "Leg Machines"
+  },
+  {
+    "name": "Commercial Elliptical",
+    "image": "https://shahsports.com.bd/wp-content/uploads/2023/11/image-removebg-preview-4-21.png",
+    "category": "Cardio Machines"
+  },
+  {
+    "name": "Rowing Machine",
+    "image": "https://images.activefitnessstore.com/product-large/SH-R8100/SH-R8100-1.jpg",
+    "category": "Cardio Machines"
+  },
+  {
+    "name": "Hack Squat",
+    "image": "https://www.mifitness.co.za/wp-content/uploads/2020/09/SH-G6913-01-1.png",
+    "category": "Leg Machines"
+  },
+  {
+    "name": "Lat Pull Down",
+    "image": "https://www.mifitness.co.za/wp-content/uploads/2020/09/SH-G6903-01.png",
+    "category": "Back Machines"
+  }
 ]
-
-
-
-
-
-

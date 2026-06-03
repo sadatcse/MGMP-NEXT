@@ -21,10 +21,10 @@ const calculateStats = () => {
 
   // Calculate total working hours
   let workingHours = numberOfDays * OFFICE_HOURS_PER_DAY;
-  
+
   const currentHour = currentTimeInDhaka.getHours();
   const currentMinute = currentTimeInDhaka.getMinutes();
-  
+
   if (currentHour >= OFFICE_START_HOUR && currentHour < OFFICE_END_HOUR) {
     workingHours += currentHour - OFFICE_START_HOUR;
     workingHours += currentMinute / 60; // Add partial hour for current minute

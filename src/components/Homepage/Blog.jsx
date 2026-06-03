@@ -5,7 +5,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import axios from 'axios';
 import { fadeIn } from '../../../lib/variants';
 import CustomButton from './CustomButton';
 import SwiperNavButtons from './SwiperNavButtons';
@@ -22,52 +21,62 @@ const Blog = () => {
     const fetchBlogData = async () => {
       try {
         const response = await axiosPublic.get('/news/get-all');
-        const newData = response.data;
-        setBlogData(newData);
+        setBlogData(response.data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching blog data:', error);
         setLoading(false);
       }
     };
-
     fetchBlogData();
   }, [axiosPublic]);
 
   return (
-    <section className='bg-primary-300 text-white py-24' id='blog'>
+    <section className='bg-[#0a0a0a] py-24' id='blog'>
       <div className='container mx-auto px-4'>
-        <Title title="OUR NEWS" subtitle="LATEST BLOG POSTS" />
+        <div className="mb-16">
+          <Title title="Our News" subtitle="Latest Blog Posts" />
+        </div>
+
         {loading ? (
-          <Spinner />
+          <div className="flex justify-center py-20">
+            <Spinner />
+          </div>
         ) : (
-          <>
+          <div className="relative">
             <motion.div
-              variants={fadeIn('up', 0.6)}
+              variants={fadeIn('up', 0.4)}
               initial='hidden'
               whileInView={'show'}
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true }}
             >
               <Swiper
                 slidesPerView={1}
                 spaceBetween={30}
                 breakpoints={{
-                  768: { slidesPerView: 2, spaceBetween: 15 },
+                  768: { slidesPerView: 2 },
                   1024: { slidesPerView: 3 },
-                  1400: { slidesPerView: 4 },
+                  1280: { slidesPerView: 4 },
                 }}
-                className='h-[420px] md:max-w-[660px] lg:max-w-none mb-8'
+                className='pb-20'
               >
                 {blogData
                   .sort((a, b) => new Date(b.date) - new Date(a.date))
                   .map((post, index) => (
                     <SwiperSlide key={index}>
-                      <div className='flex flex-col justify-start h-full max-w-[320px] mx-auto'>
-                        <Link href={`/blog/${post._id}`}>
-                          <img src={post.image} alt={post.title} className='mb-6 h-64 w-84' />
+                      <div className='group flex flex-col h-full bg-white/5 border border-white/5 rounded-[2.5rem] overflow-hidden premium-card'>
+                        <Link href={`/blog/${post._id}`} className="relative block h-64 overflow-hidden">
+                          <img
+                            src={post.image}
+                            alt={post.title}
+                            className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+
                         </Link>
-                        <div className='flex flex-col items-start'>
-                          <p className='max-w-[380px] uppercase text-[12px] tracking-[3px] mb-1'>
+
+                        <div className='p-8 flex flex-col flex-grow'>
+                          <p className='uppercase text-[10px] font-black tracking-[0.2em] text-custom-yellow mb-3'>
                             {new Date(post.date).toLocaleDateString('en-US', {
                               year: 'numeric',
                               month: 'long',
@@ -75,33 +84,48 @@ const Blog = () => {
                             })}
                           </p>
                           <Link
-                            className='hover:text-accent transition-all duration-300'
+                            className='hover:text-custom-yellow transition-all duration-300'
                             href={`/blog/${post._id}`}
                           >
-                            <h5 className='h5'>{post.title}</h5>
+                            <h3 className='text-xl font-black text-white uppercase tracking-tight leading-tight mb-4 group-hover:text-custom-yellow transition-colors'>
+                              {post.title}
+                            </h3>
                           </Link>
+                          <div className="mt-auto pt-6 border-t border-white/5">
+                            <Link href={`/blog/${post._id}`} className="text-xs font-black text-white uppercase tracking-widest flex items-center gap-2 group-hover:text-red-600 transition-colors">
+                              Read Article <span className="text-red-600">→</span>
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </SwiperSlide>
                   ))}
-                <SwiperNavButtons
-                  containerStyles='absolute left-0 right-0 bottom-[16rem] w-full max-w-[370px] sm:max-w-[620px] md:max-w-[960px] xl:max-w-[1320px] mx-auto z-50 flex justify-between gap-1'
-                  btnStyles='bg-accent text-white w-[56px] h-[56px] flex justify-center items-center hover:bg-accent transition-all duration-300'
-                  iconStyles='text-2xl'
-                />
+
+                {/* Navigation Controls */}
+                <div className="mt-12 flex justify-center gap-4">
+                  <SwiperNavButtons
+                    containerStyles='flex justify-center gap-4'
+                    btnStyles='bg-white/5 border border-white/10 text-white w-14 h-14 rounded-2xl flex justify-center items-center hover:bg-custom-yellow hover:text-black hover:border-custom-yellow transition-all duration-500 shadow-xl'
+                    iconStyles='text-xl'
+                  />
+                </div>
               </Swiper>
             </motion.div>
+
             <motion.div
-              variants={fadeIn('up', 0.8)}
+              variants={fadeIn('up', 0.6)}
               initial='hidden'
               whileInView={'show'}
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true }}
+              className="mt-12 text-center"
             >
               <Link href="/blog">
-                <CustomButton containerStyles='block w-[196px] h-[62px] mx-auto' text='View all' />
+                <button className="px-10 py-4 bg-transparent border-2 border-white/10 text-white font-black uppercase tracking-widest rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-500">
+                  Explore All News
+                </button>
               </Link>
             </motion.div>
-          </>
+          </div>
         )}
       </div>
     </section>

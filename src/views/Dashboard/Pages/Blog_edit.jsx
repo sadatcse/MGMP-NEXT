@@ -1,10 +1,10 @@
-import { useParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-import ReactQuill from 'react-quill';
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
 
 import UseAxioSecure from '../../../Hook/UseAxioSecure';
@@ -15,6 +15,7 @@ import ImageUpload from '../../../components/Utility/ImageUploadcpanel';
 
 const Blog_edit = () => {
     const { id: _id } = useParams();
+    const router = useRouter();
     const axiosSecure = UseAxioSecure();
     const axiosPublic = useAxiosPublic();
     const [imageurl, setimageurl] = useState("");
@@ -73,12 +74,22 @@ const Blog_edit = () => {
                     icon: 'success',
                     title: 'Blog post updated successfully!',
                     text: 'The blog details have been updated.',
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    confirmButtonColor: '#dc2626'
+                }).then(() => {
+                    router.push('/dashboard/blog_view');
                 });
             } else {
                 await Swal.fire({
                     icon: 'info',
                     title: 'No changes detected',
                     text: 'No updates were made to the blog details.',
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    confirmButtonColor: '#dc2626'
+                }).then(() => {
+                    router.push('/dashboard/blog_view');
                 });
             }
         } catch (error) {
@@ -86,6 +97,9 @@ const Blog_edit = () => {
                 icon: 'error',
                 title: 'Error updating blog post',
                 text: error.message,
+                background: '#1a1a1a',
+                color: '#fff',
+                confirmButtonColor: '#dc2626'
             });
         }
     };
@@ -106,7 +120,11 @@ const Blog_edit = () => {
                         </ul>
                     </div>
                 </div>
-                <img src={previewImageUrl} alt="Image Preview" className="w-64 h-full border rounded mt-2" />
+                {previewImageUrl ? (
+                    <img src={previewImageUrl} alt="Image Preview" className="w-64 h-full border rounded mt-2" />
+                ) : (
+                    <div className="w-64 h-32 border rounded mt-2 flex items-center justify-center text-xs text-gray-500 bg-black/40">No Image</div>
+                )}
             </div>
             <div className="ml-4">
                 <p className='font-medium text-2xl'>Details</p>
@@ -182,8 +200,8 @@ const Blog_edit = () => {
                                 type="text"
                                 id="image"
                                 name="image"
-                                default value={imageurl}
-                                onChange={handleChange}
+                                value={imageurl}
+                                onChange={(e) => { setimageurl(e.target.value); setPreviewImageUrl(e.target.value); }}
                                 className="appearance-none text-sm border shadow-sm rounded-xl w-full py-4 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
                                 placeholder="Enter image URL"
                             />

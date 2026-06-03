@@ -1,4 +1,4 @@
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 import UseAxioSecure from "../../../Hook/UseAxioSecure";
@@ -10,6 +10,7 @@ import ImageUpload from '../../../components/Utility/ImageUploadcpanel';
 
 const TeamEdit = () => {
     const { id: _id } = useParams();
+    const router = useRouter();
 
     const axiosSecure = UseAxioSecure();
     const [imageurl, setImageUrl] = useState("");
@@ -47,12 +48,22 @@ const TeamEdit = () => {
                     icon: 'success',
                     title: 'Trainer updated successfully!',
                     text: 'The trainer details have been updated.',
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    confirmButtonColor: '#dc2626'
+                }).then(() => {
+                    router.push('/dashboard/team_view');
                 });
             } else {
                 await Swal.fire({
-                    icon: 'success',
+                    icon: 'info',
                     title: 'No Major Updates',
                     text: 'No major updates were made to the trainer details.',
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    confirmButtonColor: '#dc2626'
+                }).then(() => {
+                    router.push('/dashboard/team_view');
                 });
             }
         } catch (error) {
@@ -60,6 +71,9 @@ const TeamEdit = () => {
                 icon: 'error',
                 title: 'Error updating trainer',
                 text: error.message,
+                background: '#1a1a1a',
+                color: '#fff',
+                confirmButtonColor: '#dc2626'
             });
         }
     };
@@ -79,7 +93,11 @@ const TeamEdit = () => {
                         </ul>
                     </div>
                 </div>
-                <img src={previewImageUrl} alt="Image Preview" className="w-44 h-full border mt-2" />
+                {previewImageUrl ? (
+                    <img src={previewImageUrl} alt="Image Preview" className="w-44 h-full border mt-2" />
+                ) : (
+                    <div className="w-44 h-24 border mt-2 flex items-center justify-center text-xs text-gray-500 bg-black/40">No Image</div>
+                )}
             </div>
             <div className="ml-4">
                 <p className='font-medium text-2xl'>Details</p>
@@ -207,7 +225,7 @@ const TeamEdit = () => {
                                 id="image"
                                 name="image"
                                 value={imageurl}
-                                onChange={handleChange}
+                                onChange={(e) => { setImageUrl(e.target.value); setPreviewImageUrl(e.target.value); }}
                                 className="appearance-none text-sm border shadow-sm rounded-xl w-full py-4 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
                                 placeholder="Enter Image URL"
                             />

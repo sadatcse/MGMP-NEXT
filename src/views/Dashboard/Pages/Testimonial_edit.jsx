@@ -1,4 +1,4 @@
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 
@@ -10,10 +10,11 @@ import axios from "axios";
 
 const Testimonial_edit = () => {
     const { id: _id } = useParams();
+    const router = useRouter();
     const axiosSecure = UseAxioSecure();
     const [imageurl, setimageurl] = useState('');
-    const [previewImageUrl, setPreviewImageUrl] = useState(image);
-    const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+    const [previewImageUrl, setPreviewImageUrl] = useState("");
+    const image_hosting_key = process.env.NEXT_PUBLIC_IMAGE_HOSTING_KEY || 'bf7d52fc3431a0a728b5cd4630ed74a0';
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
     const handleImageUpload = async (e) => {
@@ -28,11 +29,7 @@ const Testimonial_edit = () => {
         reader.readAsDataURL(imageFile);
 
         try {
-            const res = await axios.post(image_hosting_api, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const res = await axios.post(image_hosting_api, formData);
             setimageurl(res.data.data.url);
             setFormData((prevData) => ({
                 ...prevData,
@@ -80,6 +77,19 @@ const Testimonial_edit = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        if (!imageurl) {
+            Swal.fire({
+                icon: "warning",
+                title: "Image Required",
+                text: "Please upload an image or enter a direct image URL.",
+                background: '#1a1a1a',
+                color: '#fff',
+                confirmButtonColor: '#dc2626'
+            });
+            return;
+        }
+
         const id = _id;
         formData.image=imageurl;
 
@@ -90,12 +100,22 @@ const Testimonial_edit = () => {
                     icon: 'success',
                     title: 'Testimonial updated successfully!',
                     text: 'The testimonial details have been updated.',
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    confirmButtonColor: '#dc2626'
+                }).then(() => {
+                    router.push('/dashboard/testimonial_view');
                 });
             } else {
                 await Swal.fire({
                     icon: 'info',
                     title: 'No changes detected',
                     text: 'No updates were made to the testimonial details.',
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    confirmButtonColor: '#dc2626'
+                }).then(() => {
+                    router.push('/dashboard/testimonial_view');
                 });
             }
         } catch (error) {
@@ -103,6 +123,9 @@ const Testimonial_edit = () => {
                 icon: 'error',
                 title: 'Error updating testimonial',
                 text: error.message,
+                background: '#1a1a1a',
+                color: '#fff',
+                confirmButtonColor: '#dc2626'
             });
         }
     };
@@ -174,7 +197,7 @@ const Testimonial_edit = () => {
                                 id="image"
                                 name="image"
                                 value={imageurl}
-                                onChange={handleChange}
+                                onChange={(e) => { setimageurl(e.target.value); setPreviewImageUrl(e.target.value); }}
                                 className="appearance-none text-sm border shadow-sm rounded-xl w-full py-4 px-3 text-gray-700  focus:outline-none focus:shadow-outline"
                                 placeholder="Enter image URL"
                             />
@@ -189,7 +212,11 @@ const Testimonial_edit = () => {
                                 Update Testimonial
                             </button>
                         </div>
-                        <img src={previewImageUrl} alt="Image Preview" className="w-44 h-full border mt-2" />
+                        {previewImageUrl ? (
+                            <img src={previewImageUrl} alt="Image Preview" className="w-44 h-full border mt-2" />
+                        ) : (
+                            <div className="w-44 h-24 border mt-2 flex items-center justify-center text-xs text-gray-500 bg-black/40">No Image</div>
+                        )}
                     </div>
                 </form>
             </div>

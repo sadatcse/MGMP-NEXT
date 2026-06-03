@@ -1,3 +1,4 @@
+"use client";
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -6,10 +7,11 @@ import { motion } from 'framer-motion';
 import { fadeIn } from '../../lib/variants';
 
 import useAxiosPublic from './../Hook/useAxiosPublic';
+
 const Trainers = () => {
     const [data, setData] = useState([]);
     const axiosPublic = useAxiosPublic();
-    // const data = useLoaderData();
+
     useEffect(() => {
         const fetchTrainerData = async () => {
             try {
@@ -23,92 +25,78 @@ const Trainers = () => {
         fetchTrainerData();
     }, [axiosPublic]);
 
-  
     return (
-        <div className="container mx-auto px-4 my-4 md:mb-16">
-                    <div className='flex flex-col items-center gap-2 mb-8'>
-          <motion.h2
-            variants={fadeIn('up', 0.4)}
-            initial='hidden'
-            whileInView={'show'}
-            viewport={{ once: false, amount: 0.2 }}
-            className='h2 text-center'
-          >
-           Our Team 
-          </motion.h2>
-          <motion.p
-            variants={fadeIn('up', 0.6)}
-            initial='hidden'
-            whileInView={'show'}
-            viewport={{ once: false, amount: 0.2 }}
-            className='max-w-[600px] mx-auto text-center'
-          >
-            Meet the dedicated professionals driving your fitness journey forward.
+        <div className="bg-[#0a0a0a] min-h-screen py-16">
+            <div className="container mx-auto px-4">
+                <div className='flex flex-col items-center gap-4 mb-16'>
+                    <motion.div
+                        variants={fadeIn('up', 0.2)}
+                        initial='hidden'
+                        whileInView={'show'}
+                        viewport={{ once: true }}
+                        className="text-center"
+                    >
+                        <p className="text-red-600 font-bold uppercase tracking-[0.3em] text-sm mb-4">The Experts</p>
+                        <h2 className='text-4xl md:text-7xl font-black text-white uppercase tracking-tighter mb-6'>
+                            Meet Our <span className="text-custom-yellow">Team</span>
+                        </h2>
+                        <div className="w-24 h-1.5 bg-red-600 mx-auto rounded-full mb-8"></div>
+                        <p className='max-w-[600px] mx-auto text-gray-400 text-lg font-medium leading-relaxed'>
+                            Dedicated professionals committed to guiding you through every step of your fitness transformation.
+                        </p>
+                    </motion.div>
+                </div>
 
-          </motion.p>
-        </div>
-        
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
-                {/* {data.map((trainer, index) => (
-                    <div key={index} className="bg-gray-800 text-gray-300 rounded-lg p-6 shadow-lg">
-                        <img
-                            src={trainer.image_url}
-                            alt={trainer.full_name}
-                            className="w-full h-96 object-cover rounded-lg mb-4 hover:scale-120"
-                        />
-                        <div>
-                            <h3 className="text-xl font-semibold mb-2 text-center">{trainer.full_name} ({trainer.short_name})</h3>
-                            <p className="text-center">
-                                <a href={`/trainers/${trainer.short_name}`} className="text-blue-500 hover:underline">
-                                    Read more
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                ))} */}
-                {/* // image_url
-                // full_name
-                // certification */}
-                {data.length == 0 &&
-                    <>
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                    </>
-                }
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {data.length === 0 ? (
+                        <>
+                            <Skeleton />
+                            <Skeleton />
+                            <Skeleton />
+                            <Skeleton />
+                            <Skeleton />
+                            <Skeleton />
+                        </>
+                    ) : (
+                        data.map((trainer, index) => (
+                            <motion.div
+                                key={index}
+                                variants={fadeIn('up', 0.1 * index)}
+                                initial="hidden"
+                                whileInView="show"
+                                viewport={{ once: true }}
+                                className="group"
+                            >
+                                <Link href={`/trainers/${trainer.short_name}`}>
+                                    <div className="relative aspect-[3/4] overflow-hidden rounded-[2.5rem] bg-neutral-900 border border-white/5 shadow-2xl transition-all duration-700 hover:shadow-custom-yellow/10">
+                                        {/* Image Container */}
+                                        <div className="absolute inset-0 z-0">
+                                            <img
+                                                src={trainer.image_url}
+                                                alt={trainer.full_name}
+                                                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                                            />
+                                        </div>
 
-                {data &&
-                    // if data available
-                    <>
-                        {
-                            data.map((trainer, index) => (
-                                <section key={index} >
-                                    <div className="bg-gray-100 pt-3 text-gray-300 rounded overflow-hidden">
-                                        <Link href={`/trainers/${trainer.short_name}`}>
-                                            <div className='flex justify-center'>
-                                                <img
-                                                    src={trainer.image_url}
-                                                    alt={trainer.full_name}
-                                                    className="h-96 cursor-pointer object-cover rounded hover:scale-105 transition-transform duration-300"
-                                                />
+                                        {/* Overlay with Info */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-100 z-10 flex flex-col justify-end p-8">
+                                            <div className="translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+
+                                                <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tight mb-1">
+                                                    {trainer.full_name}
+                                                </h3>
+                                                <p className="text-gray-400 font-bold uppercase text-[10px] tracking-widest mb-4">
+                                                    {trainer.position_title}
+                                                </p>
+                                                <div className="w-12 h-1.5 bg-red-600 rounded-full group-hover:w-full transition-all duration-500"></div>
                                             </div>
-                                        </Link>
+                                        </div>
                                     </div>
-                                    
-                                    <div className='text-center'>
-                                        <p className='font-semibold text-2xl mt-2 uppercase'>{trainer.full_name}</p>
-                                        <p className='font-semibold text-lg mt-1 text-gray-500'>{trainer.position_title}</p>
-                                        {/* <p className=''>{trainer.certification}</p> */}
-                                    </div>
-                                </section>
-                            ))
-                        }
-                    </>
-                }
-
+                                </Link>
+                            </motion.div>
+                        ))
+                    )}
+                </div>
             </div>
         </div>
     );
@@ -116,7 +104,7 @@ const Trainers = () => {
 
 const Skeleton = () => {
     return (
-        <div className=' skeleton bg-gray-100 w-full rounded h-96 '>
+        <div className='bg-neutral-900 w-full aspect-[3/4] rounded-[2.5rem] animate-pulse border border-white/5'>
         </div>
     )
 }

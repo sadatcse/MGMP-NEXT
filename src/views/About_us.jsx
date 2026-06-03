@@ -1,3 +1,4 @@
+"use client";
 import AboutHero from '../components/About/AboutHero';
 import VisionAndValues from '../components/About/VisionAndValues';
 import Team from '../components/About/Team';

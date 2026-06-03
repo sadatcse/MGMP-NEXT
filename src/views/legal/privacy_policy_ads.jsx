@@ -1,61 +1,130 @@
+"use client";
 import React from 'react';
-import { FaLock, FaUserSecret, FaInfoCircle, FaChild, FaSyncAlt, FaPhone } from 'react-icons/fa';
+import { FaLock, FaUserSecret, FaInfoCircle, FaChild, FaSyncAlt, FaPhone, FaFacebookSquare } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { fadeIn } from '../../../lib/variants';
 
 const PrivacyPolicyfb = () => {
   return (
-    <div className="bg-gray-100 min-h-screen p-6">
-      <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold mb-4 text-center">Privacy Policy for Multigym Premium Facebook Ads</h1>
-        <p className="mb-6">
-          At Multigym Premium, we are committed to protecting your privacy. This Privacy Policy outlines the types of personal information we collect through our Facebook ads and how we use and protect that information.
-        </p>
+    <div className="bg-[#0a0a0a] min-h-screen text-white pt-20 pb-20 overflow-hidden relative">
+      {/* Background Decorative Element */}
+      <div className="absolute top-0 right-0 w-full h-96 bg-blue-600/5 blur-[120px] -z-10"></div>
+      
+      <div className="container mx-auto px-4 max-w-4xl">
+        {/* Header */}
+        <motion.div 
+            variants={fadeIn('down', 0.2)}
+            initial="hidden"
+            animate="show"
+            className="text-center mb-16"
+        >
+            <div className="flex items-center justify-center gap-4 mb-6">
+                <FaFacebookSquare className="text-4xl text-blue-600" />
+                <p className="text-blue-600 font-black uppercase tracking-[0.4em] text-xs">Social Advertising</p>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">Ads Privacy <span className="text-custom-yellow">Policy</span></h1>
+            <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full mb-6"></div>
+            <p className="text-gray-400 text-lg font-medium italic max-w-2xl mx-auto leading-relaxed">
+              "Ensuring transparency and security in our digital engagement across the Meta ecosystem."
+            </p>
+        </motion.div>
 
-        <h2 className="text-2xl font-semibold mb-2 flex items-center"><FaInfoCircle className="mr-2" /> Information We Collect</h2>
-        <ul className="list-disc list-inside mb-6">
-          <li>When you interact with our Facebook ads, we may collect personal information such as your name and phone number.</li>
-          <li>We may also collect information about your interactions with our ads, such as clicks and conversions.</li>
-        </ul>
+        {/* Content Body */}
+        <motion.div 
+            variants={fadeIn('up', 0.4)}
+            initial="hidden"
+            animate="show"
+            className="space-y-12"
+        >
+            {/* Intro Card */}
+            <div className="bg-white/5 border border-white/10 backdrop-blur-xl p-10 rounded-[3rem] shadow-2xl">
+                <p className="text-gray-300 text-lg leading-relaxed">
+                    At Multigym Premium, we are committed to protecting your privacy in all digital interactions. This specific policy outlines the data collected through our Facebook advertising campaigns and how that information is utilized to enhance your fitness experience.
+                </p>
+            </div>
 
-        <h2 className="text-2xl font-semibold mb-2 flex items-center"><FaUserSecret className="mr-2" /> How We Use Your Information</h2>
-        <ul className="list-disc list-inside mb-6">
-          <li>We use the personal information collected to contact you regarding our special offers and provide information about our services.</li>
-          <li>Your information may also be used for marketing purposes, including targeted advertising on Facebook.</li>
-        </ul>
+            {/* Detailed Sections */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {[
+                    {
+                        icon: FaInfoCircle,
+                        title: "Information Gathered",
+                        content: "When interacting with our ads, we may collect your name and phone number through lead forms, alongside engagement metrics like clicks and conversions.",
+                        accent: "blue"
+                    },
+                    {
+                        icon: FaUserSecret,
+                        title: "Strategic Use",
+                        content: "Your data allows us to contact you with exclusive offers and personalize your marketing journey based on your specific fitness goals.",
+                        accent: "yellow"
+                    },
+                    {
+                        icon: FaLock,
+                        title: "Data Stewardship",
+                        content: "We never sell or rent your personal information. Data is shared only with verified service providers who assist in managing our digital campaigns.",
+                        accent: "red"
+                    },
+                    {
+                        icon: FaLock,
+                        title: "Security Commitment",
+                        content: "We take reasonable measures to protect your data, acknowledging that no method of digital storage is entirely impenetrable.",
+                        accent: "blue"
+                    },
+                    {
+                        icon: FaSyncAlt,
+                        title: "Control & Choices",
+                        content: "You retain the right to opt-out of marketing communications at any time. Contact us directly to update or permanently delete your records.",
+                        accent: "yellow"
+                    },
+                    {
+                        icon: FaChild,
+                        title: "Underage Safety",
+                        content: "Our services and advertisements are strictly for individuals aged 18 and older. We do not knowingly collect data from minors.",
+                        accent: "red"
+                    }
+                ].map((section, index) => (
+                    <div key={index} className="group bg-white/5 border border-white/5 p-8 rounded-[2.5rem] hover:bg-white/10 transition-all duration-500">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:bg-white group-hover:text-black shrink-0 shadow-lg
+                                ${section.accent === 'blue' ? 'bg-blue-600/10 text-blue-600 border border-blue-600/20' : 
+                                  section.accent === 'yellow' ? 'bg-custom-yellow/10 text-custom-yellow border border-custom-yellow/20' : 
+                                  'bg-red-600/10 text-red-600 border border-red-600/20'}`}>
+                                <section.icon size={20} />
+                            </div>
+                            <h2 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-custom-yellow transition-colors">
+                                {section.title}
+                            </h2>
+                        </div>
+                        <p className="text-gray-400 text-sm font-medium leading-relaxed">
+                            {section.content}
+                        </p>
+                    </div>
+                ))}
+            </div>
 
-        <h2 className="text-2xl font-semibold mb-2 flex items-center"><FaLock className="mr-2" /> Sharing Your Information</h2>
-        <ul className="list-disc list-inside mb-6">
-          <li>We do not sell or rent your personal information to third parties.</li>
-          <li>Your information may be shared with service providers who assist us in running our Facebook ads and managing our marketing campaigns.</li>
-        </ul>
+            {/* Final Contact Section */}
+            <div className="bg-gradient-to-br from-blue-600/20 to-blue-900/40 border border-blue-600/20 p-10 md:p-16 rounded-[4rem] shadow-2xl text-center space-y-8">
+                <FaPhone className="text-5xl mx-auto text-blue-400/50" />
+                <h2 className="text-3xl font-black uppercase tracking-tighter text-white">Direct <span className="text-blue-400">Inquiry</span></h2>
+                <p className="text-gray-400 text-lg font-medium max-w-xl mx-auto">
+                    For specific questions about Facebook advertising data, please contact our privacy officer.
+                </p>
+                <div className="pt-4">
+                    <a href="tel:01313197435" className="inline-block px-12 py-4 bg-blue-600 text-white font-black uppercase tracking-widest rounded-full hover:bg-white hover:text-blue-600 transition-all duration-500 shadow-xl shadow-blue-600/20">
+                        Call Support
+                    </a>
+                </div>
+            </div>
 
-        <h2 className="text-2xl font-semibold mb-2 flex items-center"><FaLock className="mr-2" /> Data Security</h2>
-        <p className="mb-6">
-          We take reasonable measures to protect the personal information we collect. However, please be aware that no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee the absolute security of your information.
-        </p>
-
-        <h2 className="text-2xl font-semibold mb-2 flex items-center"><FaSyncAlt className="mr-2" /> Your Choices</h2>
-        <ul className="list-disc list-inside mb-6">
-          <li>You have the right to opt-out of receiving marketing communications from us at any time.</li>
-          <li>You can also update or delete your personal information by contacting us directly.</li>
-        </ul>
-
-        <h2 className="text-2xl font-semibold mb-2 flex items-center"><FaChild className="mr-2" /> Children's Privacy</h2>
-        <p className="mb-6">
-          Our services are not directed to individuals under the age of 18, and we do not knowingly collect personal information from children.
-        </p>
-
-        <h2 className="text-2xl font-semibold mb-2 flex items-center"><FaSyncAlt className="mr-2" /> Changes to this Privacy Policy</h2>
-        <p className="mb-6">
-          We may update this Privacy Policy from time to time. Any changes will be posted on this page, and the revised date will be indicated at the top.
-        </p>
-
-        <h2 className="text-2xl font-semibold mb-2 flex items-center"><FaPhone className="mr-2" /> Contact Us</h2>
-        <p className="mb-6">
-          If you have any questions or concerns about this Privacy Policy or our practices, please contact us at <a href="tel:01313197435" className="text-blue-600">Mobile 01313197435</a>.
-        </p>
-
-        <p className="text-sm text-gray-500">By interacting with our Facebook ads, you consent to the collection and use of your personal information as described in this Privacy Policy.</p>
-        <p className="text-sm text-gray-500">*Last updated: 25/4/2024</p>
+            <div className="text-center space-y-4 pt-10">
+                <p className="text-gray-600 text-[10px] font-black uppercase tracking-[0.3em]">
+                    By interacting with our ads, you consent to this Privacy Policy.
+                </p>
+                <p className="text-gray-700 text-[8px] font-black uppercase tracking-[0.4em]">
+                    Last updated: April 25, 2024
+                </p>
+            </div>
+        </motion.div>
       </div>
     </div>
   );

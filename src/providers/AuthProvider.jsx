@@ -6,12 +6,15 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 import axios from "axios";
 
 export const AuthContext = createContext();
 const auth = app;
+const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -33,6 +36,11 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     localStorage.removeItem("token");
     return signOut(auth);
+  };
+
+  const signInWithGoogle = () => {
+    setLoading(true);
+    return signInWithPopup(auth, googleProvider);
   };
 
   useEffect(() => {
@@ -77,6 +85,7 @@ const AuthProvider = ({ children }) => {
     loading,
     createUser,
     signIn,
+    signInWithGoogle,
     logOut,
   };
 
