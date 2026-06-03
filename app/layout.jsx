@@ -32,30 +32,12 @@ export default function RootLayout({ children }) {
 
       const logVisitor = async () => {
         try {
-          let ip = 'Unknown';
-          let country = 'Unknown';
-
-          try {
-            const geoRes = await fetch('https://ipwho.is/');
-            if (geoRes.ok) {
-              const geoData = await geoRes.json();
-              if (geoData && geoData.success) {
-                ip = geoData.ip || 'Unknown';
-                country = geoData.country || 'Unknown';
-              }
-            }
-          } catch (e) {
-            console.warn("Client-side GeoIP resolution failed, falling back to server header parsing.", e);
-          }
-
           await fetch('/api/visitor/log', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              ip,
-              country,
               referrer: document.referrer || '',
               path: window.location.pathname || '/',
               userAgent: navigator.userAgent || 'Unknown',

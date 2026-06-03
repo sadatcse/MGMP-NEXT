@@ -6,13 +6,36 @@ export async function POST(req) {
   try {
     await connectDB();
     const body = await req.json();
-    let { ip, country, referrer, path, userAgent } = body;
+    let { referrer, path, userAgent } = body;
 
-    // Fallback to headers for IP if it's missing or local loopback
-    if (!ip || ip === 'Unknown' || ip === '127.0.0.1' || ip === '::1') {
-      const forwarded = req.headers.get("x-forwarded-for");
-      if (forwarded) {
-        ip = forwarded.split(/, /)[0];
+    // Resolve IP address
+    let ip = 'Unknown';
+    const forwarded = req.headers.get("x-forwarded-for");
+    if (forwarded) {
+      ip = forwarded.split(/, /)[0];
+    } else {
+      ip = req.ip || 'Unknown';
+    }
+
+    // Resolve Country
+    let country = 'Unknown';
+    const vercelCountry = req.headers.get("x-vercel-ip-country");
+    if (vercelCountry) {
+      country = vercelCountry;
+    }
+
+    // Server-side GeoIP resolution fallback for non-Vercel environments
+    if ((!country || country === 'Unknown') && ip && ip !== 'Unknown' && ip !== '127.0.0.1' && ip !== '::1') {
+      try {
+        const geoRes = await fetch(`https://ipwho.is/${ip}`);
+        if (geoRes.ok) {
+          const geoData = await geoRes.json();
+          if (geoData && geoData.success) {
+            country = geoData.country || 'Unknown';
+          }
+        }
+      } catch (e) {
+        console.warn("Server-side GeoIP resolution failed:", e);
       }
     }
 
