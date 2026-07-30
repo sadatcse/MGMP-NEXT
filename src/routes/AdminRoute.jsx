@@ -12,7 +12,7 @@ const AdminRoute = ({ children }) => {
         return <div className="flex justify-center mt-16"><span className="loading loading-bars loading-lg mt-28 text-center"></span></div>
     }
     if (user) {
-        if (user?.email == import.meta.env.VITE_adminEmail) {
+        if (user?.email == process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
             return children;
         }else{
             <Navigate to="/"></Navigate>

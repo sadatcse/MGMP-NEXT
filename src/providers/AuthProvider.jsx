@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
-  const adminEmail = process.env.NEXT_PUBLIC_adminEmail;
+  const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 
   const createUser = (email, password) => {
     setLoading(true);

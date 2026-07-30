@@ -56,25 +56,25 @@ export const router = createBrowserRouter([
       {
         path: '/trainers/:name',
         element: <Trainers_Details />,
-        loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKEND_URL}/trainer/get-name/${params.name}`)
+        loader: ({ params }) => fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/trainer/get-name/${params.name}`)
       },
       {
         path: "/service",
-        element: <Services/>
+        element: <Services />
       },
       {
         path: "/blog",
         element: <News />
       },
-      
+
       {
         path: "/explore",
         element: <Explore />,
       },
       {
         path: "/explore/details/:id",
-        element: <Explore_Details/>,
- 
+        element: <Explore_Details />,
+
       },
       {
         path: "/aboutus/about",
@@ -87,12 +87,12 @@ export const router = createBrowserRouter([
       {
         path: "/blog/:id",
         element: <NewsDetails />,
-        loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKEND_URL}/news/get-id/${params.id}`)
+        loader: ({ params }) => fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/news/get-id/${params.id}`)
       },
       {
         path: "/notice/:id",
-        element: <Notice_Details /> ,
-        loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKEND_URL}/notice/get-id/${params.id}`)
+        element: <Notice_Details />,
+        loader: ({ params }) => fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/notice/get-id/${params.id}`)
       },
       {
         path: "/legal/appprivacypolicy",
@@ -106,7 +106,7 @@ export const router = createBrowserRouter([
         path: "/legal/refundpolicy",
         element: <RefundPolicy />
       },
- 
+
       {
         path: "/legal/cookiepolicy",
         element: <CookiePolicy />
@@ -127,14 +127,14 @@ export const router = createBrowserRouter([
         path: "/notice",
         element: <Notice />  //
       },
-      
-  
-       
+
+
+
     ]
   },
   {
     path: "dashboard",
-    element:<AdminRoute><Root_Dashboard></Root_Dashboard></AdminRoute>,
+    element: <AdminRoute><Root_Dashboard></Root_Dashboard></AdminRoute>,
     errorElement: <Error404></Error404>,
     children: [
       // {
@@ -142,60 +142,60 @@ export const router = createBrowserRouter([
       //   element:
       // }
       {
-        path:"dashboard",
-        element:<Panel></Panel>
+        path: "dashboard",
+        element: <Panel></Panel>
       },
       {
-        path:"notice_view",
-        element:<AdminRoute><Notice_list></Notice_list></AdminRoute>
+        path: "notice_view",
+        element: <AdminRoute><Notice_list></Notice_list></AdminRoute>
       },
       {
-        path:"notice_create",
-        element:<AdminRoute><Notice_create></Notice_create></AdminRoute>
+        path: "notice_create",
+        element: <AdminRoute><Notice_create></Notice_create></AdminRoute>
       },
       {
-        path:"blog_view",
-        element:<AdminRoute><Blog_list></Blog_list></AdminRoute>
+        path: "blog_view",
+        element: <AdminRoute><Blog_list></Blog_list></AdminRoute>
       },
       {
-        path:"blog_create",
-        element:<AdminRoute><Blog_create></Blog_create></AdminRoute>
+        path: "blog_create",
+        element: <AdminRoute><Blog_create></Blog_create></AdminRoute>
       },
       {
-        path:"testimonial_view",
-        element:<AdminRoute><Testimonial_list></Testimonial_list></AdminRoute>
+        path: "testimonial_view",
+        element: <AdminRoute><Testimonial_list></Testimonial_list></AdminRoute>
       },
       {
-        path:"testimonial_create",
+        path: "testimonial_create",
         element: <AdminRoute><Testimonial_create></Testimonial_create></AdminRoute>
       },
       {
-        path:"team_view",
-        element:<AdminRoute><Team_list></Team_list></AdminRoute>
+        path: "team_view",
+        element: <AdminRoute><Team_list></Team_list></AdminRoute>
       },
       {
-        path:"team_add",
+        path: "team_add",
         element: <AdminRoute><Team_create></Team_create></AdminRoute>
       },
       {
-        path:"team_edit/:id",
+        path: "team_edit/:id",
         element: <AdminRoute><Team_edit></Team_edit></AdminRoute>,
-        loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKEND_URL}/trainer/get-id/${params.id}`)
+        loader: ({ params }) => fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/trainer/get-id/${params.id}`)
       },
       {
-        path:"blog_edit/:id",
+        path: "blog_edit/:id",
         element: <AdminRoute><Blog_edit></Blog_edit></AdminRoute>,
-        loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKEND_URL}/news/get-id/${params.id}`)
+        loader: ({ params }) => fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/news/get-id/${params.id}`)
       },
       {
-        path:"testimonial_edit/:id",
+        path: "testimonial_edit/:id",
         element: <AdminRoute><Testimonial_edit></Testimonial_edit></AdminRoute>,
-        loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKEND_URL}/testimonial/get-id/${params.id}`)
+        loader: ({ params }) => fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/testimonial/get-id/${params.id}`)
       },
       {
-        path:"notice_edit/:id",
+        path: "notice_edit/:id",
         element: <AdminRoute><Notice_edit></Notice_edit></AdminRoute>,
-        loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKEND_URL}/notice/get-id/${params.id}`)
+        loader: ({ params }) => fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/notice/get-id/${params.id}`)
       }
 
     ]
