@@ -16,6 +16,7 @@ import Advertisement1 from '../src/components/Advertisement/Advertisement1';
 import Chatbox from '../src/components/Chatbox';
 import AuthProvider from '../src/providers/AuthProvider';
 import { usePathname } from 'next/navigation';
+import Script from 'next/script';
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
@@ -54,8 +55,25 @@ export default function RootLayout({ children }) {
     }
   }, [isDashboard]);
 
+  const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-1051232E5C';
+
   return (
     <html lang="en">
+      <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '${gaId}');
+          `}
+        </Script>
+      </head>
       <body>
         <AuthProvider>
           {!isDashboard && (
