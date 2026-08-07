@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 import axios from "axios";
 import { FaFacebook, FaInstagram, FaPhone } from "react-icons/fa";
 import TeamCard from "./TeamCard";
-import Spinner from "../Utility/Spinner"; 
 import useAxiosPublic from "../../Hook/useAxiosPublic";
 
 const Team = () => {
@@ -11,24 +11,42 @@ const Team = () => {
   const [loading, setLoading] = useState(true); 
   const axiosPublic = useAxiosPublic();
 
-  const fetchData = async () => {
-    try {
-      const res = await axiosPublic.get("/trainer/get-all");
-      setTeamData(res.data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching data", error);
-      setLoading(false); 
-    }
-  };
-
-
-  if (loading) {
+  useEffect(() => {
+    let isMounted = true;
+    const fetchData = async () => {
+      try {
+        const res = await axiosPublic.get("/trainer/get-all");
+        if (isMounted) {
+          setTeamData(res.data);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching data", error);
+        if (isMounted) {
+          setLoading(false); 
+        }
+      }
+    };
     fetchData();
-  }
+    return () => {
+      isMounted = false;
+    };
+  }, [axiosPublic]);
 
   if (loading) {
-    return <Spinner />; 
+    return (
+      <div className="container mx-auto px-4 mb-24 animate-pulse">
+        <div className="max-w-3xl mx-auto text-center mb-12 flex flex-col items-center">
+          <div className="h-4 bg-red-600/30 rounded w-24 mb-4"></div>
+          <div className="h-10 bg-white/10 rounded w-64"></div>
+          <div className="w-20 h-1.5 bg-red-600/50 mx-auto mt-4 rounded-full"></div>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
+          <div className="lg:col-span-4 h-[400px] bg-white/5 rounded-[2rem] border border-white/5"></div>
+          <div className="lg:col-span-2 hidden md:block h-[400px] bg-white/5 rounded-[3rem] border border-white/5"></div>
+        </div>
+      </div>
+    ); 
   }
 
   return (
@@ -84,10 +102,13 @@ const Team = () => {
         {/* Highlight Image */}
         <div className="lg:col-span-2 hidden md:flex flex-col items-center justify-center p-6 bg-neutral-900 rounded-[3rem] border border-white/5 shadow-2xl relative overflow-hidden group">
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <img 
-            src={teamData[currentTeam]?.image_url} 
-            alt="team member image" 
-            className="w-full h-full object-cover object-top rounded-[2rem] transition-transform duration-700 group-hover:scale-105" 
+          <Image
+            src={teamData[currentTeam]?.image_url}
+            alt="team member image"
+            width={600}
+            height={800}
+            unoptimized
+            className="w-full h-full object-cover object-top rounded-[2rem] transition-transform duration-700 group-hover:scale-105"
           />
         </div>
       </div>

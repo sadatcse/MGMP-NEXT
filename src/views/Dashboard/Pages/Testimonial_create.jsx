@@ -69,7 +69,7 @@ const Testimonial_create = () => {
         });
 
         try {
-            const response = await axiosSecure.post("/testimonial/post",
+            await axiosSecure.post("/testimonial/post",
                 { ...formData, date: formattedDate },
                 {
                     headers: {
@@ -77,8 +77,6 @@ const Testimonial_create = () => {
                     },
                 }
             );
-
-            console.log("Response:", response.data);
 
             Swal.fire({
                 icon: "success",
@@ -110,7 +108,7 @@ const Testimonial_create = () => {
             <p className='text-2xl font-bold'>Create a testimonial</p>
 
             {/* breadcrumbs */}
-            <div className="breadcrumbs mt-2 text-xs text-black">
+            <div className="breadcrumbs mt-2 text-xs">
                 <ul>
                     <li className='text-gray-400'><a>Home</a></li>
                     <li className='text-gray-400'><a>admin</a></li>
@@ -129,7 +127,7 @@ const Testimonial_create = () => {
                             name="title"
                             value={formData.title}
                             onChange={handleChange}
-                            className="appearance-none text-sm border shadow-sm rounded-xl  w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Testimonial Title"
                             required
                         />
@@ -141,7 +139,7 @@ const Testimonial_create = () => {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="appearance-none text-sm border shadow-sm rounded-xl  w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Testimonial Person Name"
                             required
                         />
@@ -152,7 +150,7 @@ const Testimonial_create = () => {
                             name="comment"
                             value={formData.comment}
                             onChange={(e) => handleCommentChange(e.target.value)}
-                            className="appearance-none resize-none text-sm border  shadow-sm rounded-xl h-52  w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none resize-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl h-52 w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Enter testimonial comment"
                             required
                         />
@@ -168,7 +166,7 @@ const Testimonial_create = () => {
                                 name="image"
                                 value={imageurl}
                                 onChange={(e) => setimageurl(e.target.value)}
-                                className="appearance-none text-sm border shadow-sm rounded-xl w-full py-4 px-3 text-gray-700  focus:outline-none focus:shadow-outline"
+                                className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 focus:outline-none focus:shadow-outline"
                                 placeholder="Enter image URL"
                             />
                         </div>

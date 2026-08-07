@@ -1,5 +1,6 @@
 import { useParams, useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -114,7 +115,7 @@ const Notice_edit = () => {
                     </div>
                 </div>
                 {previewImageUrl && (
-                    <img src={previewImageUrl} alt="Notice banner preview" className="w-48 h-24 object-cover rounded-2xl border border-white/10 shadow-lg shadow-black/40" />
+                    <Image src={previewImageUrl} alt="Notice banner preview" width={192} height={96} unoptimized className="w-48 h-24 object-cover rounded-2xl border border-white/10 shadow-lg shadow-black/40" />
                 )}
             </div>
 

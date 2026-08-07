@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import axios from 'axios';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 
@@ -55,7 +56,7 @@ const WorkoutSetup = () => {
             <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {gymMachines.map(machine => (
                     <li key={machine._id} className="bg-white shadow-lg rounded-lg p-4">
-                        <img src={machine.image} alt={machine.name} className="w-full h-48 object-cover rounded" />
+                        <Image src={machine.image} alt={machine.name} width={400} height={192} unoptimized className="w-full h-48 object-cover rounded" />
                         <div className="mt-2">
                             <p className="text-xl font-semibold">{machine.name}</p>
                             <p className="text-gray-600">{machine.category}</p>

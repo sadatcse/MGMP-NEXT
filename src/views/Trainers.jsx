@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../lib/variants';
+import Image from 'next/image';
 
 import useAxiosPublic from './../Hook/useAxiosPublic';
 
@@ -71,10 +72,13 @@ const Trainers = () => {
                                     <div className="relative aspect-[3/4] overflow-hidden rounded-[2.5rem] bg-neutral-900 border border-white/5 shadow-2xl transition-all duration-700 hover:shadow-custom-yellow/10">
                                         {/* Image Container */}
                                         <div className="absolute inset-0 z-0">
-                                            <img
+                                            <Image
                                                 src={trainer.image_url}
                                                 alt={trainer.full_name}
+                                                fill
+                                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                                 className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                                                unoptimized
                                             />
                                         </div>
 

@@ -1,5 +1,6 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import Image from 'next/image';
 
 import UseAxioSecure from "../../../Hook/UseAxioSecure";
 import useAxiosPublic from "../../../Hook/useAxiosPublic";
@@ -84,7 +85,7 @@ const TeamEdit = () => {
             <div className="flex justify-between">
                 <div>
                     <p className='text-2xl font-bold'>Edit Team</p>
-                    <div className="breadcrumbs mt-2 text-xs text-black">
+                    <div className="breadcrumbs mt-2 text-xs">
                         <ul>
                             <li className='text-gray-400'><a>Home</a></li>
                             <li className='text-gray-400'><a>Admin</a></li>
@@ -94,7 +95,7 @@ const TeamEdit = () => {
                     </div>
                 </div>
                 {previewImageUrl ? (
-                    <img src={previewImageUrl} alt="Image Preview" className="w-44 h-full border mt-2" />
+                    <Image src={previewImageUrl} alt="Image Preview" width={176} height={132} unoptimized className="w-44 h-full border mt-2" />
                 ) : (
                     <div className="w-44 h-24 border mt-2 flex items-center justify-center text-xs text-gray-500 bg-black/40">No Image</div>
                 )}
@@ -110,7 +111,7 @@ const TeamEdit = () => {
                             value={formData.full_name}
                             onChange={handleChange}
                             placeholder='Full Name'
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                     </div>
@@ -122,7 +123,7 @@ const TeamEdit = () => {
                             type="text"
                             value={formData.short_name}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                         <input
@@ -132,7 +133,7 @@ const TeamEdit = () => {
                             placeholder='Certification'
                             value={formData.certification}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                         />
                     </div>
 
@@ -144,7 +145,7 @@ const TeamEdit = () => {
                             placeholder='Facebook'
                             value={formData.facebook}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                         />
                         <input
                             id="Instagram"
@@ -153,7 +154,7 @@ const TeamEdit = () => {
                             placeholder='Instagram'
                             value={formData.Instagram}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                         />
                     </div>
                     <div className="flex gap-3 mt-5">
@@ -164,7 +165,7 @@ const TeamEdit = () => {
                             placeholder='Email'
                             value={formData.email}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                         <input
@@ -174,7 +175,7 @@ const TeamEdit = () => {
                             placeholder='Mobile No'
                             value={formData.mobile}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                     </div>
@@ -186,14 +187,14 @@ const TeamEdit = () => {
                             placeholder='Position Title'
                             value={formData.position_title}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                         />
                         <select
                             id="role"
                             name="role"
                             value={formData.role}
                             onChange={handleChange}
-                            className="appearance-none text-gray-400 text-sm border shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-gray-300 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         >
                             <option value="" disabled>Select Role</option>
@@ -226,7 +227,7 @@ const TeamEdit = () => {
                                 name="image"
                                 value={imageurl}
                                 onChange={(e) => { setImageUrl(e.target.value); setPreviewImageUrl(e.target.value); }}
-                                className="appearance-none text-sm border shadow-sm rounded-xl w-full py-4 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                                className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 focus:outline-none focus:shadow-outline"
                                 placeholder="Enter Image URL"
                             />
                         </div>
@@ -239,7 +240,7 @@ const TeamEdit = () => {
                             value={formData.bio}
                             onChange={handleChange}
                             placeholder='Bio'
-                            className="appearance-none text-gray-700 text-sm border shadow-sm h-36 rounded-xl w-full py-4 px-3 resize-none leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm h-36 rounded-xl w-full py-4 px-3 resize-none leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                     </div>

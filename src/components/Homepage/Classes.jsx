@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import CustomButton from './CustomButton';
 import Image1 from '../../assets/img/classes/1.jpg';
 import Image2 from '../../assets/img/classes/2.jpg';
@@ -8,7 +9,7 @@ import Image4 from '../../assets/img/classes/4.jpg';
 const classes = [
   {
     name: 'body building',
-    img: Image1.src,
+    img: Image1,
     description: 'Strength training and muscle building exercises.',
   },
   {
@@ -23,7 +24,7 @@ const classes = [
   },
   {
     name: 'crossfit',
-    img: Image4.src,
+    img: Image4,
     description: 'High-intensity functional fitness training.',
   },
 ];
@@ -33,9 +34,11 @@ const Classes = () => {
     <div className='grid gap-1 grid-cols-1 lg:grid-cols-2'>
       {classes.map((item, index) => (
         <div key={index} className='relative'>
-          <img
+          <Image
             src={item.img}
             alt={item.name}
+            width={800}
+            height={600}
             className='w-full h-96 object-cover'
           />
           <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white p-4'>

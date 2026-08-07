@@ -5,6 +5,7 @@ import Header from "../assets/img/headerimage/headerimage4.jpg";
 import "./explore.css";
 import Data from "./../../public/Data.json";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const Explore = () => {
     const [itemsPerPage, setItemsPerPage] = useState(12);
@@ -89,10 +90,13 @@ const Explore = () => {
                             >
                                 {/* Image Container */}
                                 <div className="absolute inset-0 z-0">
-                                    <img 
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                        src={item.image} 
-                                        alt={item.name} 
+                                    <Image
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        src={item.image}
+                                        alt={item.name}
+                                        fill
+                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                                        unoptimized
                                     />
                                 </div>
                                 

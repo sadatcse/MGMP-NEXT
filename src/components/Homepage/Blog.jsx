@@ -5,6 +5,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import ImageWithLoader from "../Utility/ImageWithLoader";
 import { fadeIn } from '../../../lib/variants';
 import CustomButton from './CustomButton';
 import SwiperNavButtons from './SwiperNavButtons';
@@ -63,35 +64,40 @@ const Blog = () => {
                 {blogData
                   .sort((a, b) => new Date(b.date) - new Date(a.date))
                   .map((post, index) => (
-                    <SwiperSlide key={index}>
-                      <div className='group flex flex-col h-full bg-white/5 border border-white/5 rounded-[2.5rem] overflow-hidden premium-card'>
-                        <Link href={`/blog/${post._id}`} className="relative block h-64 overflow-hidden">
-                          <img
+                    <SwiperSlide key={index} className="!h-auto flex flex-col">
+                      <div className='group flex flex-col h-full w-full bg-white/5 border border-white/5 rounded-[2.5rem] overflow-hidden premium-card'>
+                        <Link href={`/blog/${post._id}`} className="relative block h-64 overflow-hidden flex-shrink-0">
+                          <ImageWithLoader
                             src={post.image}
                             alt={post.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                             className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
+                            unoptimized
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
                         </Link>
 
-                        <div className='p-8 flex flex-col flex-grow'>
-                          <p className='uppercase text-[10px] font-black tracking-[0.2em] text-custom-yellow mb-3'>
-                            {new Date(post.date).toLocaleDateString('en-US', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
-                            })}
-                          </p>
-                          <Link
-                            className='hover:text-custom-yellow transition-all duration-300'
-                            href={`/blog/${post._id}`}
-                          >
-                            <h3 className='text-xl font-black text-white uppercase tracking-tight leading-tight mb-4 group-hover:text-custom-yellow transition-colors'>
-                              {post.title}
-                            </h3>
-                          </Link>
-                          <div className="mt-auto pt-6 border-t border-white/5">
+                        <div className='p-8 flex flex-col flex-grow justify-between'>
+                          <div>
+                            <p className='uppercase text-[10px] font-black tracking-[0.2em] text-custom-yellow mb-3'>
+                              {new Date(post.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                              })}
+                            </p>
+                            <Link
+                              className='hover:text-custom-yellow transition-all duration-300'
+                              href={`/blog/${post._id}`}
+                            >
+                              <h3 className='text-xl font-black text-white uppercase tracking-tight leading-tight mb-4 group-hover:text-custom-yellow transition-colors line-clamp-2 min-h-[3rem]'>
+                                {post.title}
+                              </h3>
+                            </Link>
+                          </div>
+                          
+                          <div className="pt-6 border-t border-white/5 mt-auto">
                             <Link href={`/blog/${post._id}`} className="text-xs font-black text-white uppercase tracking-widest flex items-center gap-2 group-hover:text-red-600 transition-colors">
                               Read Article <span className="text-red-600">→</span>
                             </Link>

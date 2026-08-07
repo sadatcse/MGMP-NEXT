@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import membershipCardFront from "./../../assets/card/1.png";
 import membershipCardBack from "./../../assets/card/2.png";
 import "./JoinOurGym.css";
@@ -40,17 +41,17 @@ const JoinOurGym = () => {
           <div className="flex items-center justify-center mb-6">
             <Link
               href="/signup"
-              className="relative sm:w-20 h-16 mb-5 md:w-32 md:h-32 lg:w-64 lg:h-40"
+              className="relative block w-16 h-16 sm:w-20 mb-5 md:w-32 md:h-32 lg:w-64 lg:h-40"
               style={{ perspective: "700px" }}
             >
-              <img
-                src={membershipCardBack.src}
+              <Image
+                src={membershipCardBack}
                 alt="Gym Membership Card"
                 className="w-full h-full absolute top-0 left-0 z-[2] animate-rotate-slow-back"
                 style={{ backfaceVisibility: "hidden" }}
               />
-              <img
-                src={membershipCardFront.src}
+              <Image
+                src={membershipCardFront}
                 alt="Gym Membership Card"
                 className="w-full h-full absolute top-0 left-0 z-[1] animate-rotate-slow"
                 style={{ backfaceVisibility: "hidden" }}

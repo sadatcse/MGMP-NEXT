@@ -61,17 +61,12 @@ const AuthProvider = ({ children }) => {
             }
           )
           .then((res) => {
-            console.log(res, "res 5244");
-
             localStorage.setItem("token", res.data.token);
           });
       } else {
         axios
           .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, loggedUser, {
             withCredentials: true,
-          })
-          .then((res) => {
-            console.log(res.data);
           });
       }
     });

@@ -69,7 +69,7 @@ const Blog_create = () => {
   
     
         try {
-            const response = await axiosSecure.post("/news/post",
+            await axiosSecure.post("/news/post",
                 { ...formData, date: formattedDate },
                 {
                     headers: {
@@ -77,8 +77,6 @@ const Blog_create = () => {
                     },
                 }
             );
-    
-            console.log("Response:", response.data);
     
             Swal.fire({
                 icon: "success",
@@ -108,7 +106,7 @@ const Blog_create = () => {
 
             <p className='text-2xl font-bold'>Create a blog</p>
 
-            <div className="breadcrumbs mt-2 text-xs text-black">
+            <div className="breadcrumbs mt-2 text-xs">
                 <ul>
                     <li className='text-gray-400'><a>Home</a></li>
                     <li className='text-gray-400'><a>admin</a></li>
@@ -128,7 +126,7 @@ const Blog_create = () => {
                             value={formData.title}
                             onChange={handleChange}
                             placeholder='Blog title'
-                            className="appearance-none text-sm border shadow-sm rounded-xl  w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                     </div>
@@ -140,7 +138,7 @@ const Blog_create = () => {
                             placeholder='Blog tags'
                             value={formData.tags}
                             onChange={handleChange}
-                            className="appearance-none text-sm border shadow-sm rounded-xl  w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                     </div>
@@ -149,7 +147,7 @@ const Blog_create = () => {
                             selected={formData.date}
                             onChange={handleDateChange}
                             placeholderText='Select a date'
-                            className="appearance-none text-gray-400 text-sm border shadow-sm rounded-xl  w-full py-4 px-3  leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-gray-300 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                         <select
@@ -157,7 +155,7 @@ const Blog_create = () => {
                             name="category"
                             value={formData.category}
                             onChange={handleChange}
-                            className="appearance-none text-sm border shadow-sm rounded-xl cursor-pointer w-full py-4 px-3 text-gray-400 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl cursor-pointer w-full py-4 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         >
                             <option value="" className='text-gray-400'>Category</option>
@@ -170,15 +168,17 @@ const Blog_create = () => {
                         </select>
                     </div>
                     <div className="mt-6">
-                        <ReactQuill
-                            id="description"
-                            value={formData.description}
-                            onChange={handleDescriptionChange}
-                            className="appearance-none text-sm border shadow-sm rounded-xl lg:h-52 w-full py-4 lg:pb-14 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            modules={Blog_create.modules}
-                            formats={Blog_create.formats}
-                            required
-                        />
+                        <div className="quill-dark-theme rounded-xl overflow-hidden border border-white/10 bg-black/40">
+                            <ReactQuill
+                                id="description"
+                                value={formData.description}
+                                onChange={handleDescriptionChange}
+                                className="text-white lg:h-52"
+                                modules={Blog_create.modules}
+                                formats={Blog_create.formats}
+                                required
+                            />
+                        </div>
                     </div>
 
                     <div className="flex items-center gap-5">
@@ -192,7 +192,7 @@ const Blog_create = () => {
                                 name="image"
                                 value={imageurl}
                                 onChange={(e) => setImageUrl(e.target.value)}
-                                className="appearance-none text-sm border shadow-sm rounded-xl w-full py-4 px-3 text-gray-700  focus:outline-none focus:shadow-outline"
+                                className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 focus:outline-none focus:shadow-outline"
                                 placeholder="Enter image URL"
                             />
                         </div>

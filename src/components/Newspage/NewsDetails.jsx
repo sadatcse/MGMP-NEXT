@@ -1,44 +1,35 @@
 "use client";
-import { useParams, useRouter } from 'next/navigation';
-import { useState, useEffect } from "react";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { SlSocialReddit, SlSocialTwitter } from "react-icons/sl";
 import { TiSocialPinterestCircular } from "react-icons/ti";
 import { CiFacebook } from "react-icons/ci";
-import { FaClock, FaArrowLeft, FaTag, FaCalendarAlt } from "react-icons/fa";
-import Spinner from "../Utility/Spinner"; 
-import useAxiosPublic from "../../Hook/useAxiosPublic";
-import { motion } from 'framer-motion';
+import { FaClock, FaArrowLeft, FaTag, FaCalendarAlt, FaTimes, FaExpand } from "react-icons/fa";
+import { motion, AnimatePresence } from 'framer-motion';
+import ImageWithLoader from '../Utility/ImageWithLoader';
 import { fadeIn } from '../../../lib/variants';
 
-const NewsDetails = () => {
-    const [news, setNews] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const { id } = useParams();
+const NewsDetails = ({ post, related = [] }) => {
     const router = useRouter();
-    const axiosPublic = useAxiosPublic();
-    
-    const api = "/news/get-all";
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const ob = post;
+    const news = related;
+    const id = post._id;
 
-    const fetchData = async () => {
-        try {
-            const response = await axiosPublic.get(api);
-            setNews(response.data);
-            setLoading(false);
-        } catch (error) {
-            setError('Error fetching news');
-            setLoading(false);
+    const openModal = () => {
+        setIsModalOpen(true);
+        if (typeof document !== 'undefined') {
+            document.body.style.overflow = 'hidden';
         }
     };
 
-    useEffect(() => {
-        if (loading) {
-            fetchData();
+    const closeModal = () => {
+        setIsModalOpen(false);
+        if (typeof document !== 'undefined') {
+            document.body.style.overflow = 'unset';
         }
-    }, [loading]);
-
-    const ob = news.find(n => n._id === id);
+    };
 
     const calculateReadingTime = (text) => {
         const wordsPerMinute = 200;
@@ -46,33 +37,6 @@ const NewsDetails = () => {
         const minutes = Math.ceil(words / wordsPerMinute);
         return minutes;
     };
-
-    if (loading) {
-        return (
-            <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-                <Spinner />
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center text-white text-xl">
-                {error}
-            </div>
-        );
-    }
-
-    if (!ob) {
-        return (
-            <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center gap-6">
-                <div className="text-white font-black uppercase tracking-tighter text-4xl">News Not Found</div>
-                <button onClick={() => router.back()} className="text-custom-yellow font-bold uppercase tracking-widest hover:text-red-600 transition-colors">
-                    Go Back
-                </button>
-            </div>
-        );
-    }
 
     const readingTime = ob.description ? calculateReadingTime(ob.description) : 0;
 
@@ -133,9 +97,22 @@ const NewsDetails = () => {
                             </div>
                         </div>
 
-                        {/* Article Image (Mobile only or redundant if in sidebar) */}
-                        <div className="lg:hidden rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/5">
-                            <img src={ob.image} alt={ob.title} className="w-full h-auto object-cover" />
+                        {/* Article Image (mobile/tablet only) */}
+                        <div 
+                            onClick={openModal} 
+                            className="lg:hidden rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/5 cursor-pointer relative group"
+                        >
+                            <ImageWithLoader 
+                                src={ob.image} 
+                                alt={ob.title} 
+                                width={800} 
+                                height={600} 
+                                unoptimized 
+                                className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105" 
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-bold text-xs uppercase tracking-widest backdrop-blur-[2px] z-20">
+                                <FaExpand size={14} className="text-custom-yellow" /> Click to enlarge
+                            </div>
                         </div>
 
                         {/* Content */}
@@ -164,7 +141,22 @@ const NewsDetails = () => {
                         {/* Sticky Image Card */}
                         <div className="sticky top-28 space-y-8">
                             <div className="rounded-[3rem] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/5">
-                                <img src={ob.image} alt={ob.title} className="w-full h-auto object-cover" />
+                                <div 
+                                    onClick={openModal} 
+                                    className="hidden lg:block relative group cursor-pointer overflow-hidden rounded-t-[3rem]"
+                                >
+                                    <ImageWithLoader 
+                                        src={ob.image} 
+                                        alt={ob.title} 
+                                        width={800} 
+                                        height={600} 
+                                        unoptimized 
+                                        className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105" 
+                                    />
+                                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-bold text-xs uppercase tracking-widest backdrop-blur-[2px] z-20">
+                                        <FaExpand size={14} className="text-custom-yellow" /> Click to enlarge
+                                    </div>
+                                </div>
                                 
                                 <div className="bg-white/5 backdrop-blur-xl p-10 border-t border-white/5 space-y-10">
                                     {/* Stats */}
@@ -231,16 +223,16 @@ const NewsDetails = () => {
                     animate="show"
                     className="mt-32 space-y-12"
                 >
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter">Related <span className="text-custom-yellow">Stories</span></h2>
-                        <Link href="/blog" className="hidden md:block text-xs font-black uppercase tracking-widest text-red-600 hover:text-white transition-colors">View All News →</Link>
+                        <Link href="/blog" className="text-xs font-black uppercase tracking-widest text-red-600 hover:text-white transition-colors">View All News →</Link>
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {news.filter(n => n._id !== id).slice(0, 4).map((item) => (
                             <Link href={`/blog/${item._id}`} key={item._id} className="group relative bg-white/5 border border-white/5 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
-                                <div className="h-56 overflow-hidden">
-                                    <img src={item.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={item.title} />
+                                <div className="relative h-56 overflow-hidden">
+                                    <Image src={item.image} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw" unoptimized className="object-cover transition-transform duration-700 group-hover:scale-110" alt={item.title} />
                                 </div>
                                 <div className="p-8 space-y-4">
                                     <p className="text-[10px] font-black uppercase tracking-widest text-red-600">
@@ -255,6 +247,50 @@ const NewsDetails = () => {
                     </div>
                 </motion.section>
             </div>
+
+            {/* Fullscreen Lightbox Modal */}
+            <AnimatePresence>
+                {isModalOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[99999] bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4 md:p-10 select-none cursor-zoom-out"
+                        onClick={closeModal}
+                    >
+                        {/* Close Button */}
+                        <button
+                            onClick={closeModal}
+                            className="absolute top-6 right-6 z-10 w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-white hover:text-red-600 transition-all duration-300 shadow-2xl border border-white/20"
+                            aria-label="Close image preview"
+                        >
+                            <FaTimes size={20} />
+                        </button>
+
+                        {/* Modal Image Box */}
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: "easeOut" }}
+                            className="relative max-w-6xl max-h-[85vh] w-full flex flex-col items-center justify-center cursor-default"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(244,203,113,0.15)] bg-black/60 p-2">
+                                <img 
+                                    src={ob.image} 
+                                    alt={ob.title} 
+                                    className="max-h-[80vh] max-w-full object-contain rounded-2xl"
+                                />
+                            </div>
+                            <div className="mt-4 text-center">
+                                <h4 className="text-lg md:text-xl font-black uppercase tracking-tight text-white">{ob.title}</h4>
+                                <p className="text-xs text-custom-yellow font-bold uppercase tracking-widest mt-1">Click anywhere outside to close</p>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };

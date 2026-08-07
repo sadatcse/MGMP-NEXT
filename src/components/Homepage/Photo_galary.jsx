@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fadeIn } from '../../../lib/variants';
 import { FaChevronLeft, FaChevronRight, FaTimes, FaMapMarkerAlt } from 'react-icons/fa';
@@ -17,16 +18,16 @@ import Image9 from "./../../assets/img/photogalary/9.jpg";
 import Image10 from "./../../assets/img/photogalary/10.jpg";
 
 const images = [
-    { url: Image1.src, location: "Shia Masjid Branch" },
-    { url: Image2.src, location: "Shia Masjid Branch" },
-    { url: Image3.src, location: "Shia Masjid Branch" },
-    { url: Image4.src, location: "Lalmatia Branch" },
-    { url: Image5.src, location: "Lalmatia Branch" },
-    { url: Image6.src, location: "Shia Masjid Branch" },
-    { url: Image7.src, location: "Lalmatia Branch" },
-    { url: Image8.src, location: "Lalmatia Branch" },
-    { url: Image9.src, location: "Lalmatia Branch" },
-    { url: Image10.src, location: "Shia Masjid Branch" }
+    { url: Image1, location: "Shia Masjid Branch" },
+    { url: Image2, location: "Shia Masjid Branch" },
+    { url: Image3, location: "Shia Masjid Branch" },
+    { url: Image4, location: "Lalmatia Branch" },
+    { url: Image5, location: "Lalmatia Branch" },
+    { url: Image6, location: "Shia Masjid Branch" },
+    { url: Image7, location: "Lalmatia Branch" },
+    { url: Image8, location: "Lalmatia Branch" },
+    { url: Image9, location: "Lalmatia Branch" },
+    { url: Image10, location: "Shia Masjid Branch" }
 ];
 
 const PhotoGallery = () => {
@@ -59,7 +60,7 @@ const PhotoGallery = () => {
                 <Title title="Our Facilities" subtitle="Photo Gallery" />
 
                 {/* Grid adjusted to 2 columns on mobile and 3 on large screens as per "2 line" request */}
-                <div className="grid grid-cols-3 lg:grid-cols-5 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
                     {images.map((image, index) => (
                         <motion.div
                             key={index}
@@ -70,9 +71,11 @@ const PhotoGallery = () => {
                             className="relative group cursor-pointer rounded-[2rem] overflow-hidden border border-white/5 shadow-2xl aspect-square"
                             onClick={() => openModal(index)}
                         >
-                            <img
+                            <Image
                                 src={image.url}
                                 alt={`Gallery ${index + 1}`}
+                                fill
+                                sizes="(max-width: 768px) 33vw, 20vw"
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                             />
 
@@ -108,9 +111,11 @@ const PhotoGallery = () => {
                             >
                                 {/* Main Image */}
                                 <div className="relative group/modal w-full h-full flex items-center justify-center">
-                                    <img
+                                    <Image
                                         src={images[currentImage].url}
                                         alt="Gallery Fullscreen"
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, 90vw"
                                         className="max-h-full max-w-full object-contain rounded-3xl shadow-[0_0_100px_rgba(244,203,113,0.1)]"
                                     />
 
@@ -118,6 +123,7 @@ const PhotoGallery = () => {
                                     <button
                                         className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 hover:bg-custom-yellow hover:text-black text-white flex items-center justify-center transition-all duration-300 backdrop-blur-md border border-white/10"
                                         onClick={prevImage}
+                                        aria-label="Previous image"
                                     >
                                         <FaChevronLeft className="text-xl md:text-2xl" />
                                     </button>
@@ -125,6 +131,7 @@ const PhotoGallery = () => {
                                     <button
                                         className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 hover:bg-custom-yellow hover:text-black text-white flex items-center justify-center transition-all duration-300 backdrop-blur-md border border-white/10"
                                         onClick={nextImage}
+                                        aria-label="Next image"
                                     >
                                         <FaChevronRight className="text-xl md:text-2xl" />
                                     </button>
@@ -140,6 +147,7 @@ const PhotoGallery = () => {
                                 <button
                                     className="absolute -top-4 -right-4 md:top-0 md:right-0 w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-white hover:text-red-600 transition-all duration-300 shadow-xl"
                                     onClick={closeModal}
+                                    aria-label="Close gallery"
                                 >
                                     <FaTimes className="text-xl" />
                                 </button>

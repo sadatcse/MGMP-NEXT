@@ -1,30 +1,9 @@
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from "react";
-import useAxiosPublic from "../Hook/useAxiosPublic";
 import Link from 'next/link';
+import Image from 'next/image';
 import { AiOutlineCalendar, AiOutlineTag, AiOutlineUser } from "react-icons/ai";
 
-const Notice_Details = () => {
-    const [notices, setNotices] = useState([]);
-    const { id } = useParams(); 
-    const notice = notices.find(n => n._id === id);
-    const axiosPublic = useAxiosPublic();
-
-    useEffect(() => {
-        const fetchNotices = async () => {
-            try {
-                const response = await axiosPublic.get('/notice/get-all');
-                const sortedNotices = response.data.sort((a, b) => new Date(b.date) - new Date(a.date));
-                setNotices(sortedNotices);
-            } catch (error) {
-                console.error('Error fetching notices:', error);
-            }
-        };
-
-        fetchNotices();
-    }, [axiosPublic]);
-
-    if (!notice) return <div className="text-center py-10">Loading...</div>;
+const Notice_Details = ({ notice, notices = [], currentId }) => {
+    const id = currentId;
 
     return (
         <section className="bg-slate-50">
@@ -43,7 +22,7 @@ const Notice_Details = () => {
             </div>
             <div className="container mx-auto px-4 flex flex-col-reverse md:flex-row gap-6 py-4 justify-between">
                 {/* routes */}
-                <section className="min-w-80 max-h-min p-5 pr-0 border-r rounded">
+                <section className="min-w-0 md:min-w-80 max-h-min p-5 md:pr-0 md:border-r rounded">
                     <div className="flex flex-col">
                         {notices &&
                             notices.map((item) => (
@@ -60,9 +39,12 @@ const Notice_Details = () => {
                 <section className="rounded-xl shadow pb-5 bg-white">
                     <div className="">
 
-                        <img
+                        <Image
                             src={notice.image}
                             alt={notice.title}
+                            width={800}
+                            height={600}
+                            unoptimized
                             className="w-full lg:w-8/12 p-5  h-64 lg:h-auto rounded-xl object-cover"
                         />
                         <div className="flex flex-col justify-between px-5">

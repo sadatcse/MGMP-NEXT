@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import abulkalamazad from "./../../assets/img/about/abul-kalam-azad.png";
 import sign from "./../../assets/img/about/sign.png";
 
@@ -8,10 +9,10 @@ const MessageFromChairman = () => {
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between gap-12">
         <div className="w-full lg:w-[45%] relative group">
           <div className="absolute -inset-2 bg-custom-yellow/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-          <img 
-            src={abulkalamazad.src} 
-            alt="Chairman" 
-            className="w-full h-auto object-cover rounded-[2rem] shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]" 
+          <Image
+            src={abulkalamazad}
+            alt="Chairman"
+            className="w-full h-auto object-cover rounded-[2rem] shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]"
           />
         </div>
         
@@ -37,7 +38,7 @@ const MessageFromChairman = () => {
 
           <div className="mt-10 p-6 bg-white/5 rounded-2xl border border-white/5 inline-block self-start shadow-xl">
             <p className="text-gray-300 font-semibold mb-2">Warm regards,</p>
-            <img className="h-14 w-auto mb-3 invert brightness-200" src={sign.src} alt="Signature" />
+            <Image className="h-14 w-auto mb-3 invert brightness-200" src={sign} alt="Signature" />
             <div>
               <p className="text-xl font-bold text-white tracking-tight">Abul Kalam Azad</p>
               <p className="text-custom-yellow font-bold text-xs uppercase tracking-[0.2em]">Chairman, Multigym Premium</p>

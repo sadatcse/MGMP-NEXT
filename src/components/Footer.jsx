@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { FaTwitter, FaYoutube, FaFacebook, FaInstagram, FaLinkedin, FaPinterest, FaTiktok, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import logo1 from "../assets/logo.png";
 import android from "../assets/img/footer/playstore.png";
@@ -16,7 +17,7 @@ const Footer = () => {
                     {/* Brand Section */}
                     <div className="space-y-8">
                         <div className="flex items-center gap-3">
-                            <img src={logo1.src} className="w-12 h-12 object-contain" alt="Logo" />
+                            <Image src={logo1} className="w-12 h-12 object-contain" alt="Logo" />
                             <span className="text-2xl font-black uppercase tracking-tighter">Multigym <span className="text-custom-yellow">Premium</span></span>
                         </div>
                         <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
@@ -81,10 +82,10 @@ const Footer = () => {
                         <p className="text-gray-400 text-sm italic">Download our official mobile app.</p>
                         <div className="flex flex-col gap-4 max-w-[160px]">
                             <a href="https://play.google.com/store/apps/details?id=com.multi_gym&pli=1" target="_blank" rel="noopener noreferrer">
-                                <img src={android.src} alt="Play Store" className="hover:opacity-80 transition-opacity cursor-pointer" />
+                                <Image src={android} alt="Play Store" className="hover:opacity-80 transition-opacity cursor-pointer" />
                             </a>
                             <a href="https://apps.apple.com/us/app/multi-gym-premium/id6746246182" target="_blank" rel="noopener noreferrer">
-                                <img src={ios.src} alt="App Store" className="hover:opacity-80 transition-opacity cursor-pointer" />
+                                <Image src={ios} alt="App Store" className="hover:opacity-80 transition-opacity cursor-pointer" />
                             </a>
                         </div>
                     </div>

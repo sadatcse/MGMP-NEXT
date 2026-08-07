@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaChild, FaDumbbell, FaRunning, FaUsers, FaUser, FaParking, FaCoffee, FaAppleAlt, FaLock } from 'react-icons/fa';
+import { FaChild, FaDumbbell, FaRunning, FaUsers, FaUser, FaParking, FaCoffee, FaAppleAlt, FaLock, FaWeight } from 'react-icons/fa';
 import { fadeIn } from './../../lib/variants';
 
 import center from "./../assets/img/Service/center.jpg"
@@ -11,9 +11,22 @@ import food from "./../assets/img/Service/food.png"
 import locker from "./../assets/img/Service/locker.jpg"
 import parking from "./../assets/img/Service/parking.jpg"
 import Personal from "./../assets/img/Service/Personal.jpg"
+import inbody from "./../assets/img/Service/Inbody.png"
 import heroBg from "./../assets/img/hero/bg.png"
 
 const servicesData = [
+    {
+        "title": "InBody Composition Test",
+        "description": "Track your fitness transformation with medical-grade precision. Our advanced InBody scanner measures body fat percentage, skeletal muscle mass, visceral fat level, segmental lean mass, and basal metabolic rate (BMR) to optimize your training.",
+        "icon": <FaWeight />,
+        "image": inbody,
+        "accent": "bg-custom-yellow",
+        "pricing": [
+            { "label": "On Admission", "price": "FREE", "highlight": true },
+            { "label": "Regular Member Test", "price": "1,000 BDT" },
+            { "label": "Without Membership", "price": "2,000 BDT" }
+        ]
+    },
     {
         "title": "Large Free Weight Center",
         "description": "Unlock your inner strength in our state-of-the-art free weight center! Work with our staff to find the right program to power your results.",
@@ -48,13 +61,6 @@ const servicesData = [
         "icon": <FaParking />,
         "image": parking,
         "accent": "bg-red-600"
-    },
-    {
-        "title": "Coffee Shop",
-        "description": "Relax and unwind at our on-site coffee shop. Enjoy a variety of beverages and snacks before or after your workout.",
-        "icon": <FaCoffee />,
-        "image": coffecup,
-        "accent": "bg-custom-yellow"
     },
     {
         "title": "Nutrition Service",
@@ -155,18 +161,27 @@ const Services = () => {
                                     <span className="text-custom-yellow">{service.title.split(' ').slice(-1)}</span>
                                 </h2>
 
-                                <p className="text-gray-400 text-lg leading-relaxed mb-8 max-w-xl">
+                                <p className="text-gray-400 text-lg leading-relaxed mb-6 max-w-xl">
                                     {service.description}
                                 </p>
 
-                                <motion.button
-                                    whileHover={{ scale: 1.05, x: 5 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="flex items-center gap-3 text-red-600 font-bold uppercase tracking-widest text-sm group"
-                                >
-                                    {/* <span className="border-b-2 border-red-600 py-1 group-hover:border-white transition-colors">Explore Service</span> */}
-                                    {/* <span className="text-xl">→</span> */}
-                                </motion.button>
+                                {service.pricing && (
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-xl mb-4">
+                                        {service.pricing.map((item, pIndex) => (
+                                            <div 
+                                                key={pIndex} 
+                                                className={`p-4 rounded-2xl border flex flex-col items-center justify-center text-center transition-all ${
+                                                    item.highlight 
+                                                        ? 'bg-red-600/20 border-red-600/50 text-white shadow-lg shadow-red-600/10' 
+                                                        : 'bg-white/5 border-white/10 text-gray-300 hover:border-white/20'
+                                                }`}
+                                            >
+                                                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">{item.label}</span>
+                                                <span className={`text-lg font-black uppercase ${item.highlight ? 'text-custom-yellow' : 'text-white'}`}>{item.price}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </motion.div>
                     ))}

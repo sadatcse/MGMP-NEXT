@@ -52,10 +52,9 @@ const Team_create = () => {
             month: 'long',
             day: 'numeric'
         });
-        console.log(formData);
 
         try {
-            const response = await axiosSecure.post("/trainer/post",
+            await axiosSecure.post("/trainer/post",
                 { ...formData, date: formattedDate },
                 {
                     headers: {
@@ -63,8 +62,6 @@ const Team_create = () => {
                     },
                 }
             );
-
-            console.log("Response:", response.data);
 
             Swal.fire({
                 icon: "success",
@@ -95,7 +92,7 @@ const Team_create = () => {
             <p className='text-2xl font-bold'>Add team member</p>
 
             {/* breadcrumbs */}
-            <div className="breadcrumbs mt-2 text-xs text-black">
+            <div className="breadcrumbs mt-2 text-xs">
                 <ul>
                     <li className='text-gray-400'><a>Home</a></li>
                     <li className='text-gray-400'><a>admin</a></li>
@@ -114,7 +111,7 @@ const Team_create = () => {
                             value={formData.full_name}
                             onChange={handleChange}
                             placeholder='Full name'
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl  w-full py-4 px-3  leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                     </div>
@@ -126,7 +123,7 @@ const Team_create = () => {
                             type="text"
                             value={formData.short_name}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl  w-full py-4 px-3  leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                         <input
@@ -136,7 +133,7 @@ const Team_create = () => {
                             placeholder='Certification'
                             value={formData.certification}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl  w-full py-4 px-3  leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                         />
                     </div>
 
@@ -148,7 +145,7 @@ const Team_create = () => {
                             placeholder='Facebook'
                             value={formData.facebook}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl  w-full py-4 px-3  leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                         />
                         <input
                             id="Instagram"
@@ -157,7 +154,7 @@ const Team_create = () => {
                             placeholder='Instagram'
                             value={formData.Instagram}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl  w-full py-4 px-3  leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                         />
                     </div>
                     <div className="flex gap-3 mt-5">
@@ -168,7 +165,7 @@ const Team_create = () => {
                             placeholder='Email'
                             value={formData.email}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl  w-full py-4 px-3  leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                         <input
@@ -178,7 +175,7 @@ const Team_create = () => {
                             placeholder='Mobile no'
                             value={formData.mobile}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl  w-full py-4 px-3  leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                     </div>
@@ -190,14 +187,14 @@ const Team_create = () => {
                             placeholder='Position title'
                             value={formData.position_title}
                             onChange={handleChange}
-                            className="appearance-none text-gray-700 text-sm border shadow-sm rounded-xl  w-full py-4 px-3  leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                         />
                         <select
                             id="role"
                             name="role"
                             value={formData.role}
                             onChange={handleChange}
-                            className="appearance-none text-gray-400 text-sm border shadow-sm rounded-xl  w-full py-4 px-3  leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-gray-300 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         >
                             <option value="" disabled>Select Role</option>
@@ -230,7 +227,7 @@ const Team_create = () => {
                                 name="image"
                                 value={imageurl}
                                 onChange={(e) => setimageurl(e.target.value)}
-                                className="appearance-none text-sm border shadow-sm rounded-xl w-full py-4 px-3 text-gray-700  focus:outline-none focus:shadow-outline"
+                                className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 focus:outline-none focus:shadow-outline"
                                 placeholder="Enter image URL"
                             />
                         </div>
@@ -243,7 +240,7 @@ const Team_create = () => {
                             value={formData.bio}
                             onChange={handleChange}
                             placeholder='Bio'
-                            className="appearance-none text-gray-700 text-sm border shadow-sm h-36 rounded-xl  w-full py-4 px-3 resize-none  leading-tight focus:outline-none focus:shadow-outline:shadow-outline"
+                            className="appearance-none text-white placeholder:text-gray-500 text-sm border border-white/10 bg-black/40 shadow-sm h-36 rounded-xl w-full py-4 px-3 resize-none leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                     </div>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 
 function TeamCard({ position, member, setCurrentTeam, currentTeam }) {
     const isActive = currentTeam === position;
@@ -12,11 +13,14 @@ function TeamCard({ position, member, setCurrentTeam, currentTeam }) {
                 }`}
         >
             <div className="relative h-24 md:h-28 overflow-hidden rounded-xl">
-                <img 
-                    src={member.image_url} 
+                <Image
+                    src={member.image_url}
                     alt={member.full_name}
-                    className={`w-full h-full object-cover object-top transition-transform duration-700 
-                        ${isActive ? "scale-110" : "group-hover:scale-110"}`} 
+                    fill
+                    sizes="(max-width: 640px) 33vw, 150px"
+                    unoptimized
+                    className={`w-full h-full object-cover object-top transition-transform duration-700
+                        ${isActive ? "scale-110" : "group-hover:scale-110"}`}
                 />
                 {isActive && (
                     <div className="absolute inset-0 bg-custom-yellow/20 backdrop-blur-[2px] transition-opacity duration-500"></div>

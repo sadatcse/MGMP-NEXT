@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import image1 from "../../assets/img/hero/bg.png";
 import 'swiper/css';
@@ -32,10 +33,13 @@ const HeroSlider = () => {
       <SwiperSlide>
         <div className='h-full flex justify-center items-center pt-12 relative'>
           {!loaded && (
-            <img
-              src={image1.src}
+            <Image
+              src={image1}
               alt='Background'
-              className='absolute inset-0 w-full h-full object-cover z-0'
+              fill
+              sizes='100vw'
+              priority
+              className='object-cover z-0'
             />
           )}
           <video
@@ -55,7 +59,7 @@ const HeroSlider = () => {
               viewport={{ once: false, amount: 0.2 }}
               className='h1 text-center lg:text-center mb-2'
             >
-              <p className='text-accent text-3xl md:text-5xl lg:text-6xl '>Build Your Tomorrow</p>
+              <span className='text-accent text-3xl md:text-5xl lg:text-6xl '>Build Your Tomorrow</span>
             </motion.h1>
             <motion.p
               variants={fadeIn('up', 0.6)}

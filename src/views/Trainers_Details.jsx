@@ -1,43 +1,12 @@
 "use client";
-import { useParams } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import Image from 'next/image';
 import { FaFacebookF, FaPhoneAlt } from 'react-icons/fa';
 import { FaInstagram } from 'react-icons/fa6';
 import { MdOutlineEmail } from 'react-icons/md';
-import useAxiosPublic from "../Hook/useAxiosPublic";
 import { motion } from 'framer-motion';
 
-const Trainers_Details = () => {
-    const { name } = useParams();
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const axiosPublic = useAxiosPublic();
-     
-    useEffect(() => {
-        axiosPublic.get("/trainer/get-all/")
-            .then(res => {
-                const trainer = res.data.find(item => item.short_name === name);
-                setData(trainer);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error(err);
-                setLoading(false);
-            });
-    }, [name, axiosPublic]);
-
-    if (loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-[#050505]">
-                <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
-            </div>
-        );
-    }
-
-    if (!data) {
-        return <div className="min-h-screen flex items-center justify-center text-white">Trainer Not Found</div>;
-    }
-
+const Trainers_Details = ({ data }) => {
     const { image_url, full_name, certification, bio, facebook, Instagram, mobile, email, short_name } = data;
 
     return (
@@ -58,10 +27,13 @@ const Trainers_Details = () => {
                             transition={{ duration: 0.8 }}
                             className="relative"
                         >
-                            <img 
-                                src={image_url} 
-                                className='w-full rounded-3xl shadow-2xl border border-white/5 object-cover max-h-[700px]' 
-                                alt={full_name} 
+                            <Image
+                                src={image_url}
+                                width={800}
+                                height={1000}
+                                unoptimized
+                                className='w-full rounded-3xl shadow-2xl border border-white/5 object-cover max-h-[700px]'
+                                alt={full_name}
                             />
                             {/* Subtle Glow */}
                             <div className="absolute -inset-1 bg-gradient-to-t from-red-600/20 to-transparent blur-2xl -z-10"></div>

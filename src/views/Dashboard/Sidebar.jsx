@@ -1,6 +1,7 @@
 "use client";
 import React, { useContext } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { FaTachometerAlt, FaBlog, FaUsers, FaSignOutAlt, FaRegBell, FaComments, FaGlobe } from 'react-icons/fa';
 import { RiListCheck2 } from "react-icons/ri";
@@ -96,7 +97,7 @@ const Sidebar = ({ onClose, theme, toggleTheme }) => {
             {/* Logo Section */}
             <div className="p-8 mb-4 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-3">
-                    <img src={logo.src} alt="Multigym Premium" className="w-10 h-10 object-contain" />
+                    <Image src={logo} alt="Multigym Premium" className="w-10 h-10 object-contain" />
                     <span className="text-white font-black uppercase tracking-tighter text-lg leading-none">
                         Elite <br /><span className="text-custom-yellow">Admin</span>
                     </span>

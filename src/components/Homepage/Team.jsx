@@ -7,6 +7,38 @@ import CustomButton from './CustomButton';
 import Spinner from "../Utility/Spinner";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
 import { motion } from 'framer-motion';
+import Image from 'next/image';
+
+const TeamSkeleton = () => (
+  <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
+    {[1, 2, 3, 4].map((i) => (
+      <div 
+        key={i} 
+        className='flex flex-col items-center bg-white/5 border border-white/5 rounded-[2rem] p-8 animate-pulse relative overflow-hidden'
+      >
+        {/* Shimmer Effect */}
+        <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
+
+        {/* Image Placeholder */}
+        <div className='w-full aspect-[4/5] mb-6 bg-white/10 rounded-2xl relative overflow-hidden'></div>
+
+        {/* Text Placeholders */}
+        <div className="text-center space-y-3 w-full flex flex-col items-center">
+          <div className='h-6 bg-white/10 rounded-md w-3/4'></div>
+          <div className='h-3 bg-red-600/30 rounded-md w-1/2'></div>
+          <div className='h-3 bg-white/5 rounded-md w-4/5'></div>
+          
+          {/* Social Buttons Placeholder */}
+          <div className='flex justify-center gap-4 pt-4 border-t border-white/5 mt-4 w-full'>
+            {[1, 2, 3].map((s) => (
+              <div key={s} className='w-10 h-10 rounded-xl bg-white/5'></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+);
 
 const Team = () => {
   const [trainerData, setTrainerData] = useState([]);
@@ -14,24 +46,26 @@ const Team = () => {
   const axiosPublic = useAxiosPublic();
 
   useEffect(() => {
-    let timeoutId;
+    let isMounted = true;
     const fetchTrainerData = async () => {
       try {
         const response = await axiosPublic.get('/trainer/get-all');
-        setTrainerData(response.data);
-        setLoading(false);
-        clearTimeout(timeoutId);
+        if (isMounted) {
+          setTrainerData(response.data);
+          setLoading(false);
+        }
       } catch (error) {
         console.error('Error fetching trainer data:', error);
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
     fetchTrainerData();
-    timeoutId = setTimeout(() => {
-      if (loading) fetchTrainerData();
-    }, 3000);
-    return () => clearTimeout(timeoutId);
-  }, [axiosPublic, loading]);
+    return () => {
+      isMounted = false;
+    };
+  }, [axiosPublic]);
 
   const selectedTrainers = trainerData.slice(0, 4);
 
@@ -43,9 +77,7 @@ const Team = () => {
         </div>
         
         {loading ? (
-          <div className="flex justify-center py-20">
-            <Spinner />
-          </div>
+          <TeamSkeleton />
         ) : (
           <>
             {/* Trainers Grid */}
@@ -61,15 +93,18 @@ const Team = () => {
                 >
                   {/* Image Container */}
                   <div className='relative w-full aspect-[4/5] mb-6 overflow-hidden rounded-2xl'>
-                    <Link href={`/trainers/${trainer.short_name}`}>
-                      <img 
-                        src={trainer.image_url} 
-                        alt={trainer.full_name} 
-                        className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110' 
+                    <Link href={`/trainers/${trainer.short_name}`} className="relative block w-full h-full">
+                      <Image
+                        src={trainer.image_url}
+                        alt={trainer.full_name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
+                        unoptimized
                       />
                     </Link>
                     {/* Subtle Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                   </div>
 
                   {/* Info */}

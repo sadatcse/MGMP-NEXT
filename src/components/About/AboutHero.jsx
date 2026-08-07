@@ -27,7 +27,19 @@ function AboutHero() {
                     </p>
                     
                     <div className="flex justify-center">
-                        <div className="flex flex-col sm:flex-row items-center gap-6 group cursor-pointer" onClick={toggleModal}>
+                        <div
+                            className="flex flex-col sm:flex-row items-center gap-6 group cursor-pointer"
+                            onClick={toggleModal}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    toggleModal();
+                                }
+                            }}
+                            role="button"
+                            tabIndex={0}
+                            aria-label="Play video: know more about us"
+                        >
                             <div className='bg-custom-yellow p-5 md:p-7 rounded-full shadow-[0_0_50px_rgba(244,203,113,0.3)] transition-all duration-500 group-hover:scale-110 relative'>
                                 <div className="absolute inset-0 rounded-full bg-custom-yellow animate-ping opacity-20"></div>
                                 <FaPlay className='text-2xl text-black relative z-10' />

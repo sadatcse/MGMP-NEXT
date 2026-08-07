@@ -1,9 +1,14 @@
 import Home from "../src/views/Home";
 
 export const metadata = {
-  title: "Multigym Premium | Elite Fitness Club & Training Center",
+  title: {
+    absolute: "Multigym Premium | Elite Fitness Club & Training Center",
+  },
   description: "Join Multigym Premium, the ultimate luxury fitness club. Get access to state-of-the-art gym equipment, professional master trainers, success stories, and custom training programs.",
   keywords: "multigym, premium gym, master trainers, luxury fitness club, training center, workout routines, wellness",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Multigym Premium | Elite Fitness Club & Training Center",
     description: "Join Multigym Premium, the ultimate luxury fitness club. Get access to state-of-the-art gym equipment, professional master trainers, success stories, and custom training programs.",

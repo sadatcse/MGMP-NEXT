@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FaCalendarAlt, FaArrowRight } from 'react-icons/fa';
+import ImageWithLoader from '../Utility/ImageWithLoader';
 
 // Utility function to strip HTML tags
 const stripHtml = (html) => {
@@ -25,13 +26,16 @@ const NewsCard = ({ news, index }) => {
         >
             {/* Image Container */}
             <Link href={`/blog/${_id}`} className="relative block h-64 overflow-hidden">
-                <img 
-                    src={image} 
-                    className='w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110' 
-                    alt={title} 
+                <ImageWithLoader
+                    src={image}
+                    className='w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110'
+                    alt={title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    unoptimized
                 />
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity pointer-events-none"></div>
                 
                 {/* Category Badge */}
                 <div className="absolute top-6 left-6 px-4 py-1.5 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
@@ -55,13 +59,13 @@ const NewsCard = ({ news, index }) => {
 
                 {/* Title */}
                 <Link href={`/blog/${_id}`}>
-                    <h3 className='text-2xl font-black text-white uppercase tracking-tight leading-tight mb-4 group-hover:text-custom-yellow transition-colors line-clamp-2'>
+                    <h3 className='text-2xl font-black text-white uppercase tracking-tight leading-tight mb-4 group-hover:text-custom-yellow transition-colors line-clamp-2 min-h-[3.5rem]'>
                         {title}
                     </h3>
                 </Link>
 
                 {/* Description Snippet */}
-                <p className='text-gray-400 text-sm font-medium leading-relaxed mb-6 line-clamp-3'>
+                <p className='text-gray-400 text-sm font-medium leading-relaxed mb-6 line-clamp-3 min-h-[3.75rem]'>
                     {cleanDescription}
                 </p>
 

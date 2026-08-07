@@ -84,7 +84,7 @@ const Notice_create = () => {
         formData.image = imageurl;
 
         try {
-            const response = await axiosSecure.post("/notice/post",
+            await axiosSecure.post("/notice/post",
                 formData,
                 {
                     headers: {
@@ -92,8 +92,6 @@ const Notice_create = () => {
                     },
                 }
             );
-
-            console.log("Response:", response.data);
 
             Swal.fire({
                 icon: "success",

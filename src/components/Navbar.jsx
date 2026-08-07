@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import "../css/navbar.css";
 import Logo from "../assets/logo.png";
@@ -11,14 +12,7 @@ const Navbar = () => {
   const pathname = usePathname();
 
   const handleDropdownToggle = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-
-    // Close the dropdown after 3 seconds
-    if (!isDropdownOpen) {
-      setTimeout(() => {
-        setIsDropdownOpen(false);
-      }, 3000);
-    }
+    setIsDropdownOpen((prev) => !prev);
   };
 
   const menu = (
@@ -37,7 +31,7 @@ const Navbar = () => {
       <div className="dropdown dropdown-end">
         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle hover:rounded-lg hover:bg-transparent avatar">
           <div className="w-10 rounded-lg">
-            <img alt="User Avatar" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+            <Image alt="User Avatar" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" width={40} height={40} />
           </div>
         </div>
         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
@@ -85,11 +79,13 @@ const Navbar = () => {
               </ul>
             )}
           </div>
-          <Link href="/" className="btn btn-ghost text-xl z-50">
-            <img className='h-24 w-26 hidden md:block' src={Logo.src} alt="Logo" />
-          </Link>
-          <Link href="/" className="btn btn-ghost text-xl z-50">
-            <img className='w-10 block md:hidden' src={Logo.src} alt="Logo" />
+          <Link href="/" className="z-50 py-1 flex items-center focus:outline-none">
+            <Image 
+              className='h-12 sm:h-14 md:h-16 w-auto object-contain transition-transform duration-200 hover:scale-105' 
+              src={Logo} 
+              alt="Multigym Premium Logo" 
+              priority
+            />
           </Link>
         </div>
         <div className="flex navbar-end w-full justify-end ">

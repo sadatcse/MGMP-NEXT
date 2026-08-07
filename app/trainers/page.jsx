@@ -1,9 +1,12 @@
 import PageComponent from '../../src/views/Trainers';
 
 export const metadata = {
-  title: "Meet Our Elite Master Trainers & Instructors | Multigym Premium",
+  title: "Meet Our Elite Master Trainers & Instructors",
   description: "Train with the best at Multigym Premium. Learn about our certified fitness instructors, coaches, nutritionists, and exercise gurus ready to support your health journey.",
   keywords: "gym coaches, master trainers, fitness instructors, certified personal trainers, exercise experts",
+  alternates: {
+    canonical: "/trainers",
+  },
   openGraph: {
     title: "Meet Our Elite Master Trainers & Instructors | Multigym Premium",
     description: "Train with the best at Multigym Premium. Learn about our certified fitness instructors, coaches, nutritionists, and exercise gurus ready to support your health journey.",

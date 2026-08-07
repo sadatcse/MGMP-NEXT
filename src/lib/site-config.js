@@ -1,0 +1,41 @@
+export const siteConfig = {
+  name: 'Multigym Premium',
+  title: 'Multigym Premium | Elite Fitness Club & Training Center in Mohammadpur, Dhaka',
+  description:
+    "Join Multigym Premium, Dhaka's premier luxury fitness club in Mohammadpur. State-of-the-art gym equipment, certified master trainers, group classes, and custom training programs.",
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.multigympremium.com',
+  ogImage: '/about.png',
+  keywords: [
+    'Multigym Premium',
+    'gym in Mohammadpur',
+    'gym in Dhaka',
+    'best gym in Mohammadpur',
+    'fitness club Dhaka',
+    'master trainers Dhaka',
+    'Shia Masjid gym',
+    'premium fitness center Dhaka',
+    'personal trainer Dhaka',
+    'gym membership Dhaka',
+  ],
+  business: {
+    legalName: 'Multigym Premium',
+    streetAddress: '24/1, 24/2 (3rd & 4th Floor), Ring Road, Shia Masjid Mor',
+    addressLocality: 'Mohammadpur',
+    addressRegion: 'Dhaka',
+    postalCode: '1207',
+    addressCountry: 'BD',
+    phone: '+8801313197435',
+    displayPhone: '01313-197435, 01313-197427',
+    email: 'info@multigympremium.com',
+  },
+  geo: {
+    latitude: '23.7565',
+    longitude: '90.3595',
+  },
+  social: {
+    facebook: 'https://www.facebook.com/MultiGymPremium/',
+    instagram: 'https://www.instagram.com/multigym.premium/?hl=en',
+    tiktok: 'https://www.tiktok.com/@multigympremium',
+    youtube: 'https://www.youtube.com/channel/UCC2cuCIe1HeeYWs5LvOF7jw',
+  },
+};

@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -123,12 +124,9 @@ const Signup = () => {
     }, [dateOfBirth]);
 
     const onSubmit = (data) => {
-        // console.log(data)
         const signUpUser = async (userData) => {
             try {
-                // const response = await axios.post('http://localhost:8000/api/users/signup', userData);
                 const response = await axios.post('https://multigym-management-server-dmmji.ondigitalocean.app/api/users/signup', userData);
-                console.log(response.data)
                 if (response.data.message === "User with this email already exists." || response.data.message === "User with this mobile already exists.") {
                     Swal.fire({
                         icon: "error",
@@ -146,7 +144,7 @@ const Signup = () => {
                     router.push("/", { replace: true });
                 }
             } catch (error) {
-                console.log(error.response.data)
+                console.error(error.response?.data)
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",

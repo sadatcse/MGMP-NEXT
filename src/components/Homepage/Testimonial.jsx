@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import Title from "./Title";
-import Spinner from "../Utility/Spinner"; 
+import Spinner from "../Utility/Spinner";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
 import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
+import Image from 'next/image';
 
 const Testimonial = () => {
   const [testimonialData, setTestimonialData] = useState([]);
@@ -48,14 +49,17 @@ const Testimonial = () => {
                 {testimonialData && testimonialData.map((item, ind) => (
                   <div
                     key={ind}
-                    className="flex flex-col justify-center px-10 mx-6 my-10 rounded-[3rem] w-[450px] bg-white/5 border border-white/5 transition-all duration-500 hover:border-custom-yellow/50 hover:bg-white/10 group shadow-2xl relative"
+                    className="flex flex-col justify-center px-6 sm:px-10 mx-4 sm:mx-6 my-10 rounded-[3rem] w-[85vw] max-w-[450px] bg-white/5 border border-white/5 transition-all duration-500 hover:border-custom-yellow/50 hover:bg-white/10 group shadow-2xl relative"
                   >
                     {/* Profile Image with Ring */}
                     <div className="absolute -top-10 left-1/2 -translate-x-1/2 p-1 bg-[#0a0a0a] rounded-full">
-                      <img
+                      <Image
                         className="w-20 h-20 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-white/10 group-hover:border-custom-yellow"
                         src={item?.image}
-                        alt={item?.name}
+                        alt={item?.name || "Member testimonial"}
+                        width={80}
+                        height={80}
+                        unoptimized
                       />
                     </div>
 

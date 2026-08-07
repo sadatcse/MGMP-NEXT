@@ -138,7 +138,7 @@ const Testimonial_edit = () => {
             <p className='text-2xl font-bold'>Edit Testimonial</p>
 
             {/* breadcrumbs */}
-            <div className="breadcrumbs mt-2 text-xs text-black">
+            <div className="breadcrumbs mt-2 text-xs">
                 <ul>
                     <li className='text-gray-400'><a>Home</a></li>
                     <li className='text-gray-400'><a>admin</a></li>
@@ -157,7 +157,7 @@ const Testimonial_edit = () => {
                             name="title"
                             value={formData.title}
                             onChange={handleChange}
-                            className="appearance-none text-sm border shadow-sm rounded-xl  w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Testimonial Title"
                             required
                         />
@@ -169,7 +169,7 @@ const Testimonial_edit = () => {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="appearance-none text-sm border shadow-sm rounded-xl  w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Testimonial Person Name"
                             required
                         />
@@ -180,15 +180,15 @@ const Testimonial_edit = () => {
                             name="comment"
                             value={formData.comment}
                             onChange={(e) => handleCommentChange(e.target.value)}
-                            className="appearance-none resize-none text-sm border  shadow-sm rounded-xl h-52  w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none resize-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl h-52 w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Enter testimonial comment"
                             required
                         />
                     </div>
                     <div className="flex items-center gap-5">
                         <div className='w-1/2'>
-                            <div className="form-control border rounded-lg shadow-sm my-6">
-                                <input onChange={handleImageUpload} type="file" className="file-input outline-none focus:outline-none" />
+                            <div className="form-control border border-white/10 bg-black/40 rounded-lg shadow-sm my-6">
+                                <input onChange={handleImageUpload} type="file" className="file-input text-white outline-none focus:outline-none" />
                             </div>
                         </div>
                         <div className='w-1/2'>
@@ -198,7 +198,7 @@ const Testimonial_edit = () => {
                                 name="image"
                                 value={imageurl}
                                 onChange={(e) => { setimageurl(e.target.value); setPreviewImageUrl(e.target.value); }}
-                                className="appearance-none text-sm border shadow-sm rounded-xl w-full py-4 px-3 text-gray-700  focus:outline-none focus:shadow-outline"
+                                className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 focus:outline-none focus:shadow-outline"
                                 placeholder="Enter image URL"
                             />
                         </div>

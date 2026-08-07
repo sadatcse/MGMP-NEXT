@@ -58,7 +58,7 @@ const Contact_us = () => {
               });
             },
             (error) => {
-              console.log('FAILED...', error.text);
+              console.error('Contact form submission failed:', error.text);
               Swal.fire({
                 title: 'Error!',
                 text: 'Something went wrong. Please try again later.',

@@ -172,6 +172,7 @@ const Chatbox = () => {
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.1, rotate: 5 }}
         whileTap={{ scale: 0.9 }}
+        aria-label={isOpen ? "Close chat" : "Open chat"}
         className="w-16 h-16 rounded-full bg-gradient-to-r from-red-600 to-amber-500 text-white flex items-center justify-center shadow-[0_8px_30px_rgb(239,68,68,0.4)] border border-white/20 relative group overflow-hidden focus:outline-none"
       >
         <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
@@ -212,7 +213,7 @@ const Chatbox = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
             transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-            className="absolute bottom-20 right-0 w-[360px] sm:w-[400px] h-[550px] rounded-[2.5rem] bg-black/95 backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col"
+            className="absolute bottom-20 right-0 w-[calc(100vw-3rem)] max-w-[360px] sm:w-[400px] h-[min(70vh,550px)] rounded-[2.5rem] bg-black/95 backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#131313] via-[#1f1a1a] to-[#131313] border-b border-white/10 px-6 py-5 flex items-center justify-between">
@@ -233,12 +234,14 @@ const Chatbox = () => {
                 <button
                   onClick={handleClearChat}
                   title="Clear chat history"
+                  aria-label="Clear chat history"
                   className="p-2.5 rounded-xl bg-white/5 hover:bg-red-600/20 text-gray-400 hover:text-red-500 transition-all duration-300 focus:outline-none"
                 >
                   <FaTrash className="text-xs" />
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
+                  aria-label="Close chat"
                   className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-300 focus:outline-none"
                 >
                   <FaTimes className="text-xs" />
@@ -405,6 +408,7 @@ const Chatbox = () => {
                   <button
                     type="submit"
                     disabled={isLoading || !inputText.trim()}
+                    aria-label="Send message"
                     className="w-12 h-12 rounded-2xl bg-amber-500 text-black flex items-center justify-center transition-all duration-300 hover:bg-amber-400 disabled:opacity-55 disabled:hover:bg-amber-500 focus:outline-none shadow-lg shadow-amber-500/10 flex-shrink-0"
                   >
                     <FaPaperPlane className="text-sm" />

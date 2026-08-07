@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import ImageWithLoader from '../../../components/Utility/ImageWithLoader';
 import UseAxioSecure from '../../../Hook/UseAxioSecure';
 import Swal from 'sweetalert2';
 import { FiEdit3, FiEye } from "react-icons/fi";
@@ -121,10 +122,12 @@ const Blog_list = () => {
         );
     };
 
-    const filteredData = usersData.filter(post => 
-        (post.title || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (post.category || "").toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredData = [...usersData]
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .filter(post => 
+            (post.title || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (post.category || "").toLowerCase().includes(searchQuery.toLowerCase())
+        );
 
     const updateUserData = () => {
         const startIndex = currentPage * itemsPerPage;
@@ -233,7 +236,7 @@ const Blog_list = () => {
                                         <td className="px-6 py-6">
                                             <div className="w-16 h-12 rounded-xl overflow-hidden bg-neutral-800 border border-white/10 flex items-center justify-center">
                                                 {post.image ? (
-                                                    <img src={post.image} className="w-full h-full object-cover" alt="" />
+                                                    <ImageWithLoader src={post.image} width={64} height={48} unoptimized className="w-full h-full object-cover" alt="" />
                                                 ) : (
                                                     <span className="text-[10px] text-gray-500 font-bold uppercase">No Image</span>
                                                 )}

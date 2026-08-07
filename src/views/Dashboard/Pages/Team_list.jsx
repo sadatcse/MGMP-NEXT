@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import UseAxioSecure from '../../../Hook/UseAxioSecure';
 import Swal from 'sweetalert2';
 import { FiEdit3 } from "react-icons/fi";
@@ -217,7 +218,7 @@ const Team_list = () => {
                                             <div className="flex items-center gap-4">
                                                 <div className="w-12 h-12 rounded-2xl overflow-hidden bg-neutral-800 border border-white/10 shrink-0 flex items-center justify-center">
                                                     {trainer.image_url ? (
-                                                        <img src={trainer.image_url} className="w-full h-full object-cover" alt="" />
+                                                        <Image src={trainer.image_url} width={48} height={48} unoptimized className="w-full h-full object-cover" alt="" />
                                                     ) : (
                                                         <span className="text-[10px] text-gray-500 font-bold">N/A</span>
                                                     )}
