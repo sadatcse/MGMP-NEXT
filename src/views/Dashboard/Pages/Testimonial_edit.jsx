@@ -7,6 +7,7 @@ import { useState } from "react";
 
 import Swal from "sweetalert2";
 import axios from "axios";
+import ImageUpload from "../../../components/Utility/ImageUploadcpanel";
 
 const Testimonial_edit = () => {
     const { id: _id } = useParams();
@@ -187,9 +188,7 @@ const Testimonial_edit = () => {
                     </div>
                     <div className="flex items-center gap-5">
                         <div className='w-1/2'>
-                            <div className="form-control border border-white/10 bg-black/40 rounded-lg shadow-sm my-6">
-                                <input onChange={handleImageUpload} type="file" className="file-input text-white outline-none focus:outline-none" />
-                            </div>
+                            <ImageUpload setImageUrl={setimageurl} setPreviewImageUrl={setPreviewImageUrl} folder="testimonial" />
                         </div>
                         <div className='w-1/2'>
                             <input

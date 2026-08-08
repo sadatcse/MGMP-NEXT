@@ -1,23 +1,49 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Sidebar from '../../src/views/Dashboard/Sidebar';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiMenuAlt2 } from "react-icons/hi";
+import { AuthContext } from '../../src/providers/AuthProvider';
+import { useRouter } from 'next/navigation';
 
 export default function DashboardLayout({ children }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [theme, setTheme] = useState('dark');
+    const { user, loading } = useContext(AuthContext);
+    const router = useRouter();
 
     useEffect(() => {
         const storedTheme = localStorage.getItem('dashboard-theme') || 'dark';
         setTheme(storedTheme);
     }, []);
 
+    useEffect(() => {
+        if (!loading && !user && typeof window !== 'undefined') {
+            const hasToken = localStorage.getItem('token');
+            if (!hasToken) {
+                router.push('/webadmin');
+            }
+        }
+    }, [user, loading, router]);
+
     const toggleTheme = () => {
         const newTheme = theme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
         localStorage.setItem('dashboard-theme', newTheme);
     };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center text-white">
+                <div className="w-16 h-16 border-4 border-red-600 border-t-custom-yellow rounded-full animate-spin mb-4"></div>
+                <p className="text-xs font-black uppercase tracking-[0.3em] text-gray-400">Verifying Admin Credentials...</p>
+            </div>
+        );
+    }
+
+    if (!user && typeof window !== 'undefined' && !localStorage.getItem('token')) {
+        return null;
+    }
 
     return (
         <div className={`flex bg-[#050505] min-h-screen text-white font-sans ${theme === 'light' ? 'light-mode' : ''} dashboard-theme-container`}>

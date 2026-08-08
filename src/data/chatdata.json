@@ -15,6 +15,16 @@
       "branchName": "Shiya Masjid",
       "floor": "Ladies",
       "effectiveDate": "2026-05-07"
+    },
+    {
+      "branchName": "Lalmatia",
+      "effectiveDate": "2026-05-07"
+    },
+    {
+      "branchName": "Power Fit — Adabor",
+      "address": "5th & 6th Floors, 48/49 Jonota Cooperative Housing Society, Ring Road, Shyamoli, Adabor, Dhaka-1207",
+      "phone": "+880 1313-197426",
+      "effectiveDate": "2026-08-08"
     }
   ],
   "operatingHours": {

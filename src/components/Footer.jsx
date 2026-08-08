@@ -49,7 +49,7 @@ const Footer = () => {
                             </div>
                             <div className="flex items-center gap-4">
                                 <FaPhoneAlt className="text-custom-yellow" />
-                                <p className="text-gray-400 text-sm font-bold">01313-197435, 01313-197427</p>
+                                <p className="text-gray-400 text-sm font-bold">01313-197435, 01313-197427, 01313-197426</p>
                             </div>
                             <div className="flex items-center gap-4">
                                 <FaEnvelope className="text-custom-yellow" />

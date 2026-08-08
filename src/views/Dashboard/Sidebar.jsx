@@ -33,7 +33,7 @@ const Sidebar = ({ onClose, theme, toggleTheme }) => {
                     color: '#fff',
                     confirmButtonColor: '#dc2626'
                 }).then(() => {
-                    router.push("/");
+                    router.push("/webadmin");
                 });
             })
             .catch((error) => {

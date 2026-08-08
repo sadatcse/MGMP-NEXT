@@ -219,7 +219,7 @@ const Notice_create = () => {
                         <div>
                             <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1 block mb-2">Notice Banner Upload</label>
                             <div className="bg-black/40 border border-white/5 rounded-2xl p-4 flex items-center justify-center">
-                                <ImageUpload setImageUrl={setImageUrl} />
+                                <ImageUpload setImageUrl={setImageUrl} folder="notice" />
                             </div>
                         </div>
 

@@ -1,6 +1,14 @@
 import { NextResponse } from 'next/server';
 
 export async function POST() {
-  // Clear any necessary cookies or sessions here
-  return NextResponse.json({ message: "Logged out successfully" }, { status: 200 });
+  const response = NextResponse.json({ message: "Logged out successfully" }, { status: 200 });
+  
+  // Clear the HTTP-only JWT token cookie
+  response.cookies.set('token', '', {
+    httpOnly: true,
+    expires: new Date(0),
+    path: '/',
+  });
+
+  return response;
 }

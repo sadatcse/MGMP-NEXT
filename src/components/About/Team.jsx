@@ -4,6 +4,7 @@ import axios from "axios";
 import { FaFacebook, FaInstagram, FaPhone } from "react-icons/fa";
 import TeamCard from "./TeamCard";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
+import { sortTrainers } from "../../lib/teamSort";
 
 const Team = () => {
   const [currentTeam, setCurrentTeam] = useState(0);
@@ -17,7 +18,7 @@ const Team = () => {
       try {
         const res = await axiosPublic.get("/trainer/get-all");
         if (isMounted) {
-          setTeamData(res.data);
+          setTeamData(sortTrainers(res.data));
           setLoading(false);
         }
       } catch (error) {

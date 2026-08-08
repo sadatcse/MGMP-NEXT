@@ -5,12 +5,14 @@
   "type": "module",
   "homepage": "https://www.multigympremium.com",
   "scripts": {
-    "dev": "node node_modules/next/dist/bin/next dev",
-    "build": "node node_modules/next/dist/bin/next build",
+    "dev": "node --max-old-space-size=8192 node_modules/next/dist/bin/next dev",
+    "build": "node --max-old-space-size=8192 node_modules/next/dist/bin/next build",
     "start": "node node_modules/next/dist/bin/next start",
+    "clean": "rimraf .next",
     "lint": "eslint ."
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1106.0",
     "@emailjs/browser": "^4.4.1",
     "@emailjs/nodejs": "^2.2.0",
     "@hookform/resolvers": "^3.9.0",

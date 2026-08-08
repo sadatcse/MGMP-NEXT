@@ -30,6 +30,9 @@ const TrainersSchema = new Schema({
   mobile: {
     type: String,
   },
+  blood_group: {
+    type: String,
+  },
   role: {
     type: String,
   },

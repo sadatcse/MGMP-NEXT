@@ -157,7 +157,7 @@ const Testimonial_create = () => {
                     </div>
                     <div className="flex  items-center gap-5">
                         <div className='w-1/2'>
-                        <ImageUpload setImageUrl={setimageurl} />
+                        <ImageUpload setImageUrl={setimageurl} folder="testimonial" />
                         </div>
                         <div className='w-1/2'>
                             <input

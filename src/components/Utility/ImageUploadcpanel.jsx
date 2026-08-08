@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-const ImageUpload = ({ setImageUrl, setPreviewImageUrl }) => {
+const ImageUpload = ({ setImageUrl, setPreviewImageUrl, folder = 'general' }) => {
+    const [uploading, setUploading] = useState(false);
+
     const handleImageUpload = async (e) => {
         const imageFile = e.target.files[0];
         if (!imageFile) return;
 
+        setUploading(true);
+
         const formData = new FormData();
         formData.append('image', imageFile);
+        formData.append('folder', folder);
 
         const uploadUrl = `/api/upload`;
 
@@ -16,7 +21,7 @@ const ImageUpload = ({ setImageUrl, setPreviewImageUrl }) => {
             const response = await axios.post(uploadUrl, formData);
 
             if (response.status === 200 && response.data?.success) {
-                const uploadedUrl = response.data.data.url;
+                const uploadedUrl = response.data.data?.url || response.data.url;
                 
                 if (setImageUrl) {
                     setImageUrl(uploadedUrl);
@@ -28,7 +33,7 @@ const ImageUpload = ({ setImageUrl, setPreviewImageUrl }) => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Success!',
-                    text: 'Image uploaded successfully to server uploads folder',
+                    text: `Image uploaded successfully to AWS S3 (${folder} folder)`,
                     background: '#1a1a1a',
                     color: '#fff',
                     confirmButtonColor: '#dc2626'
@@ -37,7 +42,7 @@ const ImageUpload = ({ setImageUrl, setPreviewImageUrl }) => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error!',
-                    text: 'Failed to upload image to host',
+                    text: 'Failed to upload image',
                     background: '#1a1a1a',
                     color: '#fff',
                     confirmButtonColor: '#dc2626'
@@ -53,16 +58,25 @@ const ImageUpload = ({ setImageUrl, setPreviewImageUrl }) => {
                 color: '#fff',
                 confirmButtonColor: '#dc2626'
             });
+        } finally {
+            setUploading(false);
         }
     };
 
     return (
-        <div className="form-control border border-white/10 bg-black/40 rounded-2xl p-2 w-full my-2">
+        <div className="form-control border border-white/10 bg-black/40 rounded-2xl p-2 w-full my-2 relative">
             <input 
                 onChange={handleImageUpload} 
                 type="file" 
-                className="file-input file-input-bordered bg-transparent text-white w-full outline-none focus:outline-none cursor-pointer" 
+                disabled={uploading}
+                accept="image/*"
+                className="file-input file-input-bordered bg-transparent text-white w-full outline-none focus:outline-none cursor-pointer disabled:opacity-50" 
             />
+            {uploading && (
+                <div className="text-xs text-custom-yellow font-bold mt-1 px-2 animate-pulse">
+                    Uploading image to AWS S3...
+                </div>
+            )}
         </div>
     );
 };

@@ -195,7 +195,7 @@ const Blog_edit = () => {
 
                     <div className="flex items-center gap-5 mt-6">
                         <div className='w-1/2'>
-                        <ImageUpload setImageUrl={setimageurl} setPreviewImageUrl={setPreviewImageUrl} />
+                        <ImageUpload setImageUrl={setimageurl} setPreviewImageUrl={setPreviewImageUrl} folder="blog" />
 
                         </div>
                         <div className='w-1/2'>

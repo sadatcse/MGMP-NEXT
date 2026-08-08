@@ -183,7 +183,7 @@ const Blog_create = () => {
 
                     <div className="flex items-center gap-5">
                         <div className='w-1/2'>
-                            <ImageUpload setImageUrl={setImageUrl} />
+                            <ImageUpload setImageUrl={setImageUrl} folder="blog" />
                         </div>
                         <div className='w-1/2'>
                             <input

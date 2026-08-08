@@ -198,6 +198,7 @@ const Team_create = () => {
                             required
                         >
                             <option value="" disabled>Select Role</option>
+                            <option value="Senior Trainer">Senior Trainer</option>
                             <option value="Group Fitness Instructor">Group Fitness Instructor</option>
                             <option value="Personal Trainer">Personal Trainer</option>
                             <option value="Nutritionist">Nutritionist</option>
@@ -218,7 +219,7 @@ const Team_create = () => {
 
                     <div className="flex  items-center gap-5">
                         <div className='w-1/2'>
-                        <ImageUpload setImageUrl={setimageurl} />
+                        <ImageUpload setImageUrl={setimageurl} folder="team" />
                         </div>
                         <div className='w-1/2'>
                             <input

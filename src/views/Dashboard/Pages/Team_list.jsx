@@ -151,7 +151,7 @@ const Team_list = () => {
                         )}
                     </AnimatePresence>
                     <button 
-                        onClick={() => router.push('/dashboard/team_create')}
+                        onClick={() => router.push('/dashboard/team_add')}
                         className="flex items-center gap-2 px-8 py-4 bg-red-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-white hover:text-red-600 transition-all duration-300 shadow-xl shadow-red-600/20"
                     >
                         <AiOutlinePlus size={18} /> Add Instructor

@@ -8,6 +8,7 @@ import Spinner from "../Utility/Spinner";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { sortTrainers } from '../../lib/teamSort';
 
 const TeamSkeleton = () => (
   <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
@@ -51,7 +52,7 @@ const Team = () => {
       try {
         const response = await axiosPublic.get('/trainer/get-all');
         if (isMounted) {
-          setTrainerData(response.data);
+          setTrainerData(sortTrainers(response.data));
           setLoading(false);
         }
       } catch (error) {

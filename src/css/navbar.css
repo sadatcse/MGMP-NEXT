@@ -1,14 +1,23 @@
 /* General styles for menu links */
 .menu-link {
-    color: white;
+    color: white !important;
     text-decoration: none;
     position: relative;
     transition: color 0.3s ease;
+    background: transparent !important;
+    padding: 0.5rem 0.25rem !important;
+}
+
+.menu-link:hover,
+.menu-link:focus,
+.menu-link:active {
+    background: transparent !important;
+    color: white !important;
 }
 
 /* Styles for the active link */
 .menu-link.active {
-    color: red;
+    color: #ef4444 !important; /* red-500 */
 }
 
 /* Underline effect */
@@ -19,7 +28,7 @@
     bottom: -2px;
     width: 0;
     height: 2px;
-    background-color: red;
+    background-color: #ef4444;
     transition: width 0.3s ease;
 }
 

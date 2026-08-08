@@ -32,9 +32,15 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const logOut = () => {
+  const logOut = async () => {
     setLoading(true);
     localStorage.removeItem("token");
+    try {
+      await axios.post("/api/logout", {}, { withCredentials: true });
+    } catch (e) {
+      console.warn("Logout API error:", e);
+    }
+    setLoading(false);
     return signOut(auth);
   };
 
@@ -44,35 +50,35 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      const userEmail = currentUser?.email || user?.email;
-      const loggedUser = { email: userEmail };
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
 
-      setLoading(false);
-      // if user exists then issue a token
-      if (currentUser) {
-        axios
-          .post(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/sign-in`,
-            loggedUser,
-            {
-              withCredentials: true,
-            }
-          )
-          .then((res) => {
+      if (currentUser?.email) {
+        const loggedUser = { email: currentUser.email };
+        const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL 
+          ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/sign-in`
+          : "/api/auth/sign-in";
+
+        try {
+          const res = await axios.post(apiUrl, loggedUser, { withCredentials: true });
+          if (res.data?.token) {
             localStorage.setItem("token", res.data.token);
-          });
+          }
+        } catch (err) {
+          console.warn("Token fetch failed:", err?.response?.data || err.message);
+        }
       } else {
-        axios
-          .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, loggedUser, {
-            withCredentials: true,
-          });
+        localStorage.removeItem("token");
+        try {
+          await axios.post("/api/logout", {}, { withCredentials: true });
+        } catch (e) {
+          // ignore
+        }
       }
+      setLoading(false);
     });
-    return () => {
-      return unsubscribe();
-    };
+
+    return () => unsubscribe();
   }, []);
 
   const authInfo = {

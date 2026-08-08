@@ -104,7 +104,8 @@ const Signup = () => {
     const [age, setAge] = useState('');
     const [branches] = useState([
         { label: 'ShiaMosjid Branch', value: 'shia' },
-        { label: 'Lalmatia Branch', value: 'lalmatia' }
+        { label: 'Lalmatia Branch', value: 'lalmatia' },
+        { label: 'Power Fit — Adabor', value: 'adabor' }
     ]);
     const [memberTypes] = useState(['Monthly', 'Weekly', 'Daily', 'Package']);
     const [bloodGroups] = useState(['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']);

@@ -14,8 +14,8 @@ const WorkoutSetup = () => {
 
     const fetchGymMachines = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/gym-machines/');
-            setGymMachines(response.data);
+            const response = await axios.get('/api/gym-machines/');
+            setGymMachines(response.data || []);
         } catch (error) {
             console.error("There was an error fetching the gym machines!", error);
         }
@@ -23,7 +23,7 @@ const WorkoutSetup = () => {
 
     const handleAddMachine = async () => {
         try {
-            await axios.post('http://localhost:8000/api/gym-machines/post', newMachine);
+            await axios.post('/api/gym-machines/post', newMachine);
             fetchGymMachines();
             setNewMachine({ name: '', image: '', category: '', branch: '' });
         } catch (error) {
@@ -33,7 +33,7 @@ const WorkoutSetup = () => {
 
     const handleEditMachine = async () => {
         try {
-            await axios.put(`http://localhost:8000/api/gym-machines/put/${editMachine._id}`, editMachine);
+            await axios.put(`/api/gym-machines/put/${editMachine._id}`, editMachine);
             fetchGymMachines();
             setEditMachine(null);
         } catch (error) {
@@ -43,7 +43,7 @@ const WorkoutSetup = () => {
 
     const handleDeleteMachine = async (id) => {
         try {
-            await axios.delete(`http://localhost:8000/api/gym-machines/delete/${id}`);
+            await axios.delete(`/api/gym-machines/delete/${id}`);
             fetchGymMachines();
         } catch (error) {
             console.error("There was an error deleting the gym machine!", error);

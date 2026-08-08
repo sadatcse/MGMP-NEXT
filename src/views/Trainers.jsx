@@ -8,6 +8,7 @@ import { fadeIn } from '../../lib/variants';
 import Image from 'next/image';
 
 import useAxiosPublic from './../Hook/useAxiosPublic';
+import { sortTrainers } from '../lib/teamSort';
 
 const Trainers = () => {
     const [data, setData] = useState([]);
@@ -17,7 +18,7 @@ const Trainers = () => {
         const fetchTrainerData = async () => {
             try {
                 const response = await axiosPublic.get("/trainer/get-all/");
-                setData(response.data);
+                setData(sortTrainers(response.data));
             } catch (error) {
                 console.error('Error fetching trainer data:', error);
             }

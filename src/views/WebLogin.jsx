@@ -8,13 +8,19 @@ import { AuthContext } from "./../providers/AuthProvider";
 import { motion } from "framer-motion";
 
 const WebLogin = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, user } = useContext(AuthContext);
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const pathname = usePathname();
   const MySwal = withReactContent(Swal);
+
+  React.useEffect(() => {
+    if (user || (typeof window !== "undefined" && localStorage.getItem("token"))) {
+      router.push("/dashboard");
+    }
+  }, [user, router]);
 
   const handleLogin = (e) => {
     e.preventDefault();
