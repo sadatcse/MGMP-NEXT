@@ -13,7 +13,8 @@ import {
     FaLink, 
     FaDirections, 
     FaHistory, 
-    FaMapMarkerAlt 
+    FaMapMarkerAlt,
+    FaEnvelope
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import useAxiosPublic from '../../Hook/useAxiosPublic';
@@ -25,7 +26,8 @@ const Panel = () => {
         blogs: 0,
         trainers: 0,
         testimonials: 0,
-        notices: 0
+        notices: 0,
+        contactMessages: 0
     });
     const [visitorStats, setVisitorStats] = useState({
         today: 0,
@@ -45,19 +47,21 @@ const Panel = () => {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const [blogs, trainers, testimonials, notices, visitors] = await Promise.all([
+                const [blogs, trainers, testimonials, notices, visitors, contactMsgs] = await Promise.all([
                     axiosPublic.get('/news/get-all'),
                     axiosPublic.get('/trainer/get-all'),
                     axiosPublic.get('/testimonial/get-all').catch(() => ({ data: [] })),
                     axiosPublic.get('/notice/get-all').catch(() => ({ data: [] })),
-                    axiosPublic.get('/visitor/stats').catch(() => ({ data: { success: false } }))
+                    axiosPublic.get('/visitor/stats').catch(() => ({ data: { success: false } })),
+                    fetch('/api/contact').then(r => r.json()).catch(() => ({ data: [] }))
                 ]);
                 
                 setStats({
                     blogs: blogs.data.length,
                     trainers: trainers.data.length,
                     testimonials: testimonials.data.length,
-                    notices: notices.data.length
+                    notices: notices.data.length,
+                    contactMessages: contactMsgs?.data?.length || 0
                 });
 
                 if (visitors?.data?.success && visitors?.data?.stats) {
@@ -77,7 +81,8 @@ const Panel = () => {
         { label: "Total Articles", value: stats.blogs, icon: FaBlog, color: "bg-blue-600", link: "/dashboard/blog_view" },
         { label: "Master Trainers", value: stats.trainers, icon: FaUsers, color: "bg-red-600", link: "/dashboard/team_view" },
         { label: "Success Stories", value: stats.testimonials, icon: FaQuoteLeft, color: "bg-custom-yellow", link: "/dashboard/testimonial_view" },
-        { label: "Active Notices", value: stats.notices, icon: FaRegBell, color: "bg-purple-600", link: "/dashboard/notice_view" }
+        { label: "Active Notices", value: stats.notices, icon: FaRegBell, color: "bg-purple-600", link: "/dashboard/notice_view" },
+        { label: "Contact Inquiries", value: stats.contactMessages, icon: FaEnvelope, color: "bg-amber-500", link: "/dashboard/contact_messages" }
     ];
 
     const totalTraffic = (visitorStats.sources.direct || 0) + (visitorStats.sources.searchEngine || 0) + (visitorStats.sources.referral || 0);
@@ -106,7 +111,7 @@ const Panel = () => {
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
                 {statCards.map((stat, index) => (
                     <motion.div
                         key={index}

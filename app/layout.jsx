@@ -183,9 +183,10 @@ export default function RootLayout({ children }) {
           `}
         </Script>
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <div
           id="site-preloader"
+          suppressHydrationWarning
           aria-hidden="true"
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#050505] select-none pointer-events-auto"
         >

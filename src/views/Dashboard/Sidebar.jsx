@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { FaTachometerAlt, FaBlog, FaUsers, FaSignOutAlt, FaRegBell, FaComments, FaGlobe } from 'react-icons/fa';
+import { FaTachometerAlt, FaBlog, FaUsers, FaSignOutAlt, FaRegBell, FaComments, FaGlobe, FaEnvelope } from 'react-icons/fa';
 import { RiListCheck2 } from "react-icons/ri";
 import { VscNewFile } from "react-icons/vsc";
 import { AiOutlineTeam, AiOutlineUserAdd } from "react-icons/ai";
@@ -57,8 +57,9 @@ const Sidebar = ({ onClose, theme, toggleTheme }) => {
             ]
         },
         {
-            title: "Live Support",
+            title: "Support & Inquiries",
             items: [
+                { label: "Contact Messages", icon: FaEnvelope, href: "/dashboard/contact_messages" },
                 { label: "Chat History", icon: FaComments, href: "/dashboard/chats" },
             ]
         },

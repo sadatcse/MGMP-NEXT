@@ -29,50 +29,65 @@ const Contact_us = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        emailjs
-            .sendForm(
-                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_id",
-                process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "template_id",
-                form.current,
-                process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "public_key"
-            )
-            .then(
-                () => {
-                    setIsSubmitting(false);
-                    Swal.fire({
-                        title: 'Message Sent!',
-                        text: 'Thank you for reaching out to us. We will get back to you soon.',
-                        icon: 'success',
-                        background: '#1a1a1a',
-                        color: '#fff',
-                        confirmButtonColor: '#dc2626'
-                    });
-                    setFormData({
-                        firstName: '',
-                        lastName: '',
-                        email: '',
-                        phone: '',
-                        branch: 'Shiya Masjid Branch',
-                        comments: ''
-                    });
-                },
-                (error) => {
-                    setIsSubmitting(false);
-                    console.error('Contact form submission failed:', error.text);
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Something went wrong. Please try again later.',
-                        icon: 'error',
-                        background: '#1a1a1a',
-                        color: '#fff',
-                        confirmButtonColor: '#dc2626'
-                    });
-                },
-            );
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+                // Optional EmailJS notification
+                const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+                const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+                const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+                if (serviceId && serviceId !== "service_id" && templateId && publicKey) {
+                    try {
+                        await emailjs.sendForm(serviceId, templateId, form.current, publicKey);
+                    } catch (emailErr) {
+                        console.warn('EmailJS notification skipped/failed:', emailErr);
+                    }
+                }
+
+                setIsSubmitting(false);
+                Swal.fire({
+                    title: 'Message Sent!',
+                    text: 'Thank you for reaching out to us. We will get back to you soon.',
+                    icon: 'success',
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    confirmButtonColor: '#dc2626'
+                });
+                setFormData({
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    phone: '',
+                    branch: 'Shiya Masjid Branch',
+                    comments: ''
+                });
+            } else {
+                throw new Error(data.message || 'Failed to submit contact message');
+            }
+        } catch (error) {
+            setIsSubmitting(false);
+            console.error('Contact form submission failed:', error);
+            Swal.fire({
+                title: 'Error!',
+                text: error.message || 'Something went wrong. Please try again later.',
+                icon: 'error',
+                background: '#1a1a1a',
+                color: '#fff',
+                confirmButtonColor: '#dc2626'
+            });
+        }
     };
 
     const location1 = "https://maps.app.goo.gl/L2GZcpb8eJvjwnyV8";
