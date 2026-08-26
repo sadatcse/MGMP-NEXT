@@ -14,7 +14,9 @@ import {
     FaDirections, 
     FaHistory, 
     FaMapMarkerAlt,
-    FaEnvelope
+    FaEnvelope,
+    FaUserCheck,
+    FaAppleAlt
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import useAxiosPublic from '../../Hook/useAxiosPublic';
@@ -27,7 +29,9 @@ const Panel = () => {
         trainers: 0,
         testimonials: 0,
         notices: 0,
-        contactMessages: 0
+        contactMessages: 0,
+        joinApplications: 0,
+        nutritionLeads: 0
     });
     const [visitorStats, setVisitorStats] = useState({
         today: 0,
@@ -43,17 +47,49 @@ const Panel = () => {
         countries: []
     });
     const [loading, setLoading] = useState(true);
+    const [sendingReport, setSendingReport] = useState(false);
+
+    const handleSendReport = async () => {
+        try {
+            setSendingReport(true);
+            const res = await fetch('/api/reports/monthly', { method: 'POST' }).then(r => r.json());
+            if (res.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Monthly Report Dispatched!',
+                    html: `Monthly Website Executive Report for <b>${res.data?.month}</b> has been compiled and emailed to <b>multigympremiumpowerfit@gmail.com</b>!`,
+                    confirmButtonColor: '#e30613',
+                    background: '#1a1a1a',
+                    color: '#fff'
+                });
+            } else {
+                throw new Error(res.message);
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Report Dispatch Failed',
+                text: error.message || 'Failed to dispatch report email.',
+                background: '#1a1a1a',
+                color: '#fff'
+            });
+        } finally {
+            setSendingReport(false);
+        }
+    };
 
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const [blogs, trainers, testimonials, notices, visitors, contactMsgs] = await Promise.all([
+                const [blogs, trainers, testimonials, notices, visitors, contactMsgs, joinApps, nutritionLeads] = await Promise.all([
                     axiosPublic.get('/news/get-all'),
                     axiosPublic.get('/trainer/get-all'),
                     axiosPublic.get('/testimonial/get-all').catch(() => ({ data: [] })),
                     axiosPublic.get('/notice/get-all').catch(() => ({ data: [] })),
                     axiosPublic.get('/visitor/stats').catch(() => ({ data: { success: false } })),
-                    fetch('/api/contact').then(r => r.json()).catch(() => ({ data: [] }))
+                    fetch('/api/contact').then(r => r.json()).catch(() => ({ data: [] })),
+                    fetch('/api/join').then(r => r.json()).catch(() => ({ data: [] })),
+                    fetch('/api/nutrition').then(r => r.json()).catch(() => ({ data: [] }))
                 ]);
                 
                 setStats({
@@ -61,7 +97,9 @@ const Panel = () => {
                     trainers: trainers.data.length,
                     testimonials: testimonials.data.length,
                     notices: notices.data.length,
-                    contactMessages: contactMsgs?.data?.length || 0
+                    contactMessages: contactMsgs?.data?.length || 0,
+                    joinApplications: joinApps?.data?.length || 0,
+                    nutritionLeads: nutritionLeads?.data?.length || 0
                 });
 
                 if (visitors?.data?.success && visitors?.data?.stats) {
@@ -78,10 +116,11 @@ const Panel = () => {
     }, [axiosPublic]);
 
     const statCards = [
+        { label: "Join Applications", value: stats.joinApplications, icon: FaUserCheck, color: "bg-emerald-600", link: "/dashboard/join_applications" },
+        { label: "Nutrition Leads", value: stats.nutritionLeads, icon: FaAppleAlt, color: "bg-red-600", link: "/dashboard/nutrition_leads" },
         { label: "Total Articles", value: stats.blogs, icon: FaBlog, color: "bg-blue-600", link: "/dashboard/blog_view" },
         { label: "Master Trainers", value: stats.trainers, icon: FaUsers, color: "bg-red-600", link: "/dashboard/team_view" },
         { label: "Success Stories", value: stats.testimonials, icon: FaQuoteLeft, color: "bg-custom-yellow", link: "/dashboard/testimonial_view" },
-        { label: "Active Notices", value: stats.notices, icon: FaRegBell, color: "bg-purple-600", link: "/dashboard/notice_view" },
         { label: "Contact Inquiries", value: stats.contactMessages, icon: FaEnvelope, color: "bg-amber-500", link: "/dashboard/contact_messages" }
     ];
 
@@ -103,7 +142,19 @@ const Panel = () => {
                         Multigym Premium Administrative Portal
                     </p>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-4">
+                    <button
+                        onClick={handleSendReport}
+                        disabled={sendingReport}
+                        className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 rounded-2xl text-black font-black uppercase tracking-widest text-xs transition-all duration-300 shadow-lg cursor-pointer disabled:opacity-50"
+                    >
+                        {sendingReport ? (
+                            <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                        ) : (
+                            <FaEnvelope />
+                        )}
+                        Send Monthly Report
+                    </button>
                     <Link href="/dashboard/blog_create" className="flex items-center gap-2 px-6 py-3 bg-red-600 rounded-2xl text-white font-black uppercase tracking-widest text-xs hover:bg-white hover:text-red-600 transition-all duration-500 shadow-lg shadow-red-600/20">
                         <FaPlus /> New Article
                     </Link>

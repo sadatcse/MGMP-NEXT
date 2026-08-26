@@ -82,7 +82,6 @@ const Package_Membership = () => {
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-neutral-900 border-b border-white/10 text-custom-yellow">
-                                    <th className="p-6 font-black uppercase tracking-widest text-sm md:text-base">Category</th>
                                     <th className="p-6 font-black uppercase tracking-widest text-sm md:text-base">Duration / Type</th>
                                     <th className="p-6 font-black uppercase tracking-widest text-sm md:text-base text-center">Regular Price / Capacity</th>
                                     <th className="p-6 font-black uppercase tracking-widest text-sm md:text-base text-center">Promo Price</th>
@@ -95,7 +94,7 @@ const Package_Membership = () => {
                                 {(activeTab === 'all' || activeTab === 'single') && (
                                     <>
                                         <tr className="bg-neutral-900/90">
-                                            <td colSpan="5" className="p-5 px-8 text-base md:text-xl font-black uppercase tracking-widest text-custom-yellow bg-custom-yellow/10 border-y border-custom-yellow/20">
+                                            <td colSpan="4" className="p-5 px-8 text-base md:text-xl font-black uppercase tracking-widest text-custom-yellow bg-custom-yellow/10 border-y border-custom-yellow/20">
                                                 <div className="flex items-center gap-3">
                                                     <FaUser className="text-custom-yellow text-xl" />
                                                     <span>Single Membership Plans</span>
@@ -104,7 +103,6 @@ const Package_Membership = () => {
                                         </tr>
                                         {singlePlans.map((plan, idx) => (
                                             <tr key={`single-${idx}`} className="hover:bg-white/5 transition-colors">
-                                                <td className="p-6 font-bold text-gray-300 text-base md:text-lg">Single Member</td>
                                                 <td className="p-6 font-extrabold text-white text-base md:text-lg">
                                                     {plan.duration}
                                                     {plan.tag && (
@@ -132,7 +130,7 @@ const Package_Membership = () => {
                                 {(activeTab === 'all' || activeTab === 'couple') && (
                                     <>
                                         <tr className="bg-neutral-900/90">
-                                            <td colSpan="5" className="p-5 px-8 text-base md:text-xl font-black uppercase tracking-widest text-red-500 bg-red-600/10 border-y border-red-600/20">
+                                            <td colSpan="4" className="p-5 px-8 text-base md:text-xl font-black uppercase tracking-widest text-red-500 bg-red-600/10 border-y border-red-600/20">
                                                 <div className="flex items-center gap-3">
                                                     <FaUsers className="text-red-500 text-xl" />
                                                     <span>Couples & Group Membership Plans</span>
@@ -141,7 +139,6 @@ const Package_Membership = () => {
                                         </tr>
                                         {couplePlans.map((plan, idx) => (
                                             <tr key={`couple-${idx}`} className="hover:bg-white/5 transition-colors">
-                                                <td className="p-6 font-bold text-gray-300 text-base md:text-lg">Couples & Group</td>
                                                 <td className="p-6 font-extrabold text-white text-base md:text-lg">
                                                     {plan.duration} Package
                                                     {plan.tag && (

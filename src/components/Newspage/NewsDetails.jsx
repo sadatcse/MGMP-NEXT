@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { SlSocialReddit, SlSocialTwitter } from "react-icons/sl";
 import { TiSocialPinterestCircular } from "react-icons/ti";
 import { CiFacebook } from "react-icons/ci";

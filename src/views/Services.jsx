@@ -1,8 +1,10 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaChild, FaDumbbell, FaRunning, FaUsers, FaUser, FaParking, FaCoffee, FaAppleAlt, FaLock, FaWeight } from 'react-icons/fa';
+import { HiX } from 'react-icons/hi';
 import { fadeIn } from './../../lib/variants';
+import NutritionNowForm from '../components/NutritionNowForm';
 
 import center from "./../assets/img/Service/center.jpg"
 import cardio from "./../assets/img/Service/cardio.jpg"
@@ -32,7 +34,7 @@ const servicesData = [
         "title": "Nutrition Service",
         "description": "Get personalized nutrition advice and meal plans from our certified nutritionists to complement your fitness regime.",
         "icon": <FaAppleAlt />,
-        "image": food,
+        "image": "https://multigym-website.s3.ap-southeast-1.amazonaws.com/Multigym%20premium/services/Nutritionist_1787759953090.jpeg",
         "accent": "bg-red-600"
     },
     {
@@ -106,8 +108,10 @@ const Header = () => {
 };
 
 const Services = () => {
+    const [showNutritionModal, setShowNutritionModal] = useState(false);
+
     return (
-        <div className="bg-[#0a0a0a] text-white">
+        <div className="bg-[#0a0a0a] text-white relative">
             <Header />
             <div className="py-24 container mx-auto px-4 overflow-hidden">
                 <div className="flex flex-col gap-32">
@@ -130,7 +134,7 @@ const Services = () => {
                                     {service.image ? (
                                         <motion.img
                                             whileHover={{ scale: 1.05 }}
-                                            src={service.image.src}
+                                            src={typeof service.image === 'string' ? service.image : service.image.src}
                                             alt={service.title}
                                             className="object-cover w-full h-[350px] md:h-[450px] transition-transform duration-700"
                                         />
@@ -167,6 +171,15 @@ const Services = () => {
                                     {service.description}
                                 </p>
 
+                                {service.title === "Nutrition Service" && (
+                                    <button
+                                        onClick={() => setShowNutritionModal(true)}
+                                        className="px-6 py-3.5 bg-gradient-to-r from-red-600 via-red-700 to-red-600 hover:from-red-500 hover:to-red-600 text-white font-black uppercase tracking-widest text-xs rounded-xl shadow-xl shadow-red-600/30 transition-all flex items-center gap-2 cursor-pointer mb-4 hover:scale-[1.02] active:scale-[0.98]"
+                                    >
+                                        <FaAppleAlt className="text-base text-custom-yellow" /> NUTRITION NOW
+                                    </button>
+                                )}
+
                                 {service.pricing && (
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-xl mb-4">
                                         {service.pricing.map((item, pIndex) => (
@@ -188,6 +201,22 @@ const Services = () => {
                     ))}
                 </div>
             </div>
+
+            {/* Nutrition Now Modal */}
+            {showNutritionModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+                    <div className="relative w-full max-w-lg bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
+                        <button
+                            onClick={() => setShowNutritionModal(false)}
+                            className="absolute top-4 right-4 text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-all"
+                            title="Close"
+                        >
+                            <HiX size={20} />
+                        </button>
+                        <NutritionNowForm onClose={() => setShowNutritionModal(false)} />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

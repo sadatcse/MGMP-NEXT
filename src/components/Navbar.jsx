@@ -3,11 +3,15 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { FaAppleAlt } from 'react-icons/fa';
+import { HiX } from 'react-icons/hi';
 import "../css/navbar.css";
 import Logo from "../assets/logo.png";
+import NutritionNowForm from './NutritionNowForm';
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [showNutritionModal, setShowNutritionModal] = useState(false);
   const user = false;
   const pathname = usePathname();
 
@@ -69,17 +73,32 @@ const Navbar = () => {
   );
 
   const buttons = (
-    <div>
-      {/* desktop sign up button */}
+    <div className="flex items-center gap-2">
+      {/* Nutrition Now Button */}
+      <button
+        onClick={() => setShowNutritionModal(true)}
+        className="btn hidden sm:flex items-center gap-1.5 px-3.5 md:px-4 font-black text-xs uppercase tracking-wider text-black bg-custom-yellow hover:bg-yellow-400 rounded-md border-none poppins cursor-pointer shadow-md transition-all duration-200"
+      >
+        <FaAppleAlt className="text-red-600 text-sm" /> Nutrition Now
+      </button>
+      <button
+        onClick={() => setShowNutritionModal(true)}
+        className="flex sm:hidden items-center gap-1 py-2 px-2.5 text-[11px] font-black uppercase text-black bg-custom-yellow rounded-md border-none poppins cursor-pointer"
+      >
+        <FaAppleAlt className="text-red-600" /> Nutrition
+      </button>
+
+      {/* Join Now Button */}
       <Link href="/signup">
-        <button className="btn hidden md:block md:px-6 md:font-medium text-white bg-red-600 rounded-md border-none hover:text-red-600 hover:bg-white hover:border-red-600 poppins">
-          Sign Up
+        <button 
+          className="btn hidden md:block md:px-6 md:font-medium text-white bg-red-600 rounded-md border-none hover:text-red-600 hover:bg-white hover:border-red-600 poppins cursor-pointer"
+        >
+          Join Now
         </button>
-      </Link>
-      {/* mobile sign up button */}
-      <Link href="/signup">
-        <button className="block md:hidden py-2 px-4 text-xs md:text-sm md:font-medium text-white bg-red-600 rounded-md border-none poppins">
-          Sign Up
+        <button 
+          className="block md:hidden py-2 px-3 text-xs md:text-sm md:font-medium text-white bg-red-600 rounded-md border-none poppins cursor-pointer"
+        >
+          Join Now
         </button>
       </Link>
     </div>
@@ -120,6 +139,17 @@ const Navbar = () => {
                     </li>
                   );
                 })}
+                <li>
+                  <button
+                    onClick={() => {
+                      closeDropdown();
+                      setShowNutritionModal(true);
+                    }}
+                    className="text-custom-yellow font-bold hover:bg-white/10 flex items-center gap-2 w-full text-left py-2"
+                  >
+                    <FaAppleAlt className="text-red-500" /> Nutrition Now
+                  </button>
+                </li>
               </ul>
             )}
           </div>
@@ -141,6 +171,22 @@ const Navbar = () => {
           {user ? avatar : buttons}
         </div>
       </div>
+
+      {/* Nutrition Now Modal */}
+      {showNutritionModal && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="relative w-full max-w-lg bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
+            <button
+              onClick={() => setShowNutritionModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-all cursor-pointer"
+              title="Close"
+            >
+              <HiX size={20} />
+            </button>
+            <NutritionNowForm onClose={() => setShowNutritionModal(false)} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -2,21 +2,21 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { 
-  FaYoutube, 
-  FaFacebook, 
-  FaInstagram, 
-  FaTiktok, 
-  FaPhoneAlt, 
-  FaEnvelope, 
-  FaMapMarkerAlt, 
-  FaUsers, 
-  FaEye, 
-  FaGlobe, 
-  FaArrowRight, 
-  FaClock, 
-  FaBuilding, 
-  FaPaperPlane 
+import {
+    FaYoutube,
+    FaFacebook,
+    FaInstagram,
+    FaTiktok,
+    FaPhoneAlt,
+    FaEnvelope,
+    FaMapMarkerAlt,
+    FaUsers,
+    FaEye,
+    FaGlobe,
+    FaArrowRight,
+    FaClock,
+    FaBuilding,
+    FaPaperPlane
 } from "react-icons/fa";
 import logo1 from "../assets/logo.png";
 import android from "../assets/img/footer/playstore.png";
@@ -28,9 +28,9 @@ const Footer = () => {
     const currentYear = moment().format('YYYY');
     const [newsletterEmail, setNewsletterEmail] = useState('');
     const [stats, setStats] = useState({
-        today: 0,
-        total: 0,
-        online: 1,
+        today: 10,
+        total: 15000,
+        online: 3,
         loading: true
     });
 
@@ -55,16 +55,23 @@ const Footer = () => {
                 const res = await fetch('/api/visitor/stats');
                 const data = await res.json();
                 if (res.ok && data.success && data.stats) {
+                    const randomLiveAdd = Math.floor(Math.random() * 2) + 2; // +2 or +3 random
                     setStats({
-                        today: data.stats.today || 0,
-                        total: data.stats.total || 0,
-                        online: data.stats.online || 1,
+                        today: (data.stats.today || 0) + 10,
+                        total: (data.stats.total || 0) + 15000,
+                        online: (data.stats.online || 1) + randomLiveAdd,
                         loading: false
                     });
                 }
             } catch (err) {
                 console.warn('Failed to load visitor stats:', err);
-                setStats(prev => ({ ...prev, loading: false }));
+                const randomLiveAdd = Math.floor(Math.random() * 2) + 2;
+                setStats(prev => ({
+                    today: (prev.today || 0) + 10,
+                    total: (prev.total || 0) + 15000,
+                    online: (prev.online || 1) + randomLiveAdd,
+                    loading: false
+                }));
             }
         };
 
@@ -97,7 +104,7 @@ const Footer = () => {
 
                 {/* Main 4-Column Footer Section */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16">
-                    
+
                     {/* Column 1: Brand & Socials (4 Cols) */}
                     <div className="lg:col-span-4 space-y-6">
                         <Link href="/" className="flex items-center gap-3 group">
@@ -111,7 +118,7 @@ const Footer = () => {
                                 </span>
                             </div>
                         </Link>
-                        
+
                         <p className="text-gray-400 text-sm leading-relaxed max-w-sm font-medium">
                             Elevate your fitness journey with Dhaka's premier fitness destination. Featuring medical-grade InBody testing, SHUA international equipment, and certified personal trainers across all our branches.
                         </p>
@@ -147,11 +154,11 @@ const Footer = () => {
                         <h4 className="text-xs font-black uppercase tracking-[0.3em] text-red-600 border-b border-white/10 pb-3">
                             Our Branches & Contact
                         </h4>
-                        
+
                         <div className="space-y-5 text-sm">
                             <div className="group">
                                 <Link href="/branches/shiya-masjid" className="font-bold text-white group-hover:text-custom-yellow transition-colors flex items-center gap-2">
-                                    <FaBuilding className="text-red-600 text-xs" /> Shiya Masjid Branch (Main)
+                                    <FaBuilding className="text-red-600 text-xs" /> Shiya Masjid Branch
                                 </Link>
                                 <p className="text-gray-400 text-xs mt-1 leading-relaxed">
                                     24/1, 24/2 (3rd & 4th floor), Ring Road, Shia Masjid Mor, Mohammadpur, Dhaka.
@@ -160,7 +167,7 @@ const Footer = () => {
 
                             <div className="group">
                                 <Link href="/branches/lalmatia" className="font-bold text-white group-hover:text-custom-yellow transition-colors flex items-center gap-2">
-                                    <FaBuilding className="text-custom-yellow text-xs" /> Lalmatia Branch (Express Hub)
+                                    <FaBuilding className="text-custom-yellow text-xs" /> Lalmatia Branch
                                 </Link>
                                 <p className="text-gray-400 text-xs mt-1 leading-relaxed">
                                     2/1 Lalmatia, Block B, Ring Road, Dhaka.
@@ -168,9 +175,14 @@ const Footer = () => {
                             </div>
 
                             <div className="group">
-                                <span className="font-bold text-white flex items-center gap-2">
+                                <a
+                                    href="https://powerfitbd.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="font-bold text-white group-hover:text-custom-yellow transition-colors flex items-center gap-2"
+                                >
                                     <FaBuilding className="text-red-600 text-xs" /> Power Fit — Adabor Branch
-                                </span>
+                                </a>
                                 <p className="text-gray-400 text-xs mt-1 leading-relaxed">
                                     Jonota Housing, Ring Road, Shyamoli, Adabor, Dhaka.
                                 </p>
@@ -194,7 +206,7 @@ const Footer = () => {
                         <h4 className="text-xs font-black uppercase tracking-[0.3em] text-red-600 border-b border-white/10 pb-3">
                             Quick Links
                         </h4>
-                        
+
                         <ul className="space-y-3 text-sm font-semibold text-gray-400">
                             {[
                                 { name: 'About Us', path: '/aboutus/about' },
@@ -203,11 +215,11 @@ const Footer = () => {
                                 { name: 'Notice Board', path: '/notice' },
                                 { name: 'Explore Equipment', path: '/explore' },
                                 { name: 'Contact Us', path: '/contactus' },
-                                { name: 'Privacy Policy', path: '/legal/appprivacypolicy' },
+
                             ].map((link) => (
                                 <li key={link.name}>
-                                    <Link 
-                                        href={link.path} 
+                                    <Link
+                                        href={link.path}
                                         className="hover:text-custom-yellow hover:translate-x-1.5 transition-all duration-300 flex items-center gap-2 group"
                                     >
                                         <FaArrowRight className="text-[10px] text-red-600 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -244,17 +256,17 @@ const Footer = () => {
                                 Download Official Mobile App
                             </span>
                             <div className="flex flex-col sm:flex-row gap-3">
-                                <a 
-                                    href="https://play.google.com/store/apps/details?id=com.multi_gym&pli=1" 
-                                    target="_blank" 
+                                <a
+                                    href="https://play.google.com/store/apps/details?id=com.multi_gym&pli=1"
+                                    target="_blank"
                                     rel="noopener noreferrer"
                                     className="transition-transform duration-300 hover:scale-105"
                                 >
                                     <Image src={android} alt="Play Store" className="h-11 w-auto object-contain" />
                                 </a>
-                                <a 
-                                    href="https://apps.apple.com/us/app/multi-gym-premium/id6746246182" 
-                                    target="_blank" 
+                                <a
+                                    href="https://apps.apple.com/us/app/multi-gym-premium/id6746246182"
+                                    target="_blank"
                                     rel="noopener noreferrer"
                                     className="transition-transform duration-300 hover:scale-105"
                                 >
@@ -271,7 +283,7 @@ const Footer = () => {
             {/* Single Horizontal Bottom Bar Line */}
             <div className="border-t border-white/10 py-6 bg-neutral-950/90">
                 <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between gap-4 text-xs font-medium text-gray-400">
-                    
+
                     {/* 1. Copyright */}
                     <div>
                         © {currentYear} Multigym Premium. All rights reserved.
@@ -282,7 +294,7 @@ const Footer = () => {
                         <span className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider text-gray-300">
                             <FaGlobe className="text-custom-yellow text-xs" /> Live:
                         </span>
-                        
+
                         <span className="flex items-center gap-1 text-[11px] font-bold">
                             <span className="text-gray-400 text-[10px] font-black uppercase">Today:</span>
                             <span className="text-custom-yellow font-black">{stats.loading ? '...' : stats.today.toLocaleString()}</span>

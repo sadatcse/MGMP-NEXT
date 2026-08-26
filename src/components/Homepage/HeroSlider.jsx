@@ -56,8 +56,8 @@ const HeroSlider = () => {
             className={`absolute inset-0 w-full h-full object-cover z-0 ${loaded ? 'block' : 'hidden'}`}
           />
 
-          {/* Dark Overlay for Readability & Premium Contrast */}
-          <div className='absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/70 z-0' />
+          {/* Subtle gradient overlay to preserve text readability while showing original video */}
+          <div className='absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 z-0 pointer-events-none' />
 
           {/* Hero Content */}
           <div className='flex flex-col items-center max-w-[950px] w-full px-4 relative z-10 text-center'>

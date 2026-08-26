@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { FaTachometerAlt, FaBlog, FaUsers, FaSignOutAlt, FaRegBell, FaComments, FaGlobe, FaEnvelope } from 'react-icons/fa';
+import { FaTachometerAlt, FaBlog, FaUsers, FaSignOutAlt, FaRegBell, FaComments, FaGlobe, FaEnvelope, FaUserCheck, FaAppleAlt } from 'react-icons/fa';
 import { RiListCheck2 } from "react-icons/ri";
 import { VscNewFile } from "react-icons/vsc";
 import { AiOutlineTeam, AiOutlineUserAdd } from "react-icons/ai";
@@ -54,6 +54,8 @@ const Sidebar = ({ onClose, theme, toggleTheme }) => {
             items: [
                 { label: "Dashboard", icon: TbLayoutDashboard, href: "/dashboard" },
                 { label: "Traffic Analytics", icon: FaGlobe, href: "/dashboard/traffic" },
+                { label: "Join Applications", icon: FaUserCheck, href: "/dashboard/join_applications" },
+                { label: "Nutrition Leads", icon: FaAppleAlt, href: "/dashboard/nutrition_leads" },
             ]
         },
         {
