@@ -291,7 +291,7 @@ const Contact_messages = () => {
                       <td className="py-4">
                         <div>
                           <p className="font-bold text-white uppercase text-xs tracking-tight">
-                            {msg.firstName} {msg.lastName}
+                            {msg.fullName || `${msg.firstName || ''} ${msg.lastName || ''}`.trim() || 'Anonymous'}
                           </p>
                           <p className="text-[11px] text-gray-400">{msg.email}</p>
                           <p className="text-[11px] text-custom-yellow font-mono">{msg.phone}</p>
@@ -375,7 +375,7 @@ const Contact_messages = () => {
                     Contact Message Details
                   </p>
                   <h3 className="text-2xl font-black uppercase text-white mt-1">
-                    {selectedMessage.firstName} {selectedMessage.lastName}
+                    {selectedMessage.fullName || `${selectedMessage.firstName || ''} ${selectedMessage.lastName || ''}`.trim() || 'Anonymous'}
                   </h3>
                 </div>
                 <button

@@ -2,19 +2,21 @@ import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
 const ContactMessageSchema = new Schema({
+  fullName: {
+    type: String,
+    required: [true, "Full name is required"],
+    trim: true,
+  },
   firstName: {
     type: String,
-    required: [true, "First name is required"],
     trim: true,
   },
   lastName: {
     type: String,
-    required: [true, "Last name is required"],
     trim: true,
   },
   email: {
     type: String,
-    required: [true, "Email address is required"],
     trim: true,
   },
   phone: {
@@ -28,7 +30,6 @@ const ContactMessageSchema = new Schema({
   },
   comments: {
     type: String,
-    required: [true, "Message is required"],
     trim: true,
   },
   status: {

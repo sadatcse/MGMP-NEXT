@@ -9,6 +9,8 @@ export default async function sitemap() {
     { url: '/trainers', changeFrequency: 'monthly', priority: 0.8 },
     { url: '/explore', changeFrequency: 'monthly', priority: 0.6 },
     { url: '/contactus', changeFrequency: 'monthly', priority: 0.5 },
+    { url: '/branches/shiya-masjid', changeFrequency: 'monthly', priority: 0.7 },
+    { url: '/branches/lalmatia', changeFrequency: 'monthly', priority: 0.7 },
     { url: '/blog', changeFrequency: 'daily', priority: 0.8 },
     { url: '/notice', changeFrequency: 'daily', priority: 0.6 },
     { url: '/legal/termsofuse', changeFrequency: 'yearly', priority: 0.3 },

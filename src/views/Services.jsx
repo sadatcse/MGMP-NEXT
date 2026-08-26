@@ -19,13 +19,21 @@ const servicesData = [
         "title": "InBody Composition Test",
         "description": "Track your fitness transformation with medical-grade precision. Our advanced InBody scanner measures body fat percentage, skeletal muscle mass, visceral fat level, segmental lean mass, and basal metabolic rate (BMR) to optimize your training.",
         "icon": <FaWeight />,
-        "image": inbody,
+
+        "video": "https://www.youtube.com/embed/jDKiNDefTGA",
         "accent": "bg-custom-yellow",
         "pricing": [
             { "label": "On Admission", "price": "FREE", "highlight": true },
             { "label": "Regular Member Test", "price": "1,000 BDT" },
             { "label": "Without Membership", "price": "2,000 BDT" }
         ]
+    },
+    {
+        "title": "Nutrition Service",
+        "description": "Get personalized nutrition advice and meal plans from our certified nutritionists to complement your fitness regime.",
+        "icon": <FaAppleAlt />,
+        "image": food,
+        "accent": "bg-red-600"
     },
     {
         "title": "Large Free Weight Center",
@@ -62,13 +70,7 @@ const servicesData = [
         "image": parking,
         "accent": "bg-red-600"
     },
-    {
-        "title": "Nutrition Service",
-        "description": "Get personalized nutrition advice and meal plans from our certified nutritionists to complement your fitness regime.",
-        "icon": <FaAppleAlt />,
-        "image": food,
-        "accent": "bg-red-600"
-    },
+
     {
         "title": "Personal Locker Service",
         "description": "Keep your belongings safe and secure with our personal locker service. Enjoy peace of mind while you work out.",
@@ -168,13 +170,12 @@ const Services = () => {
                                 {service.pricing && (
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-xl mb-4">
                                         {service.pricing.map((item, pIndex) => (
-                                            <div 
-                                                key={pIndex} 
-                                                className={`p-4 rounded-2xl border flex flex-col items-center justify-center text-center transition-all ${
-                                                    item.highlight 
-                                                        ? 'bg-red-600/20 border-red-600/50 text-white shadow-lg shadow-red-600/10' 
-                                                        : 'bg-white/5 border-white/10 text-gray-300 hover:border-white/20'
-                                                }`}
+                                            <div
+                                                key={pIndex}
+                                                className={`p-4 rounded-2xl border flex flex-col items-center justify-center text-center transition-all ${item.highlight
+                                                    ? 'bg-red-600/20 border-red-600/50 text-white shadow-lg shadow-red-600/10'
+                                                    : 'bg-white/5 border-white/10 text-gray-300 hover:border-white/20'
+                                                    }`}
                                             >
                                                 <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">{item.label}</span>
                                                 <span className={`text-lg font-black uppercase ${item.highlight ? 'text-custom-yellow' : 'text-white'}`}>{item.price}</span>

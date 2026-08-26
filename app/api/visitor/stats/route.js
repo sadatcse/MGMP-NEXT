@@ -8,7 +8,7 @@ export async function GET(req) {
 
     const now = new Date();
 
-    // Start of Today (local time context for server, or UTC start of day)
+    // Start of Today
     const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     
     // Start of Yesterday
@@ -20,9 +20,14 @@ export async function GET(req) {
     // Start of Year
     const startOfYear = new Date(now.getFullYear(), 0, 1);
 
+    // 5 minutes ago for Online count
+    const fiveMinutesAgo = new Date(now.getTime() - 5 * 60 * 1000);
+
     // Queries in parallel for speed
     const [
       todayCount,
+      totalCount,
+      onlineCount,
       yesterdayCount,
       monthCount,
       yearCount,
@@ -31,6 +36,8 @@ export async function GET(req) {
       topCountries
     ] = await Promise.all([
       VisitorLog.countDocuments({ createdAt: { $gte: startOfToday } }),
+      VisitorLog.countDocuments(),
+      VisitorLog.countDocuments({ createdAt: { $gte: fiveMinutesAgo } }),
       VisitorLog.countDocuments({ createdAt: { $gte: startOfYesterday, $lt: startOfToday } }),
       VisitorLog.countDocuments({ createdAt: { $gte: startOfMonth } }),
       VisitorLog.countDocuments({ createdAt: { $gte: startOfYear } }),
@@ -62,6 +69,8 @@ export async function GET(req) {
       success: true,
       stats: {
         today: todayCount,
+        total: totalCount,
+        online: Math.max(1, onlineCount),
         yesterday: yesterdayCount,
         month: monthCount,
         year: yearCount,

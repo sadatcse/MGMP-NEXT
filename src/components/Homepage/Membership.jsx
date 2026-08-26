@@ -1,9 +1,7 @@
 "use client";
 import React from 'react';
-import { motion } from 'framer-motion';
-import { fadeIn } from '../../../lib/variants';
 import background from "../../assets/img/membership/bg.jpg";
-import MembershipSlider from './MembershipSlider';
+import MembershipPlans from './MembershipPlans';
 import Title from './Title';
 
 const Membership = () => {
@@ -31,16 +29,8 @@ const Membership = () => {
         <div className="mb-20">
           <Title title="Pricing Plans" subtitle="Select Your Membership" textColor="text-white" />
         </div>
-        
-        <motion.div
-          variants={fadeIn('up', 0.4)}
-          initial='hidden'
-          whileInView={'show'}
-          viewport={{ once: true }}
-          className="pb-10"
-        >
-          <MembershipSlider />
-        </motion.div>
+
+        <MembershipPlans />
       </div>
     </section>
   );

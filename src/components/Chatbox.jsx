@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaComments, FaPaperPlane, FaTimes, FaRobot, FaTrash, FaSpinner, FaUser } from 'react-icons/fa';
+import { FaComments, FaPaperPlane, FaTimes, FaRobot, FaTrash, FaSpinner, FaUser, FaPhoneAlt } from 'react-icons/fa';
 import chatdata from '../data/chatdata.json';
 
 const Chatbox = () => {
@@ -166,7 +166,24 @@ const Chatbox = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[9999] font-sans">
+    <div className="fixed bottom-6 right-6 z-[9999] font-sans flex flex-col items-end gap-3">
+      
+      {/* Floating Call Button */}
+      <motion.a
+        href="tel:+8801313197435"
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label="Call (+880) 1313-197435"
+        className="group relative flex items-center bg-gradient-to-r from-emerald-600 to-teal-500 text-white rounded-full p-3.5 shadow-[0_8px_30px_rgba(16,185,129,0.4)] border border-white/20 hover:shadow-[0_12px_40px_rgba(16,185,129,0.6)] transition-all duration-300 cursor-pointer overflow-hidden"
+      >
+        <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-white/20">
+          <FaPhoneAlt className="text-base text-white animate-pulse" />
+        </div>
+        <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-500 ease-in-out font-black uppercase text-xs tracking-wider pl-0 group-hover:pl-2.5 group-hover:pr-3 text-white">
+          (+880) 1313-197435
+        </span>
+      </motion.a>
+
       {/* Floating Action Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}

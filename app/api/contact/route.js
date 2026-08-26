@@ -6,22 +6,25 @@ export async function POST(req) {
   try {
     await connectDB();
     const body = await req.json();
-    const { firstName, lastName, email, phone, branch, comments } = body;
+    const { fullName, firstName, lastName, email, phone, branch, comments } = body;
 
-    if (!firstName || !lastName || !email || !phone || !comments) {
+    const resolvedFullName = (fullName || `${firstName || ''} ${lastName || ''}`).trim();
+
+    if (!resolvedFullName || !phone) {
       return NextResponse.json(
-        { success: false, message: 'Please fill in all required fields.' },
+        { success: false, message: 'Full name and phone number are mandatory fields.' },
         { status: 400 }
       );
     }
 
     const newMessage = await ContactMessage.create({
-      firstName,
-      lastName,
-      email,
+      fullName: resolvedFullName,
+      firstName: firstName || resolvedFullName.split(' ')[0],
+      lastName: lastName || resolvedFullName.split(' ').slice(1).join(' ') || '',
+      email: email || '',
       phone,
       branch: branch || 'Shiya Masjid Branch',
-      comments,
+      comments: comments || '',
       status: 'unread',
       createdAt: new Date()
     });
@@ -57,6 +60,7 @@ export async function GET(req) {
     if (search) {
       const searchRegex = new RegExp(search, 'i');
       filter.$or = [
+        { fullName: searchRegex },
         { firstName: searchRegex },
         { lastName: searchRegex },
         { email: searchRegex },

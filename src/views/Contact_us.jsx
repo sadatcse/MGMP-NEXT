@@ -1,17 +1,20 @@
 "use client";
 import emailjs from '@emailjs/browser';
 import React, { useState, useRef } from "react";
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane, FaBuilding, FaUser, FaCommentDots } from "react-icons/fa";
+import Image from 'next/image';
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane, FaBuilding, FaUser, FaCommentDots, FaArrowRight, FaCheck } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import Link from 'next/link';
 import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../lib/variants';
+import { branches as sharedBranches } from '../data/branches';
+import ShiyaMasjidImage from '../assets/img/photogalary/3.jpg';
+import LalmatiaImage from '../assets/img/photogalary/4.jpg';
 
 const Contact_us = () => {
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
+        fullName: "",
         email: "",
         phone: "",
         branch: "Shiya Masjid Branch",
@@ -66,8 +69,7 @@ const Contact_us = () => {
                     confirmButtonColor: '#dc2626'
                 });
                 setFormData({
-                    firstName: '',
-                    lastName: '',
+                    fullName: '',
                     email: '',
                     phone: '',
                     branch: 'Shiya Masjid Branch',
@@ -90,40 +92,35 @@ const Contact_us = () => {
         }
     };
 
-    const location1 = "https://maps.app.goo.gl/L2GZcpb8eJvjwnyV8";
-    const location2 = "https://maps.app.goo.gl/MLSf6A2evCgMXQBKA";
-    const location3 = "https://maps.app.goo.gl/HiinBe2YqhoaH58k7";
+    const adaborMapUrl = "https://maps.app.goo.gl/HiinBe2YqhoaH58k7";
+
+    const branchImages = {
+        "shiya-masjid": ShiyaMasjidImage,
+        lalmatia: LalmatiaImage,
+    };
+
+    const branchIconStyles = {
+        "shiya-masjid": "bg-red-600 text-white shadow-lg shadow-red-600/20",
+        lalmatia: "bg-custom-yellow text-black shadow-lg shadow-custom-yellow/20",
+    };
 
     const branchData = [
-        {
-            id: "shia",
-            name: "Shiya Masjid Branch",
-            tag: "MAIN BRANCH",
-            iconBg: "bg-red-600 text-white shadow-lg shadow-red-600/20",
-            address: "24/1, 24/2 (3rd & 4th floor), Ring Road, Shia Masjid Mor, Mohammadpur, Dhaka 1207",
-            phone: "(+880) 1313-197435",
-            tel: "+8801313197435",
-            mapUrl: location1,
-        },
-        {
-            id: "lalmatia",
-            name: "Lalmatia Branch",
-            tag: "EXPRESS HUB",
-            iconBg: "bg-custom-yellow text-black shadow-lg shadow-custom-yellow/20",
-            address: "Lalmatia Shopping Center (2nd floor), Beside Fire Service & Civil Defence, Lalmatia, Dhaka",
-            phone: "(+880) 1313-197427",
-            tel: "+8801313197427",
-            mapUrl: location2,
-        },
+        ...sharedBranches.map((branch) => ({
+            ...branch,
+            iconBg: branchIconStyles[branch.slug],
+            image: branchImages[branch.slug],
+        })),
         {
             id: "adabor",
+            slug: null,
             name: "Power Fit — Adabor",
             tag: "NEW BRANCH",
             iconBg: "bg-red-600 text-white shadow-lg shadow-red-600/20",
             address: "5th & 6th Floors, 48/49 Jonota Cooperative Housing Society, Ring Road, Shyamoli, Adabor, Dhaka-1207.",
             phone: "(+880) 1313-197426",
             tel: "+8801313197426",
-            mapUrl: location3,
+            mapUrl: adaborMapUrl,
+            image: null,
         }
     ];
 
@@ -136,7 +133,7 @@ const Contact_us = () => {
             <div className="container mx-auto px-4 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-                    {/* Left Side: Contact Info */}
+                    {/* Left Side: Contact Info (Displays all 3 branches) */}
                     <motion.div
                         variants={fadeIn('right', 0.2)}
                         initial="hidden"
@@ -161,34 +158,72 @@ const Contact_us = () => {
                             {branchData.map((branch) => (
                                 <div
                                     key={branch.id}
-                                    className="group bg-white/5 border border-white/10 p-8 rounded-[2rem] hover:bg-white/10 transition-all duration-500 shadow-2xl hover:border-white/20"
+                                    className="group bg-white/5 border border-white/10 rounded-[2rem] overflow-hidden hover:bg-white/10 transition-all duration-500 shadow-2xl hover:border-white/20"
                                 >
-                                    <div className="flex items-center gap-4 mb-6">
-                                        <div className={`w-12 h-12 rounded-2xl ${branch.iconBg} flex items-center justify-center text-xl flex-shrink-0`}>
-                                            <FaMapMarkerAlt />
+                                    {branch.image && (
+                                        <Link
+                                            href={`/branches/${branch.slug}`}
+                                            className="relative block h-40 w-full overflow-hidden"
+                                        >
+                                            <Image
+                                                src={branch.image}
+                                                alt={branch.name}
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, 50vw"
+                                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                                            <span className="absolute bottom-3 left-4 text-[10px] font-black text-custom-yellow uppercase tracking-[0.3em]">
+                                                {branch.tag}
+                                            </span>
+                                        </Link>
+                                    )}
+                                    <div className="p-8">
+                                        <div className="flex items-center gap-4 mb-6">
+                                            <div className={`w-12 h-12 rounded-2xl ${branch.iconBg} flex items-center justify-center text-xl flex-shrink-0`}>
+                                                <FaMapMarkerAlt />
+                                            </div>
+                                            <div>
+                                                {branch.slug ? (
+                                                    <Link href={`/branches/${branch.slug}`}>
+                                                        <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-custom-yellow transition-colors">
+                                                            {branch.name}
+                                                        </h3>
+                                                    </Link>
+                                                ) : (
+                                                    <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-custom-yellow transition-colors">
+                                                        {branch.name}
+                                                    </h3>
+                                                )}
+                                            </div>
                                         </div>
-                                        <div>
-                                            <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-custom-yellow transition-colors">
-                                                {branch.name}
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div className="space-y-4">
-                                        <p className="text-gray-400 font-medium flex gap-3">
-                                            <span className="text-custom-yellow font-bold">Address:</span>
-                                            {branch.address}
-                                        </p>
-                                        <div className="flex flex-wrap items-center justify-between gap-4">
-                                            <p className="text-white font-black flex items-center gap-2">
-                                                <FaPhoneAlt className="text-red-600" /> {branch.phone}
+                                        <div className="space-y-4">
+                                            <p className="text-gray-400 font-medium flex gap-3">
+                                                <span className="text-custom-yellow font-bold">Address:</span>
+                                                {branch.address}
                                             </p>
-                                            <Link
-                                                href={branch.mapUrl}
-                                                target="_blank"
-                                                className="text-xs font-black text-custom-yellow uppercase tracking-widest hover:text-white transition-colors flex items-center gap-1"
-                                            >
-                                                View Map →
-                                            </Link>
+                                            <div className="flex flex-wrap items-center justify-between gap-4">
+                                                <p className="text-white font-black flex items-center gap-2">
+                                                    <FaPhoneAlt className="text-red-600" /> {branch.phone}
+                                                </p>
+                                                <div className="flex flex-wrap items-center gap-3 pt-2">
+                                                    {branch.slug && (
+                                                        <Link
+                                                            href={`/branches/${branch.slug}`}
+                                                            className="px-4 py-2 rounded-xl bg-red-600 hover:bg-white text-white hover:text-red-600 text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2 shadow-lg shadow-red-600/20"
+                                                        >
+                                                            Branch Page <FaArrowRight className="text-[10px]" />
+                                                        </Link>
+                                                    )}
+                                                    <Link
+                                                        href={branch.mapUrl}
+                                                        target="_blank"
+                                                        className="px-4 py-2 rounded-xl border border-custom-yellow/50 hover:border-custom-yellow text-custom-yellow hover:bg-custom-yellow hover:text-black text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2"
+                                                    >
+                                                        View Map →
+                                                    </Link>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -210,63 +245,86 @@ const Contact_us = () => {
 
                         <form ref={form} onSubmit={handleSubmit} className="space-y-6">
 
-                            {/* Branch Selection */}
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">Preferred Branch</label>
-                                <select
-                                    name="branch"
-                                    value={formData.branch}
-                                    onChange={handleChange}
-                                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white font-medium cursor-pointer"
-                                >
-                                    <option value="Shiya Masjid Branch" className="bg-[#1a1a1a] text-white">Shiya Masjid Branch</option>
-                                    <option value="Lalmatia Branch" className="bg-[#1a1a1a] text-white">Lalmatia Branch</option>
-                                    <option value="Power Fit — Adabor" className="bg-[#1a1a1a] text-white">Power Fit — Adabor</option>
-                                </select>
+                            {/* Branch Selection with Tick Marks (Default: Shiya Masjid) */}
+                            <div className="space-y-3">
+                                <label className="text-[11px] font-black uppercase tracking-widest text-gray-400 ml-1 block">
+                                    Select Preferred Branch:
+                                </label>
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    {[
+                                        {
+                                            value: "Shiya Masjid Branch",
+                                            label: "Shiya Masjid",
+                                            sub: "Main Branch",
+                                            badgeBg: "bg-red-600 text-white"
+                                        },
+                                        {
+                                            value: "Lalmatia Branch",
+                                            label: "Lalmatia",
+                                            sub: "Express Hub",
+                                            badgeBg: "bg-custom-yellow text-black"
+                                        },
+                                        {
+                                            value: "Power Fit — Adabor",
+                                            label: "Power Fit",
+                                            sub: "Adabor Branch",
+                                            badgeBg: "bg-red-600 text-white"
+                                        }
+                                    ].map((item) => {
+                                        const isSelected = formData.branch === item.value;
+                                        return (
+                                            <div
+                                                key={item.value}
+                                                onClick={() => setFormData({ ...formData, branch: item.value })}
+                                                className={`relative cursor-pointer p-4 rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between ${
+                                                    isSelected
+                                                        ? "bg-white/10 border-custom-yellow shadow-[0_0_20px_rgba(244,203,113,0.25)] scale-[1.02]"
+                                                        : "bg-white/5 border-white/10 hover:border-white/30 hover:bg-white/10"
+                                                }`}
+                                            >
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${item.badgeBg}`}>
+                                                        {item.sub}
+                                                    </span>
+                                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
+                                                        isSelected
+                                                            ? "bg-custom-yellow text-black shadow-md"
+                                                            : "border border-white/20 bg-transparent text-transparent"
+                                                    }`}>
+                                                        <FaCheck className="text-xs font-black" />
+                                                    </div>
+                                                </div>
+                                                <span className={`text-sm font-black uppercase tracking-tight transition-colors ${
+                                                    isSelected ? "text-custom-yellow" : "text-white"
+                                                }`}>
+                                                    {item.label}
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
 
+                            {/* Full Name & Phone Number Fields (Mandatory) */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">First Name</label>
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">
+                                        Full Name <span className="text-red-500">*</span>
+                                    </label>
                                     <input
                                         type="text"
-                                        name="firstName"
-                                        placeholder="John"
+                                        name="fullName"
+                                        placeholder="John Doe"
                                         required
-                                        value={formData.firstName}
+                                        value={formData.fullName}
                                         onChange={handleChange}
-                                        className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20"
+                                        className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20 font-medium"
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">Last Name</label>
-                                    <input
-                                        type="text"
-                                        name="lastName"
-                                        placeholder="Doe"
-                                        required
-                                        value={formData.lastName}
-                                        onChange={handleChange}
-                                        className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">Email Address</label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        placeholder="john@example.com"
-                                        required
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">Phone Number</label>
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">
+                                        Phone Number <span className="text-red-500">*</span>
+                                    </label>
                                     <input
                                         type="text"
                                         name="phone"
@@ -274,20 +332,37 @@ const Contact_us = () => {
                                         required
                                         value={formData.phone}
                                         onChange={handleChange}
-                                        className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20"
+                                        className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20 font-medium"
                                     />
                                 </div>
                             </div>
 
+                            {/* Email Address Field */}
                             <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">Message</label>
+                                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">
+                                    Email Address (Optional)
+                                </label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="john@example.com"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20 font-medium"
+                                />
+                            </div>
+
+                            {/* Message Field */}
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">
+                                    Message
+                                </label>
                                 <textarea
                                     name="comments"
-                                    placeholder="Tell us about your fitness goals..."
-                                    required
+                                    placeholder="Tell us about your fitness goals or questions..."
                                     value={formData.comments}
                                     onChange={handleChange}
-                                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20 resize-none h-32"
+                                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20 resize-none h-32 font-medium"
                                 ></textarea>
                             </div>
 
@@ -311,5 +386,3 @@ const Contact_us = () => {
 };
 
 export default Contact_us;
-
-

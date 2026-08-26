@@ -7,7 +7,7 @@ const Schedules = () => {
         <div className='py-16 md:py-24 bg-white'>
             <div className='container mx-auto px-4'>
                 <p className='text-4xl md:text-6xl font-black text-center text-custom-yellow mb-12 uppercase tracking-tighter'>Our Schedule</p>
-                
+
                 {/* For gentelmen */}
                 <section className="max-w-6xl mx-auto mb-20">
                     <div className='mb-6 py-4 bg-red-600 rounded-t-2xl shadow-lg'>
@@ -34,7 +34,7 @@ const Schedules = () => {
                                     <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">7am - 11pm</td>
                                     <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">7am - 11pm</td>
                                     <td className="p-8 text-center text-lg font-medium text-gray-600 border-r border-gray-100 italic">7am - 11pm</td>
-                                    <td className="p-8 text-center text-lg font-bold text-red-600 italic tracking-tight">3:30 - 10:30pm</td>
+                                    <td className="p-8 text-center text-lg font-bold text-red-600 italic tracking-tight">3:00 - 10:00pm</td>
                                 </tr>
                             </tbody>
                         </table>
