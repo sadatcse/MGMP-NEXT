@@ -37,9 +37,14 @@ export function generateMembershipFormPdf(item = {}) {
       const isRegular = pkgLower.includes('regular') || pkgLower.includes('admission');
       const isPackage = !isWeekly && !isDaily && (pkgLower.includes('month') || pkgLower.includes('year') || pkgLower.includes('package') || !isRegular);
 
-      const maritalStatusStr = (item.marital_status || item.maritalStatus || 'Single').toLowerCase();
+      const maritalStatusStr = (item.marital_status || item.maritalStatus || '').toLowerCase();
       const isMarried = maritalStatusStr.includes('married');
-      const isSingle = !isMarried;
+      const isSingle = maritalStatusStr.includes('single');
+
+      const payMethodStr = (item.payment_method || item.paymentMethod || item.payment || '').toLowerCase();
+      const isCash = payMethodStr.includes('cash');
+      const isCard = payMethodStr.includes('card');
+      const isBkash = payMethodStr.includes('bkash');
 
       // BRAND COLORS
       const darkColor = '#1a1a1a';
@@ -218,11 +223,11 @@ export function generateMembershipFormPdf(item = {}) {
 
       // Due Amount & Payment
       doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Due Amount', 30, y + 3);
-      drawField(125, y, 120, 20, '0 BDT');
+      drawField(125, y, 120, 20, item.due_amount || item.dueAmount || '');
       doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Payment', 275, y + 1);
-      drawCheckboxOpt(340, y, 'Cash', true);
-      drawCheckboxOpt(400, y, 'Card', false);
-      drawCheckboxOpt(460, y, 'Bkash', false);
+      drawCheckboxOpt(340, y, 'Cash', isCash);
+      drawCheckboxOpt(400, y, 'Card', isCard);
+      drawCheckboxOpt(460, y, 'Bkash', isBkash);
       y += 24;
 
       // Branches

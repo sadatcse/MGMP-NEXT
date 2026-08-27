@@ -24,9 +24,14 @@ export function generateMembershipFormHtml(item = {}) {
   const isRegular = pkgLower.includes('regular') || pkgLower.includes('admission');
   const isPackage = !isWeekly && !isDaily && (pkgLower.includes('month') || pkgLower.includes('year') || pkgLower.includes('package') || !isRegular);
 
-  const maritalStatusStr = (item.marital_status || item.maritalStatus || 'Single').toLowerCase();
+  const maritalStatusStr = (item.marital_status || item.maritalStatus || '').toLowerCase();
   const isMarried = maritalStatusStr.includes('married');
-  const isSingle = !isMarried;
+  const isSingle = maritalStatusStr.includes('single');
+
+  const payMethodStr = (item.payment_method || item.paymentMethod || item.payment || '').toLowerCase();
+  const isCash = payMethodStr.includes('cash');
+  const isCard = payMethodStr.includes('card');
+  const isBkash = payMethodStr.includes('bkash');
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -414,11 +419,11 @@ export function generateMembershipFormHtml(item = {}) {
     </div>
     <div class="row"><div class="label">Paid Amount</div><div class="field">${packagePrice}</div></div>
     <div class="row">
-      <div class="label">Due Amount</div><div class="field small">0 BDT</div>
+      <div class="label">Due Amount</div><div class="field small">${item.due_amount || item.dueAmount || ''}</div>
       <div class="label" style="min-width:70px;">Payment</div>
-      <div class="opt"><span class="checkbox checked">✓</span>Online / Pending Cash</div>
-      <div class="opt"><span class="checkbox"></span>Card</div>
-      <div class="opt"><span class="checkbox"></span>Bkash</div>
+      <div class="opt"><span class="checkbox ${isCash ? 'checked' : ''}">${isCash ? '✓' : ''}</span>Cash</div>
+      <div class="opt"><span class="checkbox ${isCard ? 'checked' : ''}">${isCard ? '✓' : ''}</span>Card</div>
+      <div class="opt"><span class="checkbox ${isBkash ? 'checked' : ''}">${isBkash ? '✓' : ''}</span>Bkash</div>
     </div>
     <div class="branch-row">
       <div class="label" style="min-width:60px;">Branch</div>
