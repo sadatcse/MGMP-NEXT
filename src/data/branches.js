@@ -27,7 +27,7 @@ export const branches = [
   {
     id: "adabor",
     slug: "adabor",
-    name: "Adabor Branch",
+    name: "Power Fit-Adabor Branch",
     tag: "",
     address:
       "5th & 6th Floors, 48/49 Jonota Cooperative Housing Society, Ring Road, Shyamoli, Adabor, Dhaka-1207",

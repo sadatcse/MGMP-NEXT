@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import connectDB from '../../../src/lib/db';
 import NutritionConsultation from '../../../src/models/NutritionConsultation';
-import { findRecentDuplicate } from '@/src/lib/dedupe-guard';
-import { requireAdmin, unauthorizedResponse } from '@/src/lib/auth-guard';
+import { findRecentDuplicate } from '../../../src/lib/dedupe-guard';
+import { requireAdmin, unauthorizedResponse } from '../../../src/lib/auth-guard';
 
 export async function POST(req) {
   try {

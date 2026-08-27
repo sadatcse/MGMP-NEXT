@@ -9,27 +9,27 @@ const JoinApplicationSchema = new mongoose.Schema(
     },
     feet: {
       type: String,
-      required: [true, 'Height (feet) is required'],
+      default: '',
     },
     inch: {
       type: String,
-      required: [true, 'Height (inch) is required'],
+      default: '',
     },
     height: {
       type: String,
-      required: true,
+      default: '',
     },
     weight: {
       type: String,
-      required: [true, 'Weight is required'],
+      default: '',
     },
     age: {
       type: String,
-      required: [true, 'Age is required'],
+      default: '',
     },
     address: {
       type: String,
-      required: [true, 'Address is required'],
+      default: '',
     },
     email: {
       type: String,
@@ -47,7 +47,7 @@ const JoinApplicationSchema = new mongoose.Schema(
     },
     package_price: {
       type: String,
-      required: true,
+      default: '',
     },
     package_note: {
       type: String,

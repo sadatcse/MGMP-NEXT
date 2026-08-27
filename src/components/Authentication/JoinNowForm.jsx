@@ -141,20 +141,31 @@ const JoinNowForm = ({ onSuccess }) => {
       package_note: selectedPlanObj.note || selectedPlanObj.tag || '',
     };
 
+    let primarySuccess = false;
+    let secondarySuccess = false;
+
     try {
-      // 1. Post to MongoDB API route
       const res = await axios.post('/api/join', payload);
-
-      // 2. Also send to fallback endpoint if online
-      try {
-        await axios.post('https://multigym-management-server-dmmji.ondigitalocean.app/api/users/signup', {
-          ...payload,
-          contact_no: data.telephone_number,
-        });
-      } catch (err) {
-        console.warn("Secondary server sync note:", err?.message || err);
+      if (res.status === 200 || res.status === 201) {
+        primarySuccess = true;
       }
+    } catch (primaryErr) {
+      console.warn("Primary API /api/join note:", primaryErr?.response?.data || primaryErr?.message);
+    }
 
+    try {
+      const secRes = await axios.post('https://multigym-management-server-dmmji.ondigitalocean.app/api/users/signup', {
+        ...payload,
+        contact_no: data.telephone_number,
+      });
+      if (secRes.status === 200 || secRes.status === 201) {
+        secondarySuccess = true;
+      }
+    } catch (err) {
+      console.warn("Secondary server sync note:", err?.message || err);
+    }
+
+    if (primarySuccess || secondarySuccess) {
       await Swal.fire({
         icon: 'success',
         title: 'Application Submitted!',
@@ -169,19 +180,17 @@ const JoinNowForm = ({ onSuccess }) => {
       if (onSuccess) {
         onSuccess();
       }
-    } catch (error) {
-      console.error('Submission error:', error);
+    } else {
       Swal.fire({
         icon: 'error',
         title: 'Submission Error',
-        text: error.response?.data?.message || 'Something went wrong while saving to database. Please try again.',
+        text: 'Something went wrong while submitting. Please try again.',
         confirmButtonColor: '#dc2626',
         background: '#111111',
         color: '#ffffff',
       });
-    } finally {
-      setIsSubmitting(false);
     }
+    setIsSubmitting(false);
   };
 
   return (

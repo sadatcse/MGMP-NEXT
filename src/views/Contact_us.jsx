@@ -112,6 +112,19 @@ const Contact_us = () => {
         image: branchImages[branch.slug] || null,
     }));
 
+    const selectedSlug =
+        formData.branch?.includes("Lalmatia") ? "lalmatia" :
+            (formData.branch?.includes("Adabor") || formData.branch?.includes("Power Fit")) ? "adabor" :
+                "shiya-masjid";
+
+    const sortedBranchData = [...branchData].sort((a, b) => {
+        const aMatch = a.slug === selectedSlug;
+        const bMatch = b.slug === selectedSlug;
+        if (aMatch && !bMatch) return -1;
+        if (!aMatch && bMatch) return 1;
+        return 0;
+    });
+
     return (
         <div className="bg-[#0a0a0a] min-h-screen text-white py-20 relative overflow-hidden">
             {/* Background Texture/Overlay */}
@@ -121,7 +134,7 @@ const Contact_us = () => {
             <div className="container mx-auto px-4 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-                    {/* Left Side: Contact Info (Displays all 3 branches) */}
+                    {/* Left Side: Contact Info (Displays all 3 branches, selected branch moved to 1st place) */}
                     <motion.div
                         variants={fadeIn('right', 0.2)}
                         initial="hidden"
@@ -138,97 +151,115 @@ const Contact_us = () => {
                             </h2>
                             <div className="w-20 h-1.5 bg-red-600 rounded-full mb-8"></div>
                             <p className="text-gray-400 text-lg font-medium leading-relaxed max-w-lg">
-                                Have questions about our memberships, locations, or facilities? Click on any branch card to view its Google Map location or send us a direct message.
+                                Have questions about our memberships, locations, or facilities? Select your preferred branch to bring its address and details right to the top.
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-1 gap-8">
-                            {branchData.map((branch) => (
-                                <div
-                                    key={branch.id}
-                                    onClick={() => setSelectedMapBranch(branch)}
-                                    className="group bg-white/5 border border-white/10 rounded-[2rem] overflow-hidden hover:bg-white/10 transition-all duration-500 shadow-2xl hover:border-custom-yellow/40 cursor-pointer relative"
-                                >
-                                    {/* Click for Map badge overlay on card top right */}
-                                    <div className="absolute top-4 right-4 z-20 bg-black/70 backdrop-blur-md border border-custom-yellow/30 text-custom-yellow group-hover:bg-custom-yellow group-hover:text-black transition-all duration-300 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
-                                        <FaMapMarkerAlt className="text-xs" />
-                                        <span>Click for Map</span>
-                                    </div>
-
-                                    {branch.image && (
-                                        <div className="relative block h-44 w-full overflow-hidden">
-                                            <Image
-                                                src={branch.image}
-                                                alt={branch.name}
-                                                fill
-                                                sizes="(max-width: 768px) 100vw, 50vw"
-                                                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                                            <span className="absolute bottom-3 left-4 text-[10px] font-black text-custom-yellow uppercase tracking-[0.3em] bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-md border border-custom-yellow/20">
-                                                {branch.tag}
-                                            </span>
-                                        </div>
-                                    )}
-                                    <div className="p-8">
-                                        <div className="flex items-center gap-4 mb-6">
-                                            <div className={`w-12 h-12 rounded-2xl ${branch.iconBg} flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
-                                                <FaMapMarkerAlt />
+                        <div className="grid grid-cols-1 gap-8">
+                            <AnimatePresence mode="popLayout">
+                                {sortedBranchData.map((branch) => {
+                                    const isSelectedCard = branch.slug === selectedSlug;
+                                    return (
+                                        <motion.div
+                                            key={branch.id}
+                                            layout
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -20 }}
+                                            transition={{ duration: 0.4, type: "spring", stiffness: 300, damping: 30 }}
+                                            onClick={() => {
+                                                setSelectedMapBranch(branch);
+                                                if (branch.slug === "lalmatia") setFormData(prev => ({ ...prev, branch: "Lalmatia Branch" }));
+                                                else if (branch.slug === "adabor") setFormData(prev => ({ ...prev, branch: "Power Fit — Adabor" }));
+                                                else setFormData(prev => ({ ...prev, branch: "Shiya Masjid Branch" }));
+                                            }}
+                                            className={`group border rounded-[2rem] overflow-hidden transition-all duration-500 shadow-2xl cursor-pointer relative ${isSelectedCard
+                                                    ? "bg-white/10 border-custom-yellow/70 shadow-[0_0_30px_rgba(244,203,113,0.15)] ring-2 ring-custom-yellow/30"
+                                                    : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-custom-yellow/40"
+                                                }`}
+                                        >
+                                            {/* Click for Map badge overlay on card top right */}
+                                            <div className="absolute top-4 right-4 z-20 bg-black/70 backdrop-blur-md border border-custom-yellow/30 text-custom-yellow group-hover:bg-custom-yellow group-hover:text-black transition-all duration-300 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
+                                                <FaMapMarkerAlt className="text-xs" />
+                                                <span>Click for Map</span>
                                             </div>
-                                            <div>
-                                                <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-custom-yellow transition-colors flex items-center gap-2">
-                                                    {branch.name}
-                                                </h3>
-                                                {!branch.image && (
-                                                    <span className="inline-block mt-1 text-[9px] font-black text-custom-yellow uppercase tracking-[0.2em] bg-custom-yellow/10 px-2 py-0.5 rounded border border-custom-yellow/30">
+
+                                            {branch.image && (
+                                                <div className="relative block h-44 w-full overflow-hidden">
+                                                    <Image
+                                                        src={branch.image}
+                                                        alt={branch.name}
+                                                        fill
+                                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                                    />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                                                    <span className="absolute bottom-3 left-4 text-[10px] font-black text-custom-yellow uppercase tracking-[0.3em] bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-md border border-custom-yellow/20">
                                                         {branch.tag}
                                                     </span>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className="space-y-4">
-                                            <p className="text-gray-400 font-medium flex gap-3 leading-relaxed">
-                                                <span className="text-custom-yellow font-bold shrink-0">Address:</span>
-                                                {branch.address}
-                                            </p>
-                                            <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
-                                                <p className="text-white font-black flex items-center gap-2">
-                                                    <FaPhoneAlt className="text-red-600" /> {branch.phone}
-                                                </p>
-                                                <div className="flex flex-wrap items-center gap-3">
-                                                    {(() => {
-                                                        const isAdabor = branch.id === "adabor" || branch.slug === "adabor";
-                                                        const branchHref = isAdabor ? "https://powerfitbd.com/" : `/branches/${branch.slug}`;
-                                                        const isExternal = isAdabor;
+                                                </div>
+                                            )}
+                                            <div className="p-8">
+                                                <div className="flex items-center gap-4 mb-6">
+                                                    <div className={`w-12 h-12 rounded-2xl ${branch.iconBg} flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                                                        <FaMapMarkerAlt />
+                                                    </div>
+                                                    <div>
+                                                        <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-custom-yellow transition-colors flex items-center gap-2">
+                                                            {branch.name}
+                                                        </h3>
+                                                        {!branch.image && (
+                                                            <span className="inline-block mt-1 text-[9px] font-black text-custom-yellow uppercase tracking-[0.2em] bg-custom-yellow/10 px-2 py-0.5 rounded border border-custom-yellow/30">
+                                                                {branch.tag}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                                <div className="space-y-4">
+                                                    <p className="text-gray-400 font-medium flex gap-3 leading-relaxed">
+                                                        <span className="text-custom-yellow font-bold shrink-0">Address:</span>
+                                                        {branch.address}
+                                                    </p>
+                                                    <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
+                                                        <p className="text-white font-black flex items-center gap-2">
+                                                            <FaPhoneAlt className="text-red-600" /> {branch.phone}
+                                                        </p>
+                                                        <div className="flex flex-wrap items-center gap-3">
+                                                            {(() => {
+                                                                const isAdabor = branch.id === "adabor" || branch.slug === "adabor";
+                                                                const branchHref = isAdabor ? "https://powerfitbd.com/" : `/branches/${branch.slug}`;
+                                                                const isExternal = isAdabor;
 
-                                                        return (
-                                                            <a
-                                                                href={branchHref}
-                                                                target={isExternal ? "_blank" : "_self"}
-                                                                rel={isExternal ? "noopener noreferrer" : undefined}
-                                                                onClick={(e) => e.stopPropagation()}
-                                                                className="px-4 py-2 rounded-xl bg-red-600 hover:bg-white text-white hover:text-red-600 text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2 shadow-lg shadow-red-600/20"
+                                                                return (
+                                                                    <a
+                                                                        href={branchHref}
+                                                                        target={isExternal ? "_blank" : "_self"}
+                                                                        rel={isExternal ? "noopener noreferrer" : undefined}
+                                                                        onClick={(e) => e.stopPropagation()}
+                                                                        className="px-4 py-2 rounded-xl bg-red-600 hover:bg-white text-white hover:text-red-600 text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2 shadow-lg shadow-red-600/20"
+                                                                    >
+                                                                        Branch Page <FaArrowRight className="text-[10px]" />
+                                                                    </a>
+                                                                );
+                                                            })()}
+                                                            <button
+                                                                type="button"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    setSelectedMapBranch(branch);
+                                                                }}
+                                                                className="px-4 py-2 rounded-xl border border-custom-yellow/50 hover:border-custom-yellow text-custom-yellow hover:bg-custom-yellow hover:text-black text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-custom-yellow/20"
                                                             >
-                                                                Branch Page <FaArrowRight className="text-[10px]" />
-                                                            </a>
-                                                        );
-                                                    })()}
-                                                    <button
-                                                        type="button"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            setSelectedMapBranch(branch);
-                                                        }}
-                                                        className="px-4 py-2 rounded-xl border border-custom-yellow/50 hover:border-custom-yellow text-custom-yellow hover:bg-custom-yellow hover:text-black text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-custom-yellow/20"
-                                                    >
-                                                        <FaMapMarkerAlt className="text-xs" /> View Map →
-                                                    </button>
+                                                                <FaMapMarkerAlt className="text-xs" /> View Map →
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                                        </motion.div>
+                                    );
+                                })}
+                            </AnimatePresence>
                         </div>
                     </motion.div>
 
@@ -277,27 +308,24 @@ const Contact_us = () => {
                                             <div
                                                 key={item.value}
                                                 onClick={() => setFormData({ ...formData, branch: item.value })}
-                                                className={`relative cursor-pointer p-4 rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between ${
-                                                    isSelected
+                                                className={`relative cursor-pointer p-4 rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between ${isSelected
                                                         ? "bg-white/10 border-custom-yellow shadow-[0_0_20px_rgba(244,203,113,0.25)] scale-[1.02]"
                                                         : "bg-white/5 border-white/10 hover:border-white/30 hover:bg-white/10"
-                                                }`}
+                                                    }`}
                                             >
                                                 <div className="flex items-center justify-between mb-2">
                                                     <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${item.badgeBg}`}>
                                                         {item.sub}
                                                     </span>
-                                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
-                                                        isSelected
+                                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${isSelected
                                                             ? "bg-custom-yellow text-black shadow-md"
                                                             : "border border-white/20 bg-transparent text-transparent"
-                                                    }`}>
+                                                        }`}>
                                                         <FaCheck className="text-xs font-black" />
                                                     </div>
                                                 </div>
-                                                <span className={`text-sm font-black uppercase tracking-tight transition-colors ${
-                                                    isSelected ? "text-custom-yellow" : "text-white"
-                                                }`}>
+                                                <span className={`text-sm font-black uppercase tracking-tight transition-colors ${isSelected ? "text-custom-yellow" : "text-white"
+                                                    }`}>
                                                     {item.label}
                                                 </span>
                                             </div>
@@ -452,11 +480,10 @@ const Contact_us = () => {
                                         <button
                                             key={b.id}
                                             onClick={() => setSelectedMapBranch(b)}
-                                            className={`px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 ${
-                                                selectedMapBranch.id === b.id
+                                            className={`px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 ${selectedMapBranch.id === b.id
                                                     ? "bg-custom-yellow text-black shadow-md shadow-custom-yellow/20"
                                                     : "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10 hover:text-white"
-                                            }`}
+                                                }`}
                                         >
                                             <FaMapMarkerAlt className="text-[10px]" /> {b.name.split('—')[0]}
                                         </button>

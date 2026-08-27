@@ -2,12 +2,11 @@ import { NextResponse } from 'next/server';
 import connectDB from '../../../src/lib/db';
 import JoinApplication from '../../../src/models/JoinApplication';
 import { sendJoinNotificationEmail } from '../../../src/lib/sendJoinNotificationEmail';
-import { findRecentDuplicate } from '@/src/lib/dedupe-guard';
-import { requireAdmin, unauthorizedResponse } from '@/src/lib/auth-guard';
+import { findRecentDuplicate } from '../../../src/lib/dedupe-guard';
+import { requireAdmin, unauthorizedResponse } from '../../../src/lib/auth-guard';
 
 export async function POST(req) {
   try {
-    await connectDB();
     const body = await req.json();
     const {
       full_name,
@@ -31,46 +30,73 @@ export async function POST(req) {
       );
     }
 
-    const resolvedHeight = height || `${feet || ''} ${inch || ''}`.trim();
+    const resolvedHeight = height || `${feet || ''} ${inch || ''}`.trim() || 'N/A';
 
-    const existing = await findRecentDuplicate(JoinApplication, { email, telephone_number });
-    if (existing) {
-      return NextResponse.json(
-        {
-          success: true,
-          message: 'We already received your application a moment ago — our team will contact you shortly.',
-          data: existing,
-        },
-        { status: 200 }
-      );
+    let application = null;
+    try {
+      await connectDB();
+
+      const existing = await findRecentDuplicate(JoinApplication, { email, telephone_number }).catch(() => null);
+      if (existing) {
+        return NextResponse.json(
+          {
+            success: true,
+            message: 'We already received your application a moment ago — our team will contact you shortly.',
+            data: existing,
+          },
+          { status: 200 }
+        );
+      }
+
+      application = await JoinApplication.create({
+        full_name,
+        feet: feet || '',
+        inch: inch || '',
+        height: resolvedHeight,
+        weight: weight || 'N/A',
+        age: age || 'N/A',
+        address: address || 'N/A',
+        email,
+        telephone_number,
+        package_name,
+        package_price: package_price || '',
+        package_note: package_note || '',
+        status: 'Pending',
+      });
+    } catch (dbErr) {
+      console.error('MongoDB database connection/creation error in /api/join:', dbErr);
     }
 
-    const application = await JoinApplication.create({
-      full_name,
-      feet: feet || '',
-      inch: inch || '',
-      height: resolvedHeight,
-      weight,
-      age,
-      address,
-      email,
-      telephone_number,
-      package_name,
-      package_price: package_price || '',
-      package_note: package_note || '',
-      status: 'Pending',
-    });
-
-    // Send automated email to multigympremiumpowerfit@gmail.com with pre-filled PDF attached
-    sendJoinNotificationEmail(application.toObject ? application.toObject() : application).catch((err) => {
-      console.error('Background email notification error:', err);
-    });
+    // Trigger background email notification safely
+    try {
+      const emailPayload = application
+        ? (application.toObject ? application.toObject() : application)
+        : {
+            full_name,
+            feet: feet || '',
+            inch: inch || '',
+            height: resolvedHeight,
+            weight: weight || 'N/A',
+            age: age || 'N/A',
+            address: address || 'N/A',
+            email,
+            telephone_number,
+            package_name,
+            package_price: package_price || '',
+            package_note: package_note || '',
+          };
+      sendJoinNotificationEmail(emailPayload).catch((err) => {
+        console.error('Background email notification error:', err);
+      });
+    } catch (emailErr) {
+      console.error('Failed to trigger sendJoinNotificationEmail:', emailErr);
+    }
 
     return NextResponse.json(
       {
         success: true,
         message: 'Join application submitted successfully',
-        data: application,
+        data: application || body,
       },
       { status: 201 }
     );
