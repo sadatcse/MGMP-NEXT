@@ -3,6 +3,7 @@ import connectDB from '../../../src/lib/db';
 import NutritionConsultation from '../../../src/models/NutritionConsultation';
 import { findRecentDuplicate } from '../../../src/lib/dedupe-guard';
 import { requireAdmin, unauthorizedResponse } from '../../../src/lib/auth-guard';
+import { sendNutritionNotificationEmail } from '../../../src/lib/sendNutritionNotificationEmail';
 
 export async function POST(req) {
   try {
@@ -44,6 +45,17 @@ export async function POST(req) {
       });
     } catch (dbErr) {
       console.error('MongoDB database connection/creation error in /api/nutrition:', dbErr);
+    }
+
+    // Send email notification safely
+    try {
+      await sendNutritionNotificationEmail({
+        full_name: full_name.trim(),
+        mobile_number: mobile_number.trim(),
+        email: email.trim().toLowerCase(),
+      }).catch((err) => console.error('Nutrition email notification error:', err));
+    } catch (emailErr) {
+      console.error('Failed to trigger sendNutritionNotificationEmail:', emailErr);
     }
 
     return NextResponse.json(

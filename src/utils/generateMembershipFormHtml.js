@@ -10,7 +10,7 @@ export function generateMembershipFormHtml(item = {}) {
   const age = item.age || '';
   const packageName = item.package_name || '';
   const packagePrice = item.package_price || '';
-  
+
   const svgLogoUrl = '/multigym_premium_logo_v2.svg';
 
   // Format Date Boxes (DDMMYYYY) for submission date

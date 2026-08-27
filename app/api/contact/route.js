@@ -3,6 +3,7 @@ import connectDB from '../../../src/lib/db';
 import ContactMessage from '../../../src/models/ContactMessage';
 import { findRecentDuplicate } from '../../../src/lib/dedupe-guard';
 import { requireAdmin, unauthorizedResponse } from '../../../src/lib/auth-guard';
+import { sendContactNotificationEmail } from '../../../src/lib/sendContactNotificationEmail';
 
 export async function POST(req) {
   try {
@@ -38,6 +39,19 @@ export async function POST(req) {
       status: 'unread',
       createdAt: new Date()
     });
+
+    // Send email notification safely
+    try {
+      await sendContactNotificationEmail({
+        fullName: resolvedFullName,
+        email: email || '',
+        phone,
+        branch: branch || 'Shiya Masjid Branch',
+        comments: comments || '',
+      }).catch((err) => console.error('Contact email notification error:', err));
+    } catch (emailErr) {
+      console.error('Failed to trigger sendContactNotificationEmail:', emailErr);
+    }
 
     return NextResponse.json(
       { success: true, message: 'Contact message saved successfully.', data: newMessage },
