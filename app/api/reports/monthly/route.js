@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { sendMonthlyReport } from '../../../../src/lib/sendMonthlyReport';
-import { requireAdmin, unauthorizedResponse } from '@/src/lib/auth-guard';
+import { requireAdmin, unauthorizedResponse } from '../../../../src/lib/auth-guard';
 
 export async function GET(req) {
   if (!requireAdmin(req)) return unauthorizedResponse();

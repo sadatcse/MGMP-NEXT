@@ -3,7 +3,7 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { promises as fs } from 'fs';
 import path from 'path';
 import sharp from 'sharp';
-import { requireAdmin, unauthorizedResponse } from '@/src/lib/auth-guard';
+import { requireAdmin, unauthorizedResponse } from '../../../src/lib/auth-guard';
 
 const COMPRESSIBLE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp']);
 

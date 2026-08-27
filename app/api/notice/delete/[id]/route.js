@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import connectDB from '../../../../../src/lib/db';
 import Notices from '../../../../../src/models/Notices';
-import { requireAdmin, unauthorizedResponse } from '@/src/lib/auth-guard';
+import { requireAdmin, unauthorizedResponse } from '../../../../../src/lib/auth-guard';
 
 export async function DELETE(req, { params }) {
   if (!requireAdmin(req)) return unauthorizedResponse();
