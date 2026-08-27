@@ -1,5 +1,7 @@
 import PDFDocument from 'pdfkit';
 import moment from 'moment';
+import fs from 'fs';
+import path from 'path';
 
 export function generateMembershipFormPdf(item = {}) {
   return new Promise((resolve, reject) => {
@@ -57,8 +59,19 @@ export function generateMembershipFormPdf(item = {}) {
       // Header Logo Box (Right side)
       doc.rect(450, 12, 115, 42).lineWidth(1.5).stroke(redColor);
       doc.rect(452, 14, 111, 38).fill('#000000');
-      doc.fillColor('#ffffff').fontSize(12).font('Helvetica-BoldOblique').text('MULTI GYM', 460, 20);
-      doc.fillColor(goldColor).fontSize(9).font('Helvetica-BoldOblique').text('PREMIUM', 460, 35);
+
+      try {
+        const logoPngPath = path.join(process.cwd(), 'public', 'logo.png');
+        if (fs.existsSync(logoPngPath)) {
+          doc.image(logoPngPath, 455, 16, { fit: [105, 34], align: 'center', valign: 'center' });
+        } else {
+          doc.fillColor('#ffffff').fontSize(12).font('Helvetica-BoldOblique').text('MULTI GYM', 460, 20);
+          doc.fillColor(goldColor).fontSize(9).font('Helvetica-BoldOblique').text('PREMIUM', 460, 35);
+        }
+      } catch (imgErr) {
+        doc.fillColor('#ffffff').fontSize(12).font('Helvetica-BoldOblique').text('MULTI GYM', 460, 20);
+        doc.fillColor(goldColor).fontSize(9).font('Helvetica-BoldOblique').text('PREMIUM', 460, 35);
+      }
 
       let y = 80;
 
