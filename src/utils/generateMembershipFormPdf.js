@@ -107,7 +107,9 @@ export function generateMembershipFormPdf(item = {}) {
       const drawField = (x, yPos, width, height, textVal = '') => {
         doc.rect(x, yPos, width, height).lineWidth(0.8).fillAndStroke(fieldBg, strokeColor);
         if (textVal) {
-          doc.fillColor(darkColor).fontSize(9.5).font('Helvetica-Bold').text(String(textVal), x + 5, yPos + 4, { width: width - 8, lineBreak: false });
+          const str = String(textVal);
+          const fSize = str.length > 28 ? 7.5 : str.length > 18 ? 8.5 : 9.5;
+          doc.fillColor(darkColor).fontSize(fSize).font('Helvetica-Bold').text(str, x + 4, yPos + (fSize < 9 ? 5 : 4), { width: width - 8, lineBreak: false });
         }
       };
 
@@ -303,7 +305,7 @@ export function generateMembershipFormPdf(item = {}) {
       // HEADER PAGE 2
       let tY = 30;
       doc.rect(210, tY, 175, 26).fill(goldColor);
-      doc.fillColor(darkColor).fontSize(11).font('Helvetica-Bold').text('📢 TERMS AND CONDITIONS', 210, tY + 7, { width: 175, align: 'center' });
+      doc.fillColor(darkColor).fontSize(11).font('Helvetica-Bold').text('TERMS AND CONDITIONS', 210, tY + 7, { width: 175, align: 'center' });
 
       tY += 34;
       doc.fillColor(darkColor).fontSize(16).font('Helvetica-BoldOblique').text('MULTI GYM ', 180, tY, { continued: true });

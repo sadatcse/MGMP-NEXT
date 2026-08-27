@@ -144,10 +144,13 @@ export function generateMembershipFormHtml(item = {}) {
     min-height:24px;
     padding:2px 8px;
     font-weight:bold;
-    font-size:13px;
+    font-size:12px;
     display:flex;
     align-items:center;
     background:#fcfcfc;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
   .field.small{flex:none; width:150px;}
   .inline-group{display:flex; align-items:center; gap:8px;}
@@ -161,6 +164,7 @@ export function generateMembershipFormHtml(item = {}) {
     vertical-align:middle;
     font-size:11px;
     font-weight:bold;
+    line-height:1;
   }
   .checkbox.checked{
     background:var(--red);
@@ -246,9 +250,10 @@ export function generateMembershipFormHtml(item = {}) {
     background:var(--gold);
     color:#1a1a1a;
     font-weight:bold;
-    padding:8px 20px;
+    padding:8px 24px;
     border-radius:4px 4px 4px 20px;
-    font-size:18px;
+    font-size:16px;
+    letter-spacing:1px;
   }
   .terms-header h2{
     font-style:italic;
@@ -500,7 +505,7 @@ export function generateMembershipFormHtml(item = {}) {
 <!-- PAGE 2 -->
 <div class="page">
   <div class="terms-header">
-    <div class="tag">&#128227; TERMS AND CONDITIONS</div>
+    <div class="tag">TERMS AND CONDITIONS</div>
     <h2>MULTI GYM <span>PREMIUM</span></h2>
   </div>
   <ol class="terms-list">
