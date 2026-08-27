@@ -46,11 +46,11 @@ export async function sendJoinNotificationEmail(applicationData) {
     }
 
     // 2. Setup Hostinger SMTP Transporter
-    const host = process.env.SMTP_HOST || 'smtp.hostinger.com';
-    const port = parseInt(process.env.SMTP_PORT || '465', 10);
-    const user = process.env.SMTP_USER || 'info@multigympremium.com';
-    const pass = process.env.SMTP_PASS || 'Premium@7426';
-    const recipient = process.env.JOIN_NOTIFICATION_EMAIL || 'multigympremiumpowerfit@gmail.com';
+    const host = process.env.SMTP_HOST;
+    const port = parseInt(process.env.SMTP_PORT);
+    const user = process.env.SMTP_USER;
+    const pass = process.env.SMTP_PASS;
+    const recipient = process.env.JOIN_NOTIFICATION_EMAIL;
 
     const transporter = nodemailer.createTransport({
       host,

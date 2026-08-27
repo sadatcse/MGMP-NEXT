@@ -15,7 +15,7 @@ if (typeof window !== 'undefined' && !ReactDOM.findDOMNode) {
   };
 }
 
-export default function AppShell({ children }) {
+export default function AppShell({ children, initialVisitorStats }) {
   const pathname = usePathname();
   const isDashboard = pathname?.startsWith('/dashboard') || pathname?.startsWith('/webadmin');
 
@@ -60,21 +60,21 @@ export default function AppShell({ children }) {
     logVisitor();
   }, [isDashboard]);
 
-  return (
-    <AuthProvider>
-      {!isDashboard && (
+  if (!isDashboard) {
+    return (
+      <>
         <div className="mx-auto">
           <Navbar />
         </div>
-      )}
-      {children}
-      {!isDashboard && (
+        {children}
         <div>
-          <Footer />
+          <Footer initialStats={initialVisitorStats} />
         </div>
-      )}
-      {!isDashboard && <Advertisement1 />}
-      {!isDashboard && <Chatbox />}
-    </AuthProvider>
-  );
+        <Advertisement1 />
+        <Chatbox />
+      </>
+    );
+  }
+
+  return <AuthProvider>{children}</AuthProvider>;
 }

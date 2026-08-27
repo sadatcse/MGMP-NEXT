@@ -39,7 +39,7 @@ export async function sendMonthlyReport(targetMonth = new Date()) {
     const totalJoinApps = joinApps.length;
     const pendingJoinApps = joinApps.filter(a => a.status === 'Pending').length;
     const approvedJoinApps = joinApps.filter(a => a.status === 'Approved' || a.status === 'Completed').length;
-    
+
     const packageCounts = {};
     joinApps.forEach(a => {
       const pkg = a.package_name || 'Single Membership Plan';
@@ -78,11 +78,11 @@ export async function sendMonthlyReport(targetMonth = new Date()) {
     });
 
     // Setup Hostinger SMTP Transporter
-    const host = process.env.SMTP_HOST || 'smtp.hostinger.com';
-    const port = parseInt(process.env.SMTP_PORT || '465', 10);
-    const user = process.env.SMTP_USER || 'info@multigympremium.com';
-    const pass = process.env.SMTP_PASS || 'Premium@7426';
-    const recipient = process.env.JOIN_NOTIFICATION_EMAIL || 'multigympremiumpowerfit@gmail.com';
+    const host = process.env.SMTP_HOST;
+    const port = parseInt(process.env.SMTP_PORT);
+    const user = process.env.SMTP_USER;
+    const pass = process.env.SMTP_PASS;
+    const recipient = process.env.JOIN_NOTIFICATION_EMAIL;
 
     const transporter = nodemailer.createTransport({
       host,

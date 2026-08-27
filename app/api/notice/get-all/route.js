@@ -5,7 +5,7 @@ import Notices from '../../../../src/models/Notices';
 export async function GET() {
   try {
     await connectDB();
-    const notices = await Notices.find({}).sort({ date: -1 });
+    const notices = await Notices.find({}).sort({ date: -1 }).limit(200);
     return NextResponse.json(notices, { status: 200 });
   } catch (error) {
     console.error('Notices GET Error:', error);

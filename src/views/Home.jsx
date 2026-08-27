@@ -1,4 +1,3 @@
-"use client";
 import About from '../components/Homepage/About';
 import Hero from '../components/Homepage/Hero';
 import Classes from '../components/Homepage/Classes';
@@ -9,16 +8,16 @@ import Blog from '../components/Homepage/Blog';
 import Photo_galary from '../components/Homepage/Photo_galary';
 
 
-const Home = () => {
+const Home = ({ trainers = [], testimonials = [], newsPosts = [] }) => {
     return (
         <div>
             <Hero />
             <About />
             <Classes />
-            <Team />
+            <Team initialData={trainers} />
             <Membership />
-            <Testimonial />
-            <Blog />
+            <Testimonial initialData={testimonials} />
+            <Blog initialData={newsPosts} />
             <Photo_galary />
         </div>
     );

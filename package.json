@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://www.multigympremium.com",
   "scripts": {
-    "dev": "node --max-old-space-size=8192 node_modules/next/dist/bin/next dev",
+    "dev": "node --max-old-space-size=8192 node_modules/next/dist/bin/next dev --hostname localhost",
     "build": "node --max-old-space-size=8192 node_modules/next/dist/bin/next build",
     "start": "node node_modules/next/dist/bin/next start",
     "clean": "rimraf .next",

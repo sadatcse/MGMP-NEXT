@@ -15,11 +15,16 @@ import {
   FaFilePdf
 } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-import axios from 'axios';
-import moment from 'moment';
+import UseAxioSecure from '../../../Hook/UseAxioSecure';
 import { generateMembershipFormHtml } from '../../../utils/generateMembershipFormHtml';
 
+const formatDate = (date) =>
+  new Date(date).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+const formatTime = (date) =>
+  new Date(date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+
 const JoinApplications = () => {
+  const axiosSecure = UseAxioSecure();
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -28,7 +33,7 @@ const JoinApplications = () => {
   const fetchApplications = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('/api/join');
+      const res = await axiosSecure.get('/join');
       if (res.data && res.data.data) {
         setApplications(res.data.data);
       }
@@ -46,7 +51,7 @@ const JoinApplications = () => {
   const handleStatusToggle = async (id, currentStatus) => {
     const newStatus = currentStatus === 'Approved' ? 'Pending' : 'Approved';
     try {
-      const res = await axios.patch(`/api/join/${id}`, { status: newStatus });
+      const res = await axiosSecure.patch(`/join/${id}`, { status: newStatus });
       if (res.data.success) {
         Swal.fire({
           icon: 'success',
@@ -87,7 +92,7 @@ const JoinApplications = () => {
 
     if (result.isConfirmed) {
       try {
-        const res = await axios.delete(`/api/join/${id}`);
+        const res = await axiosSecure.delete(`/join/${id}`);
         if (res.data.success) {
           Swal.fire({
             icon: 'success',
@@ -318,8 +323,8 @@ const JoinApplications = () => {
 
                     {/* Date */}
                     <td className="p-4 text-xs text-gray-400 font-medium">
-                      {moment(item.createdAt).format('MMM DD, YYYY')}
-                      <span className="block text-[10px] text-gray-500">{moment(item.createdAt).format('hh:mm A')}</span>
+                      {formatDate(item.createdAt)}
+                      <span className="block text-[10px] text-gray-500">{formatTime(item.createdAt)}</span>
                     </td>
 
                     {/* Actions */}

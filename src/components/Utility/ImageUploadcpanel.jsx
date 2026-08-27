@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import UseAxioSecure from '../../Hook/UseAxioSecure';
 
 const ImageUpload = ({ setImageUrl, setPreviewImageUrl, folder = 'general' }) => {
+    const axiosSecure = UseAxioSecure();
     const [uploading, setUploading] = useState(false);
 
     const handleImageUpload = async (e) => {
@@ -15,10 +16,8 @@ const ImageUpload = ({ setImageUrl, setPreviewImageUrl, folder = 'general' }) =>
         formData.append('image', imageFile);
         formData.append('folder', folder);
 
-        const uploadUrl = `/api/upload`;
-
         try {
-            const response = await axios.post(uploadUrl, formData);
+            const response = await axiosSecure.post('/upload', formData);
 
             if (response.status === 200 && response.data?.success) {
                 const uploadedUrl = response.data.data?.url || response.data.url;

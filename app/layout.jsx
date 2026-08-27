@@ -4,6 +4,7 @@ import Image from 'next/image';
 import '../src/index.css';
 import AppShell from '../src/components/AppShell';
 import { siteConfig } from '../src/lib/site-config';
+import { getVisitorSummary } from '../src/lib/server-data';
 import Logo from '../src/assets/logo.png';
 
 // Dismisses #site-preloader below as soon as the page is actually ready.
@@ -133,8 +134,9 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
   const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-1051232E5C';
+  const initialVisitorStats = await getVisitorSummary().catch(() => null);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -228,7 +230,7 @@ export default function RootLayout({ children }) {
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: preloaderHideScript }}
         />
-        <AppShell>{children}</AppShell>
+        <AppShell initialVisitorStats={initialVisitorStats}>{children}</AppShell>
       </body>
     </html>
   );

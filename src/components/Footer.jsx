@@ -24,14 +24,14 @@ import ios from "../assets/img/footer/appsstore.png";
 import moment from "moment/moment";
 import Swal from 'sweetalert2';
 
-const Footer = () => {
+const Footer = ({ initialStats }) => {
     const currentYear = moment().format('YYYY');
     const [newsletterEmail, setNewsletterEmail] = useState('');
     const [stats, setStats] = useState({
-        today: 10,
-        total: 15000,
-        online: 3,
-        loading: true
+        today: initialStats?.today ?? 0,
+        total: initialStats?.total ?? 0,
+        online: initialStats?.online ?? 1,
+        loading: !initialStats
     });
 
     useEffect(() => {
@@ -55,23 +55,16 @@ const Footer = () => {
                 const res = await fetch('/api/visitor/stats');
                 const data = await res.json();
                 if (res.ok && data.success && data.stats) {
-                    const randomLiveAdd = Math.floor(Math.random() * 2) + 2; // +2 or +3 random
                     setStats({
-                        today: (data.stats.today || 0) + 10,
-                        total: (data.stats.total || 0) + 15000,
-                        online: (data.stats.online || 1) + randomLiveAdd,
+                        today: data.stats.today || 0,
+                        total: data.stats.total || 0,
+                        online: data.stats.online || 1,
                         loading: false
                     });
                 }
             } catch (err) {
                 console.warn('Failed to load visitor stats:', err);
-                const randomLiveAdd = Math.floor(Math.random() * 2) + 2;
-                setStats(prev => ({
-                    today: (prev.today || 0) + 10,
-                    total: (prev.total || 0) + 15000,
-                    online: (prev.online || 1) + randomLiveAdd,
-                    loading: false
-                }));
+                setStats(prev => ({ ...prev, loading: false }));
             }
         };
 
@@ -176,7 +169,7 @@ const Footer = () => {
 
                             <div className="group">
                                 <a
-                                    href="https://powerfitbd.com/"
+                                    href="https://maps.app.goo.gl/fmpUb6kAQv3v2Y1m7"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="font-bold text-white group-hover:text-custom-yellow transition-colors flex items-center gap-2"
@@ -325,8 +318,6 @@ const Footer = () => {
                         <Link href="/legal/appprivacypolicy" className="hover:text-custom-yellow transition-colors">Privacy Policy</Link>
                         <span>•</span>
                         <Link href="/legal/refundpolicy" className="hover:text-custom-yellow transition-colors">Refund Policy</Link>
-                        <span>•</span>
-                        <Link href="/webadmin" className="hover:text-red-500 transition-colors">Admin Portal</Link>
                     </div>
 
                 </div>

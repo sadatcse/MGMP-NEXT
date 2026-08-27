@@ -16,8 +16,10 @@ import {
 } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import Swal from 'sweetalert2';
+import UseAxioSecure from '../../../Hook/UseAxioSecure';
 
 const Contact_messages = () => {
+  const axiosSecure = UseAxioSecure();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -33,10 +35,9 @@ const Contact_messages = () => {
       if (branchFilter !== 'all') queryParams.append('branch', branchFilter);
       if (searchTerm.trim()) queryParams.append('search', searchTerm.trim());
 
-      const res = await fetch(`/api/contact?${queryParams.toString()}`);
-      const data = await res.json();
-      if (data.success) {
-        setMessages(data.data || []);
+      const res = await axiosSecure.get(`/contact?${queryParams.toString()}`);
+      if (res.data.success) {
+        setMessages(res.data.data || []);
       }
     } catch (error) {
       console.error('Failed to fetch contact messages:', error);
@@ -56,14 +57,9 @@ const Contact_messages = () => {
 
   const handleStatusChange = async (id, newStatus) => {
     try {
-      const res = await fetch(`/api/contact/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      const data = await res.json();
+      const res = await axiosSecure.patch(`/contact/${id}`, { status: newStatus });
 
-      if (res.ok && data.success) {
+      if (res.data.success) {
         setMessages((prev) =>
           prev.map((msg) => (msg._id === id ? { ...msg, status: newStatus } : msg))
         );
@@ -101,10 +97,9 @@ const Contact_messages = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await fetch(`/api/contact/${id}`, { method: 'DELETE' });
-          const data = await res.json();
+          const res = await axiosSecure.delete(`/contact/${id}`);
 
-          if (res.ok && data.success) {
+          if (res.data.success) {
             setMessages((prev) => prev.filter((msg) => msg._id !== id));
             if (selectedMessage && selectedMessage._id === id) {
               setSelectedMessage(null);

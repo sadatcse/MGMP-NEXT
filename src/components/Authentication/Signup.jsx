@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { Suspense } from 'react';
 import JoinNowForm from './JoinNowForm';
 
 const Signup = () => {
@@ -15,7 +15,9 @@ const Signup = () => {
 
       {/* Form Container */}
       <div className="relative z-10 w-full max-w-5xl lg:max-w-6xl bg-zinc-950/90 border border-zinc-800 backdrop-blur-xl rounded-3xl p-6 sm:p-10 md:p-12 shadow-2xl my-8">
-        <JoinNowForm />
+        <Suspense fallback={<div className="text-center py-12 text-gray-400 font-bold">Loading Join Now Form...</div>}>
+          <JoinNowForm />
+        </Suspense>
       </div>
     </article>
   );

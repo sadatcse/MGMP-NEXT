@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -69,6 +70,7 @@ const singleMembershipPlans = [
 
 const JoinNowForm = ({ onSuccess }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const searchParams = useSearchParams();
 
   const {
     register,
@@ -91,6 +93,31 @@ const JoinNowForm = ({ onSuccess }) => {
       selected_package: 'Admission Fee + Regular Monthly Fee',
     }
   });
+
+  useEffect(() => {
+    const pkg = searchParams?.get('package');
+    const plan = searchParams?.get('plan');
+
+    if (pkg) {
+      const matched = singleMembershipPlans.find(
+        (p) => p.id === pkg || p.name.toLowerCase().includes(pkg.toLowerCase())
+      );
+      if (matched) {
+        setValue('selected_package', matched.name, { shouldValidate: true });
+        const el = document.getElementById('package-section');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    } else if (plan) {
+      const matched = singleMembershipPlans.find(
+        (p) => p.name.toLowerCase() === plan.toLowerCase() || p.name.toLowerCase().includes(plan.toLowerCase())
+      );
+      if (matched) {
+        setValue('selected_package', matched.name, { shouldValidate: true });
+      }
+    }
+  }, [searchParams, setValue]);
 
   const selectedPackageName = watch('selected_package');
 

@@ -18,6 +18,14 @@ export const metadata = {
       "Visit Multigym Premium's Lalmatia Branch, beside Fire Service & Civil Defence, Lalmatia, Dhaka. Find the address, phone number, and Google Maps location.",
     url: "https://www.multigympremium.com/branches/lalmatia",
     type: "website",
+    images: [{ url: branchImage.src, width: branchImage.width, height: branchImage.height }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lalmatia Branch | Multigym Premium",
+    description:
+      "Visit Multigym Premium's Lalmatia Branch, beside Fire Service & Civil Defence, Lalmatia, Dhaka. Find the address, phone number, and Google Maps location.",
+    images: [branchImage.src],
   },
 };
 

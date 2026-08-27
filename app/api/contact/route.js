@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import connectDB from '../../../src/lib/db';
 import ContactMessage from '../../../src/models/ContactMessage';
+import { findRecentDuplicate } from '@/src/lib/dedupe-guard';
+import { requireAdmin, unauthorizedResponse } from '@/src/lib/auth-guard';
 
 export async function POST(req) {
   try {
@@ -14,6 +16,14 @@ export async function POST(req) {
       return NextResponse.json(
         { success: false, message: 'Full name and phone number are mandatory fields.' },
         { status: 400 }
+      );
+    }
+
+    const existing = await findRecentDuplicate(ContactMessage, { phone, email: email || '' });
+    if (existing) {
+      return NextResponse.json(
+        { success: true, message: 'We already received your message a moment ago — our team will get back to you shortly.', data: existing },
+        { status: 200 }
       );
     }
 
@@ -43,6 +53,7 @@ export async function POST(req) {
 }
 
 export async function GET(req) {
+  if (!requireAdmin(req)) return unauthorizedResponse();
   try {
     await connectDB();
     const { searchParams } = new URL(req.url);
@@ -69,7 +80,7 @@ export async function GET(req) {
       ];
     }
 
-    const messages = await ContactMessage.find(filter).sort({ createdAt: -1 }).lean();
+    const messages = await ContactMessage.find(filter).sort({ createdAt: -1 }).limit(200).lean();
     return NextResponse.json({ success: true, data: messages }, { status: 200 });
   } catch (error) {
     console.error('Contact GET Error:', error);

@@ -1,4 +1,5 @@
 import Home from "../src/views/Home";
+import { getAllNews, getAllTestimonials, getAllTrainers } from "../src/lib/server-data";
 
 export const metadata = {
   title: {
@@ -25,8 +26,20 @@ export const metadata = {
     locale: "en_US",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Multigym Premium | Elite Fitness Club & Training Center",
+    description: "Join Multigym Premium, the ultimate luxury fitness club. Get access to state-of-the-art gym equipment, professional master trainers, success stories, and custom training programs.",
+    images: ["https://www.multigympremium.com/about.png"],
+  },
 };
 
-export default function Page() {
-  return <Home />;
+export default async function Page() {
+  const [newsPosts, testimonials, trainers] = await Promise.all([
+    getAllNews().catch(() => []),
+    getAllTestimonials().catch(() => []),
+    getAllTrainers().catch(() => []),
+  ]);
+
+  return <Home newsPosts={newsPosts} testimonials={testimonials} trainers={trainers} />;
 }

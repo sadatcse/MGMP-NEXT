@@ -18,6 +18,14 @@ export const metadata = {
       "Visit Multigym Premium's Shiya Masjid Branch in Mohammadpur, Dhaka — our main branch. Find the address, phone number, and Google Maps location.",
     url: "https://www.multigympremium.com/branches/shiya-masjid",
     type: "website",
+    images: [{ url: branchImage.src, width: branchImage.width, height: branchImage.height }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shiya Masjid Branch | Multigym Premium",
+    description:
+      "Visit Multigym Premium's Shiya Masjid Branch in Mohammadpur, Dhaka — our main branch. Find the address, phone number, and Google Maps location.",
+    images: [branchImage.src],
   },
 };
 

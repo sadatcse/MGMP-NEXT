@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 import { sendMonthlyReport } from '../../../../src/lib/sendMonthlyReport';
+import { requireAdmin, unauthorizedResponse } from '@/src/lib/auth-guard';
 
 export async function GET(req) {
+  if (!requireAdmin(req)) return unauthorizedResponse();
   try {
     const result = await sendMonthlyReport();
     if (result.success) {
@@ -30,6 +32,7 @@ export async function GET(req) {
 }
 
 export async function POST(req) {
+  if (!requireAdmin(req)) return unauthorizedResponse();
   try {
     const result = await sendMonthlyReport();
     if (result.success) {

@@ -1,9 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import CustomButton from './CustomButton';
 import Image1 from '../../assets/img/classes/1.jpg';
-import Image2 from '../../assets/img/classes/2.jpg';
-import Image3 from '../../assets/img/classes/3.jpg';
 import Image4 from '../../assets/img/classes/4.jpg';
 
 const classes = [
@@ -14,12 +11,12 @@ const classes = [
   },
   {
     name: 'cardio',
-    img: "https://i.ibb.co/DYRBvXH/356154662-278385804702827-8405110985639410813-n.jpg",
+    img: "https://multigym-website.s3.ap-southeast-1.amazonaws.com/Multigym%20premium/static/classes_1.jpg",
     description: 'High-intensity cardiovascular workouts.',
   },
   {
     name: 'Jumba',
-    img: "https://i.ibb.co/xDXPbtm/356386940-278386884702719-3303309731686936601-n-1.jpg",
+    img: "https://multigym-website.s3.ap-southeast-1.amazonaws.com/Multigym%20premium/static/classes_2.jpg",
     description: 'Fun and energetic dance fitness sessions.',
   },
   {
@@ -44,10 +41,6 @@ const Classes = () => {
           <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white p-4'>
             <h3 className='text-xl md:text-3xl text-accent'>{item.name}</h3>
             <p className='text-white text-sm md:text-base'>{item.description}</p>
-            <CustomButton
-              containerStyles='btn text-sm md:text-base border-none hover:bg-transparent mt-2'
-              text='Read more'
-            />
           </div>
         </div>
       ))}

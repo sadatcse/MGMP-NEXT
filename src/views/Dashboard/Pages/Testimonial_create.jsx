@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import 'react-datepicker/dist/react-datepicker.css';
-import 'react-quill/dist/quill.snow.css';
 import UseAxioSecure from '../../../Hook/UseAxioSecure';
 import Swal from 'sweetalert2';
 import ImageUpload from '../../../components/Utility/ImageUploadcpanel';

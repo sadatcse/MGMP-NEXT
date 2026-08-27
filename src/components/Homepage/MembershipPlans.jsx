@@ -1,4 +1,5 @@
 "use client";
+import Link from 'next/link';
 import { MdClose } from 'react-icons/md';
 import { FaCheck, FaBolt, FaCrown, FaTrophy, FaArrowRight } from 'react-icons/fa6';
 import { motion } from 'framer-motion';
@@ -11,6 +12,7 @@ const membershipData = [
     price: '600',
     type: 'day',
     billed: 'Billed per day',
+    packageId: 'day',
     benefits: [
       { text: 'Health & Fitness Tips', included: true },
       { text: 'Standard Gym Access', included: true },
@@ -26,6 +28,7 @@ const membershipData = [
     type: 'month',
     billed: 'Billed monthly',
     recommended: true,
+    packageId: 'adm_reg',
     benefits: [
       { text: 'Health & Fitness Tips', included: true },
       { text: 'Full Gym Access', included: true },
@@ -40,6 +43,7 @@ const membershipData = [
     price: '16,000',
     type: '6 months',
     billed: 'Billed every 6 months',
+    packageId: '6month',
     benefits: [
       { text: 'All Elite Benefits', included: true },
       { text: 'Personal Training Intro', included: true },
@@ -121,7 +125,8 @@ const MembershipPlans = () => {
               ))}
             </ul>
 
-            <button
+            <Link
+              href={`/signup?package=${item.packageId}`}
               className={`group/btn w-full py-5 rounded-2xl text-xs font-black uppercase tracking-[0.2em] transition-all duration-500 border-2 flex items-center justify-center gap-2
                 ${
                   item.recommended
@@ -131,7 +136,7 @@ const MembershipPlans = () => {
             >
               Choose Plan
               <FaArrowRight className="text-[10px] transition-transform duration-300 group-hover/btn:translate-x-1" />
-            </button>
+            </Link>
           </div>
         </motion.div>
       ))}

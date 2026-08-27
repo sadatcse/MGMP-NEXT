@@ -87,7 +87,7 @@ const HeroSlider = () => {
               We do everything we can to help you become your best self for the rest of your life.
             </motion.p>
 
-            {/* Two Branch Buttons */}
+            {/* Two Branch Navigation Buttons */}
             <motion.div
               variants={fadeIn('up', 0.7)}
               initial='hidden'
@@ -95,51 +95,55 @@ const HeroSlider = () => {
               viewport={{ once: false, amount: 0.2 }}
               className='flex flex-col sm:flex-row items-center justify-center gap-5 w-full max-w-3xl'
             >
-              {branches.map((branch) => {
-                const isMain = branch.id === "shiya-masjid";
-                return (
-                  <Link
-                    key={branch.id}
-                    href={`/branches/${branch.slug}`}
-                    className={`w-full sm:w-1/2 group relative flex items-center justify-between p-5 sm:p-6 rounded-2xl bg-black/80 backdrop-blur-xl border-2 transition-all duration-300 shadow-2xl hover:-translate-y-1.5 ${
-                      isMain
-                        ? "border-red-600/50 hover:border-red-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.4)]"
-                        : "border-custom-yellow/50 hover:border-custom-yellow hover:shadow-[0_0_30px_rgba(244,203,113,0.4)]"
-                    }`}
-                  >
-                    <div className='flex items-center gap-4 text-left'>
-                      <div
-                        className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                          isMain
-                            ? "bg-red-600/20 text-red-500 group-hover:bg-red-600 group-hover:text-white"
-                            : "bg-custom-yellow/20 text-custom-yellow group-hover:bg-custom-yellow group-hover:text-black"
-                        }`}
-                      >
-                        <FaBuilding className='text-xl' />
-                      </div>
-                      <div>
-                        <span
-                          className={`inline-block text-[10px] font-black uppercase tracking-[0.2em] px-2.5 py-0.5 rounded-md mb-1 ${
+              {branches
+                .filter((branch) => branch.id !== 'adabor')
+                .map((branch) => {
+                  const isMain = branch.id === "shiya-masjid";
+                  return (
+                    <Link
+                      key={branch.id}
+                      href={`/branches/${branch.slug}`}
+                      className={`w-full sm:w-1/2 group relative flex items-center justify-between p-5 sm:p-6 rounded-2xl bg-black/80 backdrop-blur-xl border-2 transition-all duration-300 shadow-2xl hover:-translate-y-1.5 ${
+                        isMain
+                          ? "border-red-600/50 hover:border-red-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.4)]"
+                          : "border-custom-yellow/50 hover:border-custom-yellow hover:shadow-[0_0_30px_rgba(244,203,113,0.4)]"
+                      }`}
+                    >
+                      <div className='flex items-center gap-4 text-left'>
+                        <div
+                          className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
                             isMain
-                              ? "bg-red-600 text-white"
-                              : "bg-custom-yellow text-black"
+                              ? "bg-red-600/20 text-red-500 group-hover:bg-red-600 group-hover:text-white"
+                              : "bg-custom-yellow/20 text-custom-yellow group-hover:bg-custom-yellow group-hover:text-black"
                           }`}
                         >
-                          {branch.tag}
-                        </span>
-                        <h4 className='text-base sm:text-lg font-black uppercase tracking-tight text-white group-hover:text-custom-yellow transition-colors leading-tight'>
-                          {branch.name}
-                        </h4>
+                          <FaBuilding className='text-xl' />
+                        </div>
+                        <div>
+                          {branch.tag && (
+                            <span
+                              className={`inline-block text-[10px] font-black uppercase tracking-[0.2em] px-2.5 py-0.5 rounded-md mb-1 ${
+                                isMain
+                                  ? "bg-red-600 text-white"
+                                  : "bg-custom-yellow text-black"
+                              }`}
+                            >
+                              {branch.tag}
+                            </span>
+                          )}
+                          <h4 className='text-base sm:text-lg font-black uppercase tracking-tight text-white group-hover:text-custom-yellow transition-colors leading-tight'>
+                            {branch.name}
+                          </h4>
+                        </div>
                       </div>
-                    </div>
-                    <FaArrowRight
-                      className={`text-xl transition-all duration-300 group-hover:translate-x-2 flex-shrink-0 ml-3 ${
-                        isMain ? "text-red-500 group-hover:text-white" : "text-custom-yellow"
-                      }`}
-                    />
-                  </Link>
-                );
-              })}
+                      <FaArrowRight
+                        className={`text-xl transition-all duration-300 group-hover:translate-x-2 flex-shrink-0 ml-3 ${
+                          isMain ? "text-red-500 group-hover:text-white" : "text-custom-yellow"
+                        }`}
+                      />
+                    </Link>
+                  );
+                })}
             </motion.div>
 
           </div>

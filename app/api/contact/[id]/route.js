@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
 import connectDB from '../../../../src/lib/db';
 import ContactMessage from '../../../../src/models/ContactMessage';
+import { requireAdmin, unauthorizedResponse } from '@/src/lib/auth-guard';
 
 export async function PATCH(req, { params }) {
+  if (!requireAdmin(req)) return unauthorizedResponse();
   try {
     await connectDB();
     const { id } = await params;
@@ -40,6 +42,7 @@ export async function PATCH(req, { params }) {
 }
 
 export async function DELETE(req, { params }) {
+  if (!requireAdmin(req)) return unauthorizedResponse();
   try {
     await connectDB();
     const { id } = await params;

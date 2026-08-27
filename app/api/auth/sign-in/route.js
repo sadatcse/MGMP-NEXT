@@ -24,9 +24,14 @@ export async function POST(req) {
       console.warn('DB connect error in sign-in, proceeding with auth payload:', dbError.message);
     }
 
+    if (!process.env.JWT_SECRET) {
+      console.error('JWT_SECRET is not configured');
+      return NextResponse.json({ message: 'Server misconfiguration' }, { status: 500 });
+    }
+
     const token = jwt.sign(
       userObj,
-      process.env.JWT_SECRET || 'multigym_secret_jwt_key_2026',
+      process.env.JWT_SECRET,
       {
         expiresIn: process.env.JWT_EXPIRES_IN || '7d',
       }

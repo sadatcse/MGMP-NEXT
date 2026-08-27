@@ -12,10 +12,15 @@ import {
   FaCalendarAlt
 } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-import axios from 'axios';
-import moment from 'moment';
+import UseAxioSecure from '../../../Hook/UseAxioSecure';
+
+const formatDate = (date) =>
+  new Date(date).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+const formatTime = (date) =>
+  new Date(date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
 
 const NutritionLeads = () => {
+  const axiosSecure = UseAxioSecure();
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -24,7 +29,7 @@ const NutritionLeads = () => {
   const fetchLeads = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('/api/nutrition');
+      const res = await axiosSecure.get('/nutrition');
       if (res.data && res.data.data) {
         setLeads(res.data.data);
       }
@@ -42,7 +47,7 @@ const NutritionLeads = () => {
   const handleStatusToggle = async (id, currentStatus) => {
     const newStatus = currentStatus === 'Contacted' ? 'Pending' : 'Contacted';
     try {
-      const res = await axios.patch(`/api/nutrition/${id}`, { status: newStatus });
+      const res = await axiosSecure.patch(`/nutrition/${id}`, { status: newStatus });
       if (res.data.success) {
         Swal.fire({
           icon: 'success',
@@ -83,7 +88,7 @@ const NutritionLeads = () => {
 
     if (result.isConfirmed) {
       try {
-        const res = await axios.delete(`/api/nutrition/${id}`);
+        const res = await axiosSecure.delete(`/nutrition/${id}`);
         if (res.data.success) {
           Swal.fire({
             icon: 'success',
@@ -277,8 +282,8 @@ const NutritionLeads = () => {
 
                     {/* Date */}
                     <td className="p-4 text-xs text-gray-400 font-medium">
-                      {moment(item.createdAt).format('MMM DD, YYYY')}
-                      <span className="block text-[10px] text-gray-500">{moment(item.createdAt).format('hh:mm A')}</span>
+                      {formatDate(item.createdAt)}
+                      <span className="block text-[10px] text-gray-500">{formatTime(item.createdAt)}</span>
                     </td>
 
                     {/* Actions */}

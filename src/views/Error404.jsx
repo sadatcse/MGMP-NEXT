@@ -22,12 +22,12 @@ const Error404 = () => {
         <div className="absolute">
         </div>
         <div>
-          <Image src="https://i.ibb.co/CbHJM6j/Screenshot-2024-06-29-085216.png" alt="Error 404" width={600} height={500} className="w-full h-auto" />
+          <Image src="https://multigym-website.s3.ap-southeast-1.amazonaws.com/Multigym%20premium/static/error404_illustration_1.png" alt="Error 404" width={600} height={500} className="w-full h-auto" />
         </div>
       </div>
     </div>
     <div className="w-full max-w-[500px] mx-auto">
-      <Image src="https://i.ibb.co/ck1SGFJ/Group.png" alt="Illustration" width={500} height={500} className="w-full h-auto" />
+      <Image src="https://multigym-website.s3.ap-southeast-1.amazonaws.com/Multigym%20premium/static/error404_illustration_2.png" alt="Illustration" width={500} height={500} className="w-full h-auto" />
     </div>
   </div>
 </div>

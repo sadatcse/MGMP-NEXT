@@ -6,7 +6,7 @@ import { sortTrainers } from '../../../../src/lib/teamSort';
 export async function GET() {
   try {
     await connectDB();
-    const rawTrainers = await Trainers.find({}).lean();
+    const rawTrainers = await Trainers.find({}).limit(200).lean();
     const sortedTrainers = sortTrainers(rawTrainers);
     return NextResponse.json(sortedTrainers, { status: 200 });
   } catch (error) {

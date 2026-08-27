@@ -1,3 +1,4 @@
+"use client";
 import { FaUser, FaDumbbell, FaHeartbeat, FaUsers, FaSun } from 'react-icons/fa';
 import { IoIosPricetags, IoIosNutrition } from 'react-icons/io';
 import Achievements from './Achievements';

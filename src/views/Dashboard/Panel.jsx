@@ -20,10 +20,13 @@ import {
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import useAxiosPublic from '../../Hook/useAxiosPublic';
+import UseAxioSecure from '../../Hook/UseAxioSecure';
+import Swal from 'sweetalert2';
 import Link from 'next/link';
 
 const Panel = () => {
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = UseAxioSecure();
     const [stats, setStats] = useState({
         blogs: 0,
         trainers: 0,
@@ -52,7 +55,7 @@ const Panel = () => {
     const handleSendReport = async () => {
         try {
             setSendingReport(true);
-            const res = await fetch('/api/reports/monthly', { method: 'POST' }).then(r => r.json());
+            const res = await axiosSecure.post('/reports/monthly').then(r => r.data);
             if (res.success) {
                 Swal.fire({
                     icon: 'success',
@@ -87,9 +90,9 @@ const Panel = () => {
                     axiosPublic.get('/testimonial/get-all').catch(() => ({ data: [] })),
                     axiosPublic.get('/notice/get-all').catch(() => ({ data: [] })),
                     axiosPublic.get('/visitor/stats').catch(() => ({ data: { success: false } })),
-                    fetch('/api/contact').then(r => r.json()).catch(() => ({ data: [] })),
-                    fetch('/api/join').then(r => r.json()).catch(() => ({ data: [] })),
-                    fetch('/api/nutrition').then(r => r.json()).catch(() => ({ data: [] }))
+                    axiosSecure.get('/contact').then(r => r.data).catch(() => ({ data: [] })),
+                    axiosSecure.get('/join').then(r => r.data).catch(() => ({ data: [] })),
+                    axiosSecure.get('/nutrition').then(r => r.data).catch(() => ({ data: [] }))
                 ]);
                 
                 setStats({
@@ -113,7 +116,7 @@ const Panel = () => {
         };
 
         fetchStats();
-    }, [axiosPublic]);
+    }, [axiosPublic, axiosSecure]);
 
     const statCards = [
         { label: "Join Applications", value: stats.joinApplications, icon: FaUserCheck, color: "bg-emerald-600", link: "/dashboard/join_applications" },

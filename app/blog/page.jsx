@@ -1,4 +1,5 @@
 import PageComponent from '../../src/views/News';
+import { getAllNews } from '../../src/lib/server-data';
 
 export const metadata = {
   title: "Fitness Blog, Gym News & Health Tips",
@@ -15,6 +16,7 @@ export const metadata = {
   }
 };
 
-export default function Page() {
-  return <PageComponent />;
+export default async function Page() {
+  const newsPosts = await getAllNews().catch(() => []);
+  return <PageComponent initialData={newsPosts} />;
 }

@@ -2,15 +2,16 @@
 import emailjs from '@emailjs/browser';
 import React, { useState, useRef } from "react";
 import Image from 'next/image';
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane, FaBuilding, FaUser, FaCommentDots, FaArrowRight, FaCheck } from "react-icons/fa";
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane, FaBuilding, FaUser, FaCommentDots, FaArrowRight, FaCheck, FaTimes, FaDirections } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import Link from 'next/link';
 import Swal from 'sweetalert2';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { fadeIn } from '../../lib/variants';
 import { branches as sharedBranches } from '../data/branches';
 import ShiyaMasjidImage from '../assets/img/photogalary/3.jpg';
-import LalmatiaImage from '../assets/img/photogalary/4.jpg';
+import LalmatiaImage from '../assets/img/photogalary/7.jpg';
+import PowerFitImage from '../assets/img/photogalary/powerfit.jpg';
 
 const Contact_us = () => {
     const [formData, setFormData] = useState({
@@ -21,6 +22,7 @@ const Contact_us = () => {
         comments: ""
     });
 
+    const [selectedMapBranch, setSelectedMapBranch] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const form = useRef();
 
@@ -92,37 +94,23 @@ const Contact_us = () => {
         }
     };
 
-    const adaborMapUrl = "https://maps.app.goo.gl/HiinBe2YqhoaH58k7";
-
     const branchImages = {
         "shiya-masjid": ShiyaMasjidImage,
         lalmatia: LalmatiaImage,
+        adabor: PowerFitImage,
     };
 
     const branchIconStyles = {
         "shiya-masjid": "bg-red-600 text-white shadow-lg shadow-red-600/20",
         lalmatia: "bg-custom-yellow text-black shadow-lg shadow-custom-yellow/20",
+        adabor: "bg-red-600 text-white shadow-lg shadow-red-600/20",
     };
 
-    const branchData = [
-        ...sharedBranches.map((branch) => ({
-            ...branch,
-            iconBg: branchIconStyles[branch.slug],
-            image: branchImages[branch.slug],
-        })),
-        {
-            id: "adabor",
-            slug: null,
-            name: "Power Fit — Adabor",
-            tag: "NEW BRANCH",
-            iconBg: "bg-red-600 text-white shadow-lg shadow-red-600/20",
-            address: "5th & 6th Floors, 48/49 Jonota Cooperative Housing Society, Ring Road, Shyamoli, Adabor, Dhaka-1207.",
-            phone: "(+880) 1313-197426",
-            tel: "+8801313197426",
-            mapUrl: adaborMapUrl,
-            image: null,
-        }
-    ];
+    const branchData = sharedBranches.map((branch) => ({
+        ...branch,
+        iconBg: branchIconStyles[branch.slug] || "bg-red-600 text-white shadow-lg shadow-red-600/20",
+        image: branchImages[branch.slug] || null,
+    }));
 
     return (
         <div className="bg-[#0a0a0a] min-h-screen text-white py-20 relative overflow-hidden">
@@ -150,7 +138,7 @@ const Contact_us = () => {
                             </h2>
                             <div className="w-20 h-1.5 bg-red-600 rounded-full mb-8"></div>
                             <p className="text-gray-400 text-lg font-medium leading-relaxed max-w-lg">
-                                Have questions about our memberships, locations, or facilities? Choose your nearest branch or send us a direct message.
+                                Have questions about our memberships, locations, or facilities? Click on any branch card to view its Google Map location or send us a direct message.
                             </p>
                         </div>
 
@@ -158,13 +146,17 @@ const Contact_us = () => {
                             {branchData.map((branch) => (
                                 <div
                                     key={branch.id}
-                                    className="group bg-white/5 border border-white/10 rounded-[2rem] overflow-hidden hover:bg-white/10 transition-all duration-500 shadow-2xl hover:border-white/20"
+                                    onClick={() => setSelectedMapBranch(branch)}
+                                    className="group bg-white/5 border border-white/10 rounded-[2rem] overflow-hidden hover:bg-white/10 transition-all duration-500 shadow-2xl hover:border-custom-yellow/40 cursor-pointer relative"
                                 >
+                                    {/* Click for Map badge overlay on card top right */}
+                                    <div className="absolute top-4 right-4 z-20 bg-black/70 backdrop-blur-md border border-custom-yellow/30 text-custom-yellow group-hover:bg-custom-yellow group-hover:text-black transition-all duration-300 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
+                                        <FaMapMarkerAlt className="text-xs" />
+                                        <span>Click for Map</span>
+                                    </div>
+
                                     {branch.image && (
-                                        <Link
-                                            href={`/branches/${branch.slug}`}
-                                            className="relative block h-40 w-full overflow-hidden"
-                                        >
+                                        <div className="relative block h-44 w-full overflow-hidden">
                                             <Image
                                                 src={branch.image}
                                                 alt={branch.name}
@@ -172,56 +164,65 @@ const Contact_us = () => {
                                                 sizes="(max-width: 768px) 100vw, 50vw"
                                                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                                            <span className="absolute bottom-3 left-4 text-[10px] font-black text-custom-yellow uppercase tracking-[0.3em]">
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                                            <span className="absolute bottom-3 left-4 text-[10px] font-black text-custom-yellow uppercase tracking-[0.3em] bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-md border border-custom-yellow/20">
                                                 {branch.tag}
                                             </span>
-                                        </Link>
+                                        </div>
                                     )}
                                     <div className="p-8">
                                         <div className="flex items-center gap-4 mb-6">
-                                            <div className={`w-12 h-12 rounded-2xl ${branch.iconBg} flex items-center justify-center text-xl flex-shrink-0`}>
+                                            <div className={`w-12 h-12 rounded-2xl ${branch.iconBg} flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                                                 <FaMapMarkerAlt />
                                             </div>
                                             <div>
-                                                {branch.slug ? (
-                                                    <Link href={`/branches/${branch.slug}`}>
-                                                        <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-custom-yellow transition-colors">
-                                                            {branch.name}
-                                                        </h3>
-                                                    </Link>
-                                                ) : (
-                                                    <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-custom-yellow transition-colors">
-                                                        {branch.name}
-                                                    </h3>
+                                                <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-custom-yellow transition-colors flex items-center gap-2">
+                                                    {branch.name}
+                                                </h3>
+                                                {!branch.image && (
+                                                    <span className="inline-block mt-1 text-[9px] font-black text-custom-yellow uppercase tracking-[0.2em] bg-custom-yellow/10 px-2 py-0.5 rounded border border-custom-yellow/30">
+                                                        {branch.tag}
+                                                    </span>
                                                 )}
                                             </div>
                                         </div>
                                         <div className="space-y-4">
-                                            <p className="text-gray-400 font-medium flex gap-3">
-                                                <span className="text-custom-yellow font-bold">Address:</span>
+                                            <p className="text-gray-400 font-medium flex gap-3 leading-relaxed">
+                                                <span className="text-custom-yellow font-bold shrink-0">Address:</span>
                                                 {branch.address}
                                             </p>
-                                            <div className="flex flex-wrap items-center justify-between gap-4">
+                                            <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
                                                 <p className="text-white font-black flex items-center gap-2">
                                                     <FaPhoneAlt className="text-red-600" /> {branch.phone}
                                                 </p>
-                                                <div className="flex flex-wrap items-center gap-3 pt-2">
-                                                    {branch.slug && (
-                                                        <Link
-                                                            href={`/branches/${branch.slug}`}
-                                                            className="px-4 py-2 rounded-xl bg-red-600 hover:bg-white text-white hover:text-red-600 text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2 shadow-lg shadow-red-600/20"
-                                                        >
-                                                            Branch Page <FaArrowRight className="text-[10px]" />
-                                                        </Link>
-                                                    )}
-                                                    <Link
-                                                        href={branch.mapUrl}
-                                                        target="_blank"
-                                                        className="px-4 py-2 rounded-xl border border-custom-yellow/50 hover:border-custom-yellow text-custom-yellow hover:bg-custom-yellow hover:text-black text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2"
+                                                <div className="flex flex-wrap items-center gap-3">
+                                                    {(() => {
+                                                        const isAdabor = branch.id === "adabor" || branch.slug === "adabor";
+                                                        const branchHref = isAdabor ? "https://powerfitbd.com/" : `/branches/${branch.slug}`;
+                                                        const isExternal = isAdabor;
+
+                                                        return (
+                                                            <a
+                                                                href={branchHref}
+                                                                target={isExternal ? "_blank" : "_self"}
+                                                                rel={isExternal ? "noopener noreferrer" : undefined}
+                                                                onClick={(e) => e.stopPropagation()}
+                                                                className="px-4 py-2 rounded-xl bg-red-600 hover:bg-white text-white hover:text-red-600 text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2 shadow-lg shadow-red-600/20"
+                                                            >
+                                                                Branch Page <FaArrowRight className="text-[10px]" />
+                                                            </a>
+                                                        );
+                                                    })()}
+                                                    <button
+                                                        type="button"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setSelectedMapBranch(branch);
+                                                        }}
+                                                        className="px-4 py-2 rounded-xl border border-custom-yellow/50 hover:border-custom-yellow text-custom-yellow hover:bg-custom-yellow hover:text-black text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-custom-yellow/20"
                                                     >
-                                                        View Map →
-                                                    </Link>
+                                                        <FaMapMarkerAlt className="text-xs" /> View Map →
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -381,8 +382,120 @@ const Contact_us = () => {
                     </motion.div>
                 </div>
             </div>
+
+            {/* Google Map Modal Popup */}
+            <AnimatePresence>
+                {selectedMapBranch && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/85 backdrop-blur-md"
+                        onClick={() => setSelectedMapBranch(null)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.92, opacity: 0, y: 20 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.92, opacity: 0, y: 20 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                            className="bg-[#121212] border border-white/15 rounded-[2.5rem] w-full max-w-4xl overflow-hidden shadow-[0_0_60px_rgba(239,68,68,0.2)] relative"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Modal Header */}
+                            <div className="p-6 md:p-8 border-b border-white/10 flex items-center justify-between bg-white/5">
+                                <div className="flex items-center gap-4">
+                                    <div className={`w-12 h-12 rounded-2xl ${selectedMapBranch.iconBg} flex items-center justify-center text-xl flex-shrink-0`}>
+                                        <FaMapMarkerAlt />
+                                    </div>
+                                    <div>
+                                        <div className="flex items-center gap-3 flex-wrap">
+                                            <h3 className="text-xl md:text-2xl font-black uppercase text-white tracking-tight">
+                                                {selectedMapBranch.name}
+                                            </h3>
+                                            <span className="text-[10px] font-black text-custom-yellow uppercase tracking-widest bg-custom-yellow/10 border border-custom-yellow/30 px-2.5 py-0.5 rounded-full">
+                                                {selectedMapBranch.tag}
+                                            </span>
+                                        </div>
+                                        <p className="text-xs md:text-sm text-gray-300 font-medium mt-1">
+                                            {selectedMapBranch.address}
+                                        </p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setSelectedMapBranch(null)}
+                                    className="w-10 h-10 rounded-2xl bg-white/10 hover:bg-red-600 text-white flex items-center justify-center text-lg transition-colors border border-white/10 shrink-0"
+                                    aria-label="Close Google Map Modal"
+                                >
+                                    <FaTimes />
+                                </button>
+                            </div>
+
+                            {/* Live Interactive Google Map Frame */}
+                            <div className="h-[380px] md:h-[480px] w-full bg-black relative">
+                                <iframe
+                                    src={`https://www.google.com/maps?q=${encodeURIComponent(selectedMapBranch.mapEmbedQuery)}&output=embed`}
+                                    title={`${selectedMapBranch.name} Google Map Location`}
+                                    className="w-full h-full border-0"
+                                    loading="lazy"
+                                    allowFullScreen
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                />
+                            </div>
+
+                            {/* Branch Selector Tabs inside Modal */}
+                            <div className="bg-[#181818] px-6 py-3 border-t border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+                                <span className="text-[11px] font-black uppercase tracking-widest text-gray-400">
+                                    Switch Branch Location:
+                                </span>
+                                <div className="flex flex-wrap items-center gap-2">
+                                    {branchData.map((b) => (
+                                        <button
+                                            key={b.id}
+                                            onClick={() => setSelectedMapBranch(b)}
+                                            className={`px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                                                selectedMapBranch.id === b.id
+                                                    ? "bg-custom-yellow text-black shadow-md shadow-custom-yellow/20"
+                                                    : "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10 hover:text-white"
+                                            }`}
+                                        >
+                                            <FaMapMarkerAlt className="text-[10px]" /> {b.name.split('—')[0]}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Modal Footer / Actions */}
+                            <div className="p-6 bg-white/5 flex flex-wrap items-center justify-between gap-4">
+                                <a
+                                    href={`tel:${selectedMapBranch.tel}`}
+                                    className="text-white font-black text-sm flex items-center gap-2 hover:text-red-500 transition-colors"
+                                >
+                                    <FaPhoneAlt className="text-red-600" /> {selectedMapBranch.phone}
+                                </a>
+                                <div className="flex flex-wrap items-center gap-3">
+                                    <a
+                                        href={selectedMapBranch.mapUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-6 py-3 rounded-2xl bg-red-600 hover:bg-white text-white hover:text-red-600 text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2.5 shadow-xl shadow-red-600/20"
+                                    >
+                                        <FaDirections className="text-sm" /> Open Google Maps App ↗
+                                    </a>
+                                    <button
+                                        onClick={() => setSelectedMapBranch(null)}
+                                        className="px-5 py-3 rounded-2xl border border-white/20 hover:border-white text-gray-300 hover:text-white text-xs font-black uppercase tracking-widest transition-all"
+                                    >
+                                        Close Window
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };
 
 export default Contact_us;
+

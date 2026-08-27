@@ -1,4 +1,5 @@
 import PageComponent from '../../src/views/Services';
+import serviceImage from '../../src/assets/img/Service/center.jpg';
 
 export const metadata = {
   title: "Fitness Services, Training Programs & Workouts",
@@ -11,8 +12,15 @@ export const metadata = {
     title: "Fitness Services, Training Programs & Workouts | Multigym Premium",
     description: "Browse premium services at Multigym. Offering personalized training plans, muscle-building boot camps, yoga classes, cardio routines, and tailored diet support programs.",
     url: "https://www.multigympremium.com/service",
-    type: "website"
-  }
+    type: "website",
+    images: [{ url: serviceImage.src, width: serviceImage.width, height: serviceImage.height }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Fitness Services, Training Programs & Workouts | Multigym Premium",
+    description: "Browse premium services at Multigym. Offering personalized training plans, muscle-building boot camps, yoga classes, cardio routines, and tailored diet support programs.",
+    images: [serviceImage.src],
+  },
 };
 
 export default function Page() {
