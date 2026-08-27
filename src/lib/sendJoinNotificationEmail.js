@@ -14,15 +14,21 @@ export async function sendJoinNotificationEmail(applicationData) {
 
     // Setup Hostinger SMTP Transporter
     const host = process.env.SMTP_HOST;
-    const port = parseInt(process.env.SMTP_PORT);
+    const rawPort = process.env.SMTP_PORT;
+    const port = rawPort ? parseInt(rawPort) : 465;
     const user = process.env.SMTP_USER;
     const pass = process.env.SMTP_PASS;
-    const recipient = process.env.JOIN_NOTIFICATION_EMAIL;
+    const recipient = process.env.JOIN_NOTIFICATION_EMAIL || user || 'info@multigympremium.com';
+
+    if (!host || !user || !pass) {
+      console.warn('[sendJoinNotificationEmail] SMTP credentials incomplete in environment. Skipping email sending safely.');
+      return { success: false, error: 'SMTP environment configuration incomplete' };
+    }
 
     const transporter = nodemailer.createTransport({
       host,
-      port,
-      secure: port === 465,
+      port: isNaN(port) ? 465 : port,
+      secure: port === 465 || isNaN(port),
       auth: {
         user,
         pass

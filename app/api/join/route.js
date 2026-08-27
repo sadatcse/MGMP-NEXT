@@ -36,7 +36,14 @@ export async function POST(req) {
     try {
       await connectDB();
 
-      const existing = await findRecentDuplicate(JoinApplication, { email, telephone_number }).catch(() => null);
+      const cleanEmail = email ? email.trim().toLowerCase() : '';
+      const cleanPhone = telephone_number ? telephone_number.trim() : '';
+
+      const existing = await findRecentDuplicate(JoinApplication, {
+        email: cleanEmail,
+        telephone_number: cleanPhone,
+      }).catch(() => null);
+
       if (existing) {
         return NextResponse.json(
           {
@@ -49,15 +56,15 @@ export async function POST(req) {
       }
 
       application = await JoinApplication.create({
-        full_name,
+        full_name: full_name ? full_name.trim() : '',
         feet: feet || '',
         inch: inch || '',
         height: resolvedHeight,
         weight: weight || 'N/A',
         age: age || 'N/A',
         address: address || 'N/A',
-        email,
-        telephone_number,
+        email: cleanEmail,
+        telephone_number: cleanPhone,
         package_name,
         package_price: package_price || '',
         package_note: package_note || '',
@@ -67,25 +74,25 @@ export async function POST(req) {
       console.error('MongoDB database connection/creation error in /api/join:', dbErr);
     }
 
-    // Trigger background email notification safely
+    // Trigger background email notification safely (await inside try/catch to avoid unhandled rejections)
     try {
       const emailPayload = application
         ? (application.toObject ? application.toObject() : application)
         : {
-            full_name,
+            full_name: full_name ? full_name.trim() : '',
             feet: feet || '',
             inch: inch || '',
             height: resolvedHeight,
             weight: weight || 'N/A',
             age: age || 'N/A',
             address: address || 'N/A',
-            email,
-            telephone_number,
+            email: email ? email.trim().toLowerCase() : '',
+            telephone_number: telephone_number ? telephone_number.trim() : '',
             package_name,
             package_price: package_price || '',
             package_note: package_note || '',
           };
-      sendJoinNotificationEmail(emailPayload).catch((err) => {
+      await sendJoinNotificationEmail(emailPayload).catch((err) => {
         console.error('Background email notification error:', err);
       });
     } catch (emailErr) {
