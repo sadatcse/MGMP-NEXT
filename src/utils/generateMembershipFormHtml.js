@@ -18,10 +18,15 @@ export function generateMembershipFormHtml(item = {}) {
   const d1 = dateStr[0] || '', d2 = dateStr[1] || '', m1 = dateStr[2] || '', m2 = dateStr[3] || '';
   const y1 = dateStr[4] || '', y2 = dateStr[5] || '', y3 = dateStr[6] || '', y4 = dateStr[7] || '';
 
-  const isWeekly = packageName.toLowerCase().includes('weekly');
-  const isDaily = packageName.toLowerCase().includes('daily');
-  const isPackage = !isWeekly && !isDaily;
-  const isRegular = packageName.toLowerCase().includes('regular') || packageName.toLowerCase().includes('admission');
+  const pkgLower = packageName.toLowerCase();
+  const isWeekly = pkgLower.includes('weekly') || pkgLower.includes('week');
+  const isDaily = pkgLower.includes('daily') || pkgLower.includes('day');
+  const isRegular = pkgLower.includes('regular') || pkgLower.includes('admission');
+  const isPackage = !isWeekly && !isDaily && (pkgLower.includes('month') || pkgLower.includes('year') || pkgLower.includes('package') || !isRegular);
+
+  const maritalStatusStr = (item.marital_status || item.maritalStatus || 'Single').toLowerCase();
+  const isMarried = maritalStatusStr.includes('married');
+  const isSingle = !isMarried;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -372,8 +377,8 @@ export function generateMembershipFormHtml(item = {}) {
     <div class="row"><div class="label">Full Address</div><div class="field">${address}</div></div>
     <div class="row">
       <div class="label">Status</div>
-      <div class="opt"><span class="checkbox checked">✓</span>Single</div>
-      <div class="opt"><span class="checkbox"></span>Married</div>
+      <div class="opt"><span class="checkbox ${isSingle ? 'checked' : ''}">${isSingle ? '✓' : ''}</span>Single</div>
+      <div class="opt"><span class="checkbox ${isMarried ? 'checked' : ''}">${isMarried ? '✓' : ''}</span>Married</div>
       <div class="label" style="min-width:60px;">NID No:</div>
       <div class="field"></div>
     </div>

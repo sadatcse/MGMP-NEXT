@@ -31,10 +31,15 @@ export function generateMembershipFormPdf(item = {}) {
       const d1 = dateStr[0] || '', d2 = dateStr[1] || '', m1 = dateStr[2] || '', m2 = dateStr[3] || '';
       const y1 = dateStr[4] || '', y2 = dateStr[5] || '', y3 = dateStr[6] || '', y4 = dateStr[7] || '';
 
-      const isWeekly = packageName.toLowerCase().includes('weekly');
-      const isDaily = packageName.toLowerCase().includes('daily');
-      const isPackage = !isWeekly && !isDaily;
-      const isRegular = packageName.toLowerCase().includes('regular') || packageName.toLowerCase().includes('admission');
+      const pkgLower = packageName.toLowerCase();
+      const isWeekly = pkgLower.includes('weekly') || pkgLower.includes('week');
+      const isDaily = pkgLower.includes('daily') || pkgLower.includes('day');
+      const isRegular = pkgLower.includes('regular') || pkgLower.includes('admission');
+      const isPackage = !isWeekly && !isDaily && (pkgLower.includes('month') || pkgLower.includes('year') || pkgLower.includes('package') || !isRegular);
+
+      const maritalStatusStr = (item.marital_status || item.maritalStatus || 'Single').toLowerCase();
+      const isMarried = maritalStatusStr.includes('married');
+      const isSingle = !isMarried;
 
       // BRAND COLORS
       const darkColor = '#1a1a1a';
@@ -154,8 +159,8 @@ export function generateMembershipFormPdf(item = {}) {
 
       // Row 4: Status & NID No
       doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Status', 30, y + 1);
-      drawCheckboxOpt(125, y, 'Single', true);
-      drawCheckboxOpt(185, y, 'Married', false);
+      drawCheckboxOpt(125, y, 'Single', isSingle);
+      drawCheckboxOpt(185, y, 'Married', isMarried);
       doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('NID No:', 270, y + 3);
       drawField(320, y, 245, 20);
       y += 24;
