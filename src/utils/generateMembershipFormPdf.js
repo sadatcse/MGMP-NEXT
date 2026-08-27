@@ -15,135 +15,288 @@ export function generateMembershipFormPdf(item = {}) {
       doc.on('end', () => resolve(Buffer.concat(buffers)));
       doc.on('error', (err) => reject(err));
 
-      const fullName = item.full_name || 'N/A';
-      const phone = item.telephone_number || item.contact_no || 'N/A';
-      const email = item.email || 'N/A';
-      const address = item.address || 'N/A';
-      const weight = item.weight || 'N/A';
-      const height = item.height || `${item.feet || ''} ${item.inch || ''}`.trim() || 'N/A';
-      const age = item.age || 'N/A';
-      const packageName = item.package_name || 'Single Membership';
-      const packagePrice = item.package_price || 'N/A';
-      const dateStr = item.createdAt ? moment(item.createdAt).format('DD / MM / YYYY') : moment().format('DD / MM / YYYY');
+      const fullName = item.full_name || '';
+      const phone = item.telephone_number || item.contact_no || '';
+      const email = item.email || '';
+      const address = item.address || '';
+      const weight = item.weight || '';
+      const height = item.height || `${item.feet || ''} ${item.inch || ''}`.trim();
+      const age = item.age || '';
+      const packageName = item.package_name || '';
+      const packagePrice = item.package_price || '';
+
+      const dateStr = item.createdAt ? moment(item.createdAt).format('DDMMYYYY') : moment().format('DDMMYYYY');
+      const d1 = dateStr[0] || '', d2 = dateStr[1] || '', m1 = dateStr[2] || '', m2 = dateStr[3] || '';
+      const y1 = dateStr[4] || '', y2 = dateStr[5] || '', y3 = dateStr[6] || '', y4 = dateStr[7] || '';
 
       const isWeekly = packageName.toLowerCase().includes('weekly');
       const isDaily = packageName.toLowerCase().includes('daily');
       const isPackage = !isWeekly && !isDaily;
       const isRegular = packageName.toLowerCase().includes('regular') || packageName.toLowerCase().includes('admission');
 
-      // COLORS
-      const darkColor = '#111111';
-      const goldColor = '#f4cb71';
+      // BRAND COLORS
+      const darkColor = '#1a1a1a';
+      const goldColor = '#f2a900';
       const redColor = '#e30613';
-      const lightBg = '#f9f9f9';
-      const borderColor = '#dddddd';
+      const sectionBg = '#fdf1d8';
+      const fieldBg = '#fcfcfc';
+      const strokeColor = '#333333';
 
-      // ==========================================
-      // PAGE 1
-      // ==========================================
-
-      // HEADER BANNER
-      doc.rect(0, 0, 595.28, 75).fill(darkColor);
-      doc.rect(0, 75, 595.28, 5).fill(goldColor);
-
-      doc.fillColor('#ffffff').fontSize(22).font('Helvetica-BoldOblique').text('MEMBERSHIP FORM', 35, 18);
-      doc.fillColor(goldColor).fontSize(13).font('Helvetica-BoldOblique').text('MULTI GYM PREMIUM', 35, 45);
-
-      // Subheader badge
-      doc.rect(380, 20, 180, 36).lineWidth(1.5).stroke(redColor);
-      doc.fillColor(goldColor).fontSize(10).font('Helvetica-Bold').text('OFFICIAL REGISTRATION', 390, 32, { width: 160, align: 'center' });
-
-      let y = 95;
-
-      const renderSectionTitle = (title) => {
-        doc.rect(35, y, 525.28, 22).fill('#fdf1d8');
-        doc.rect(35, y, 5, 22).fill(redColor);
-        doc.fillColor('#1a1a1a').fontSize(11).font('Helvetica-Bold').text(title.toUpperCase(), 48, y + 6);
-        y += 30;
-      };
-
-      // 1. REGISTRATION FORM
-      renderSectionTitle('1. Registration Details');
-
-      // Registration info box
-      doc.fontSize(9.5).font('Helvetica-Bold').fillColor('#333333');
-      doc.text(`Date of Submission: `, 45, y);
-      doc.font('Helvetica').fillColor('#000000').text(dateStr, 150, y);
-
-      y += 18;
-      doc.font('Helvetica-Bold').fillColor('#333333').text('Membership Type:', 45, y);
-
-      doc.font('Helvetica').fillColor('#000000');
-      doc.text(`[ ${isRegular ? 'X' : '  '} ] Regular    [ ${isPackage ? 'X' : '  '} ] Package    [ ${isWeekly ? 'X' : '  '} ] Weekly    [ ${isDaily ? 'X' : '  '} ] Daily`, 150, y);
-
-      y += 28;
-
-      // 2. PERSONAL INFORMATION
-      renderSectionTitle('2. Personal Information');
-
-      const drawFieldRow = (label1, val1, label2 = '', val2 = '') => {
-        doc.fontSize(9.5).font('Helvetica-Bold').fillColor('#444444').text(label1 + ':', 45, y);
-        doc.rect(130, y - 2, label2 ? 140 : 380, 18).fillAndStroke(lightBg, borderColor);
-        doc.font('Helvetica-Bold').fontSize(9.5).fillColor('#000000').text(String(val1), 136, y + 2, { width: label2 ? 130 : 370, lineBreak: false });
-
-        if (label2) {
-          doc.font('Helvetica-Bold').fontSize(9.5).fillColor('#444444').text(label2 + ':', 290, y);
-          doc.rect(370, y - 2, 140, 18).fillAndStroke(lightBg, borderColor);
-          doc.font('Helvetica-Bold').fontSize(9.5).fillColor('#000000').text(String(val2), 376, y + 2, { width: 130, lineBreak: false });
-        }
-        y += 24;
-      };
-
-      drawFieldRow('Full Name', fullName);
-      drawFieldRow('Contact No', phone, 'Email', email);
-      drawFieldRow('Height & Weight', `${height}  |  ${weight}`, 'Age', age);
-      drawFieldRow('Full Address', address);
-
-      y += 6;
-
-      // 3. ADMISSION DETAILS
-      renderSectionTitle('3. Selected Plan & Admission Details');
-
-      drawFieldRow('Selected Package', packageName, 'Package Price', packagePrice);
-      drawFieldRow('Status', 'Pending Activation', 'Payment Type', 'Online / Cash');
-
-      y += 6;
-
-      // 4. BRANCHES
-      renderSectionTitle('4. Official Branches');
-
-      doc.fontSize(9).font('Helvetica-Bold').fillColor('#333333');
-      doc.text('[ X ] Shiya Masjid Branch (Mohammadpur)', 45, y);
-      doc.text('[ X ] Lalmatia Branch (Lalmatia)', 280, y);
-      y += 16;
-      doc.text('[ X ] Power Fit Branch (Adabor / Shyamoli)', 45, y);
-
-      y += 26;
-
-      // AUTHORISED SIGNATURE
-      doc.moveTo(380, y + 25).lineTo(520, y + 25).stroke('#444444');
-      doc.fontSize(9).font('Helvetica-Bold').fillColor('#333333').text('Authorised Signature & Seal', 380, y + 30, { width: 140, align: 'center' });
-
-      // PAGE 1 FOOTER
-      doc.rect(0, 792 - 45, 595.28, 45).fill(darkColor);
-      doc.rect(0, 792 - 45, 595.28, 3).fill(redColor);
-
-      doc.fillColor(goldColor).fontSize(9).font('Helvetica-Bold').text('MULTI GYM PREMIUM AUTOMATED REGISTRATION SYSTEM', 35, 792 - 32, { width: 525, align: 'center' });
-      doc.fillColor('#aaaaaa').fontSize(8).font('Helvetica').text('Website: www.multigympremium.com  |  Email: info@multigympremium.com', 35, 792 - 18, { width: 525, align: 'center' });
-
-      // ==========================================
-      // PAGE 2 - TERMS & CONDITIONS
-      // ==========================================
-      doc.addPage();
+      // =========================================================================
+      // PAGE 1: REGISTRATION & MEMBERSHIP FORM
+      // =========================================================================
 
       // HEADER
       doc.rect(0, 0, 595.28, 65).fill(darkColor);
-      doc.rect(0, 65, 595.28, 4).fill(goldColor);
+      doc.rect(0, 65, 595.28, 5).fill(goldColor);
 
-      doc.fillColor('#ffffff').fontSize(18).font('Helvetica-BoldOblique').text('TERMS AND CONDITIONS', 35, 18);
-      doc.fillColor(goldColor).fontSize(12).font('Helvetica-BoldOblique').text('MULTI GYM PREMIUM RULES & REGULATIONS', 35, 42);
+      // Header Text
+      doc.fillColor('#ffffff').fontSize(24).font('Helvetica-BoldOblique').text('MEMBERSHIP FORM', 30, 14);
+      doc.fillColor(goldColor).fontSize(14).font('Helvetica-BoldOblique').text('MULTI GYM PREMIUM', 30, 42);
 
-      let y2 = 85;
+      // Header Logo Box (Right side)
+      doc.rect(450, 12, 115, 42).lineWidth(1.5).stroke(redColor);
+      doc.rect(452, 14, 111, 38).fill('#000000');
+      doc.fillColor('#ffffff').fontSize(12).font('Helvetica-BoldOblique').text('MULTI GYM', 460, 20);
+      doc.fillColor(goldColor).fontSize(9).font('Helvetica-BoldOblique').text('PREMIUM', 460, 35);
+
+      let y = 80;
+
+      // Helper function for Section Titles
+      const drawSectionTitle = (title) => {
+        doc.rect(30, y, 535.28, 20).fill(sectionBg);
+        doc.rect(30, y, 6, 20).fill(redColor);
+        doc.fillColor(darkColor).fontSize(10.5).font('Helvetica-Bold').text(title.toUpperCase(), 44, y + 5);
+        y += 26;
+      };
+
+      // Helper function to draw date digit boxes
+      const drawDateBoxes = (startX, startY, digits) => {
+        let x = startX;
+        digits.forEach((char) => {
+          doc.rect(x, startY, 15, 18).lineWidth(0.8).stroke(strokeColor);
+          doc.fillColor(darkColor).fontSize(10).font('Helvetica-Bold').text(char || '', x, startY + 4, { width: 15, align: 'center' });
+          x += 17;
+        });
+      };
+
+      // Helper function to draw checkbox option
+      const drawCheckboxOpt = (x, yPos, label, isChecked = false) => {
+        doc.rect(x, yPos, 12, 12).lineWidth(0.8).stroke(strokeColor);
+        if (isChecked) {
+          doc.rect(x, yPos, 12, 12).fill(redColor);
+          doc.fillColor('#ffffff').fontSize(9).font('Helvetica-Bold').text('✓', x, yPos + 1, { width: 12, align: 'center' });
+        }
+        doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text(label, x + 16, yPos + 1);
+      };
+
+      // Helper function to draw field row
+      const drawField = (x, yPos, width, height, textVal = '') => {
+        doc.rect(x, yPos, width, height).lineWidth(0.8).fillAndStroke(fieldBg, strokeColor);
+        if (textVal) {
+          doc.fillColor(darkColor).fontSize(9.5).font('Helvetica-Bold').text(String(textVal), x + 5, yPos + 4, { width: width - 8, lineBreak: false });
+        }
+      };
+
+      // SECTION 1: REGISTRATION FORM
+      drawSectionTitle('Registration Form');
+
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Membership ID:', 30, y + 3);
+      drawField(125, y, 140, 20);
+
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Date:', 285, y + 3);
+      drawDateBoxes(320, y + 1, [d1, d2, m1, m2, y1, y2, y3, y4]);
+
+      y += 24;
+
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Membership Type:', 30, y + 1);
+      drawCheckboxOpt(140, y, 'Regular', isRegular);
+      drawCheckboxOpt(210, y, 'Package', isPackage);
+      drawCheckboxOpt(285, y, 'Weekly', isWeekly);
+      drawCheckboxOpt(355, y, 'Daily', isDaily);
+
+      y += 22;
+
+      // SECTION 2: PERSONAL INFORMATION
+      drawSectionTitle('Personal Information');
+
+      // Row 1: Full Name
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Full Name', 30, y + 3);
+      drawField(125, y, 440, 20, fullName);
+      y += 24;
+
+      // Row 2: Contact No & Date of Birth
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Contact No', 30, y + 3);
+      drawField(125, y, 200, 20, phone);
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Date of Birth', 340, y + 3);
+      drawDateBoxes(415, y + 1, ['', '', '', '', '', '', '', '']);
+      y += 24;
+
+      // Row 3: Full Address
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Full Address', 30, y + 3);
+      drawField(125, y, 440, 20, address);
+      y += 24;
+
+      // Row 4: Status & NID No
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Status', 30, y + 1);
+      drawCheckboxOpt(125, y, 'Single', true);
+      drawCheckboxOpt(185, y, 'Married', false);
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('NID No:', 270, y + 3);
+      drawField(320, y, 245, 20);
+      y += 24;
+
+      // Row 5: Blood Group & Weight
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Blood Group', 30, y + 3);
+      drawField(125, y, 200, 20);
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Weight:', 340, y + 3);
+      drawField(415, y, 150, 20, weight);
+      y += 24;
+
+      // Row 6: Emergency No & Height
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Emergency No', 30, y + 3);
+      drawField(125, y, 200, 20);
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Height:', 340, y + 3);
+      drawField(415, y, 150, 20, height);
+      y += 24;
+
+      // Row 7: Religion & Age
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Religion', 30, y + 3);
+      drawField(125, y, 200, 20);
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Age:', 340, y + 3);
+      drawField(415, y, 150, 20, age);
+      y += 24;
+
+      // Row 8: Profession & Gender
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Profession', 30, y + 3);
+      drawField(125, y, 200, 20);
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Gender:', 340, y + 1);
+      drawCheckboxOpt(415, y, 'Male', false);
+      drawCheckboxOpt(475, y, 'Female', false);
+      y += 24;
+
+      // SECTION 3: ADMISSION DETAILS
+      drawSectionTitle('Admission Details');
+
+      // Grid 1: Admission Fee & Starting Date
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Admission Fee', 30, y + 3);
+      drawField(125, y, 150, 20, packageName.includes('Admission') ? 'BDT 3,500' : 'N/A');
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Starting Date', 300, y + 3);
+      drawField(395, y, 170, 20);
+      y += 24;
+
+      // Grid 2: Category & Expiry Date
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Category', 30, y + 3);
+      drawField(125, y, 150, 20, packageName);
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Expiry Date', 300, y + 3);
+      drawField(395, y, 170, 20);
+      y += 24;
+
+      // Paid Amount
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Paid Amount', 30, y + 3);
+      drawField(125, y, 440, 20, packagePrice);
+      y += 24;
+
+      // Due Amount & Payment
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Due Amount', 30, y + 3);
+      drawField(125, y, 120, 20, '0 BDT');
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Payment', 275, y + 1);
+      drawCheckboxOpt(340, y, 'Cash', true);
+      drawCheckboxOpt(400, y, 'Card', false);
+      drawCheckboxOpt(460, y, 'Bkash', false);
+      y += 24;
+
+      // Branches
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text('Branch', 30, y + 1);
+      drawCheckboxOpt(125, y, 'Multi Gym Premium Shiya Masjid', false);
+      drawCheckboxOpt(330, y, 'Multi Gym Premium Lalmatia', false);
+      y += 18;
+      drawCheckboxOpt(125, y, 'Multi Gym Premium Power Fit', false);
+      y += 22;
+
+      // SECTION 4: REFERRAL & INFLUENCE LOG
+      drawSectionTitle('Referral & Influence Log (Mark The Appropriate Below)');
+
+      let refY = y;
+      // Col 1
+      doc.fillColor(darkColor).fontSize(9).font('Helvetica-Bold').text('Front Desk Officer:', 30, refY);
+      drawCheckboxOpt(30, refY + 14, 'Morning Shift', false);
+      drawCheckboxOpt(110, refY + 14, 'Evening Shift', false);
+
+      doc.fillColor(darkColor).fontSize(9).font('Helvetica-Bold').text("Existing Member's Reference:", 30, refY + 32);
+      drawCheckboxOpt(30, refY + 46, 'Yes', false);
+      drawCheckboxOpt(80, refY + 46, 'No', false);
+
+      doc.fillColor(darkColor).fontSize(9).font('Helvetica-Bold').text('Promotional Offer (Limited time):', 30, refY + 64);
+      drawCheckboxOpt(30, refY + 78, 'Yes', false);
+      drawCheckboxOpt(80, refY + 78, 'No', false);
+
+      // Col 2
+      doc.fillColor(darkColor).fontSize(9).font('Helvetica-Bold').text('Trainer (Who Motivated):', 215, refY);
+      drawCheckboxOpt(215, refY + 14, 'Morning Shift', false);
+      drawCheckboxOpt(295, refY + 14, 'Evening Shift', false);
+
+      doc.fillColor(darkColor).fontSize(9).font('Helvetica-Bold').text('Walk-In / Self Decision:', 215, refY + 32);
+      drawCheckboxOpt(215, refY + 46, 'Online Registration', true);
+      drawCheckboxOpt(320, refY + 46, 'No', false);
+
+      doc.fillColor(darkColor).fontSize(9).font('Helvetica-Bold').text('Others (Please Specify):', 215, refY + 64);
+      drawField(215, refY + 78, 160, 18, 'Website Registration');
+
+      // Col 3
+      doc.fillColor(darkColor).fontSize(9).font('Helvetica-Bold').text('Social Media Campaign:', 400, refY);
+      drawCheckboxOpt(400, refY + 14, 'Yes', false);
+      drawCheckboxOpt(450, refY + 14, 'No', false);
+
+      doc.fillColor(darkColor).fontSize(9).font('Helvetica-Bold').text('Phone Call / Inquiry:', 400, refY + 32);
+      drawCheckboxOpt(400, refY + 46, 'Yes', false);
+      drawCheckboxOpt(450, refY + 46, 'No', false);
+
+      y = refY + 105;
+
+      // Authorised Signature
+      doc.moveTo(380, y).lineTo(545, y).lineWidth(0.8).stroke(strokeColor);
+      doc.fillColor(darkColor).fontSize(9).font('Helvetica').text('Authorised Signature', 380, y + 4, { width: 165, align: 'right' });
+
+      // FOOTER PAGE 1
+      const footerY = 765;
+      doc.rect(0, footerY, 595.28, 72).fill(darkColor);
+      doc.rect(0, footerY, 595.28, 4).fill(goldColor);
+
+      const colW = 175;
+      // Branch 1
+      doc.fillColor('#ffffff').fontSize(9.5).font('Helvetica-BoldOblique').text('MULTI GYM PREMIUM', 30, footerY + 8);
+      doc.fillColor(goldColor).fontSize(8.5).font('Helvetica-BoldOblique').text('SHIYA MASJID', 30, footerY + 20);
+      doc.fillColor('#dddddd').fontSize(7.5).font('Helvetica').text('24/1,24/2(3rd & 4th floor), Ring Road, Mohammadpur, Dhaka-1207\nPh: +880 1313 197 435 | Email: Info@multigymbd.com', 30, footerY + 32, { width: colW });
+
+      // Branch 2
+      doc.fillColor('#ffffff').fontSize(9.5).font('Helvetica-BoldOblique').text('MULTI GYM PREMIUM', 215, footerY + 8);
+      doc.fillColor(goldColor).fontSize(8.5).font('Helvetica-BoldOblique').text('POWER FIT', 215, footerY + 20);
+      doc.fillColor('#dddddd').fontSize(7.5).font('Helvetica').text('48/49 (5th & 6th Floors), Janata Co-op, Adabor, Shyamoli, Dhaka-1207\nPh: +880 1313 197 426 | Email: Info@multigympremium.com', 215, footerY + 32, { width: colW });
+
+      // Branch 3
+      doc.fillColor('#ffffff').fontSize(9.5).font('Helvetica-BoldOblique').text('MULTI GYM PREMIUM', 400, footerY + 8);
+      doc.fillColor(goldColor).fontSize(8.5).font('Helvetica-BoldOblique').text('LALMATIA', 400, footerY + 20);
+      doc.fillColor('#dddddd').fontSize(7.5).font('Helvetica').text('Lalmatia Shopping Center (2nd floor), New Colony, Dhaka-1207\nPh: +880 1313 197 427 | Email: Info@multigympremium.com', 400, footerY + 32, { width: colW });
+
+      // Footer Bar bottom
+      doc.rect(0, 836, 297.64, 5).fill(redColor);
+      doc.rect(297.64, 836, 297.64, 5).fill(goldColor);
+
+      // =========================================================================
+      // PAGE 2: TERMS AND CONDITIONS
+      // =========================================================================
+      doc.addPage();
+
+      // HEADER PAGE 2
+      let tY = 30;
+      doc.rect(210, tY, 175, 26).fill(goldColor);
+      doc.fillColor(darkColor).fontSize(11).font('Helvetica-Bold').text('📢 TERMS AND CONDITIONS', 210, tY + 7, { width: 175, align: 'center' });
+
+      tY += 34;
+      doc.fillColor(darkColor).fontSize(16).font('Helvetica-BoldOblique').text('MULTI GYM ', 180, tY, { continued: true });
+      doc.fillColor(goldColor).text('PREMIUM');
+
+      tY += 28;
 
       const terms = [
         'Members must carry their individual Door Access Punch Card to check In - Out of the gym.',
@@ -164,32 +317,30 @@ export function generateMembershipFormPdf(item = {}) {
         'Compliance from all our Valued Members shall be highly appreciated.'
       ];
 
-      terms.forEach((term, idx) => {
-        doc.circle(45, y2 + 5, 8).fill(goldColor);
-        doc.fillColor('#1a1a1a').fontSize(8.5).font('Helvetica-Bold').text(String(idx + 1), 40, y2 + 2, { width: 10, align: 'center' });
+      terms.forEach((termText, idx) => {
+        doc.circle(45, tY + 6, 9).fill(goldColor);
+        doc.fillColor(darkColor).fontSize(8.5).font('Helvetica-Bold').text(String(idx + 1), 36, tY + 3, { width: 18, align: 'center' });
 
-        doc.fillColor('#222222').fontSize(9).font('Helvetica').text(term, 60, y2, { width: 495 });
-        y2 += 32;
+        doc.fillColor('#222222').fontSize(9).font('Helvetica').text(termText, 62, tY + 1, { width: 495 });
+        tY += 32;
       });
 
-      y2 += 10;
+      tY += 10;
 
-      // AGREEMENT BOX
-      doc.rect(35, y2, 525.28, 30).fillAndStroke('#fdf1d8', redColor);
-      doc.fillColor(redColor).fontSize(8.5).font('Helvetica-Bold').text('[ X ]  I HAVE READ, UNDERSTOOD AND AGREED TO ALL THE TERMS AND CONDITIONS STATED ABOVE.', 45, y2 + 10, { width: 505, align: 'center' });
+      // AGREEMENT CHECKBOX
+      doc.rect(45, tY, 14, 14).fill(redColor);
+      doc.fillColor('#ffffff').fontSize(10).font('Helvetica-Bold').text('✓', 45, tY + 1, { width: 14, align: 'center' });
+      doc.fillColor(darkColor).fontSize(9).font('Helvetica-Bold').text('I HAVE READ, UNDERSTOOD AND AGREED TO ALL THE TERMS AND CONDITIONS STATED ABOVE.', 68, tY + 2);
 
-      y2 += 50;
+      tY += 45;
 
-      // MEMBER SIGNATURE
-      doc.moveTo(350, y2 + 15).lineTo(520, y2 + 15).stroke('#444444');
-      doc.fontSize(9.5).font('Helvetica-Bold').fillColor('#1a1a1a').text(`Signature Of Member (${fullName})`, 330, y2 + 22, { width: 200, align: 'center' });
+      // MEMBER SIGNATURE LINE
+      doc.moveTo(350, tY).lineTo(545, tY).lineWidth(0.8).stroke(strokeColor);
+      doc.fillColor(darkColor).fontSize(9.5).font('Helvetica').text(`Signature Of Member (${fullName})`, 350, tY + 4, { width: 195, align: 'right' });
 
-      // PAGE 2 FOOTER
-      doc.rect(0, 792 - 45, 595.28, 45).fill(darkColor);
-      doc.rect(0, 792 - 45, 595.28, 3).fill(goldColor);
-
-      doc.fillColor(goldColor).fontSize(9).font('Helvetica-Bold').text('MULTI GYM PREMIUM - MEMBER ACKNOWLEDGEMENT ARCHIVE', 35, 792 - 32, { width: 525, align: 'center' });
-      doc.fillColor('#aaaaaa').fontSize(8).font('Helvetica').text('Dhaka Branches: Shiya Masjid | Lalmatia | Power Fit', 35, 792 - 18, { width: 525, align: 'center' });
+      // Footer Bar bottom Page 2
+      doc.rect(0, 836, 297.64, 5).fill(redColor);
+      doc.rect(297.64, 836, 297.64, 5).fill(goldColor);
 
       doc.end();
     } catch (err) {
