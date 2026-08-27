@@ -141,56 +141,40 @@ const JoinNowForm = ({ onSuccess }) => {
       package_note: selectedPlanObj.note || selectedPlanObj.tag || '',
     };
 
-    let primarySuccess = false;
-    let secondarySuccess = false;
-
     try {
       const res = await axios.post('/api/join', payload);
-      if (res.status === 200 || res.status === 201) {
-        primarySuccess = true;
-      }
-    } catch (primaryErr) {
-      console.warn("Primary API /api/join note:", primaryErr?.response?.data || primaryErr?.message);
-    }
 
-    try {
-      const secRes = await axios.post('https://multigym-management-server-dmmji.ondigitalocean.app/api/users/signup', {
-        ...payload,
-        contact_no: data.telephone_number,
-      });
-      if (secRes.status === 200 || secRes.status === 201) {
-        secondarySuccess = true;
-      }
-    } catch (err) {
-      console.warn("Secondary server sync note:", err?.message || err);
-    }
+      if (res.data?.success || res.status === 200 || res.status === 201) {
+        await Swal.fire({
+          icon: 'success',
+          title: 'Application Submitted!',
+          html: `Thank you <b>${data.full_name}</b>!<br><br>Your application for <b>${selectedPlanObj.name} (${selectedPlanObj.price})</b> has been submitted successfully.<br><br><div style="margin-top: 10px; padding: 12px; background: rgba(244, 203, 113, 0.1); border: 1px solid #f4cb71; border-radius: 12px; color: #f4cb71; font-weight: bold; font-size: 14px;">Please contact our branch, pay your fees, and collect your gym membership card.</div>`,
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#dc2626',
+          background: '#111111',
+          color: '#ffffff',
+        });
 
-    if (primarySuccess || secondarySuccess) {
-      await Swal.fire({
-        icon: 'success',
-        title: 'Application Submitted!',
-        html: `Thank you <b>${data.full_name}</b>!<br><br>Your application for <b>${selectedPlanObj.name} (${selectedPlanObj.price})</b> has been submitted successfully.<br><br><div style="margin-top: 10px; padding: 12px; background: rgba(244, 203, 113, 0.1); border: 1px solid #f4cb71; border-radius: 12px; color: #f4cb71; font-weight: bold; font-size: 14px;">Please contact our branch, pay your fees, and collect your gym membership card.</div>`,
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#dc2626',
-        background: '#111111',
-        color: '#ffffff',
-      });
-
-      reset();
-      if (onSuccess) {
-        onSuccess();
+        reset();
+        if (onSuccess) {
+          onSuccess();
+        }
+      } else {
+        throw new Error(res.data?.message || 'Failed to submit application');
       }
-    } else {
+    } catch (error) {
+      console.error('Submission error:', error);
       Swal.fire({
         icon: 'error',
         title: 'Submission Error',
-        text: 'Something went wrong while submitting. Please try again.',
+        text: error.response?.data?.message || error.message || 'Something went wrong while submitting. Please try again.',
         confirmButtonColor: '#dc2626',
         background: '#111111',
         color: '#ffffff',
       });
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   return (
