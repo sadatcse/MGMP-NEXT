@@ -1,7 +1,4 @@
 import nodemailer from 'nodemailer';
-import puppeteer from 'puppeteer';
-import fs from 'fs';
-import { generateMembershipFormHtml } from '../utils/generateMembershipFormHtml.js';
 
 export async function sendJoinNotificationEmail(applicationData) {
   try {
@@ -15,37 +12,7 @@ export async function sendJoinNotificationEmail(applicationData) {
     const packageName = applicationData.package_name || 'Single Membership';
     const packagePrice = applicationData.package_price || 'N/A';
 
-    // 1. Generate PDF buffer using Puppeteer & system browser executable
-    const paths = [
-      'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-      'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
-      'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
-      'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
-      (process.env.LOCALAPPDATA || '') + '\\Google\\Chrome\\Application\\chrome.exe'
-    ];
-    let executablePath = paths.find(p => p && fs.existsSync(p));
-
-    let pdfBuffer = null;
-    try {
-      const launchOptions = {
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-      };
-      if (executablePath) {
-        launchOptions.executablePath = executablePath;
-      }
-
-      const browser = await puppeteer.launch(launchOptions);
-      const page = await browser.newPage();
-      const formHtml = generateMembershipFormHtml(applicationData);
-      await page.setContent(formHtml, { waitUntil: 'networkidle0' });
-      pdfBuffer = await page.pdf({ format: 'A4', printBackground: true });
-      await browser.close();
-    } catch (pdfErr) {
-      console.error('Error generating PDF with Puppeteer:', pdfErr);
-    }
-
-    // 2. Setup Hostinger SMTP Transporter
+    // Setup Hostinger SMTP Transporter
     const host = process.env.SMTP_HOST;
     const port = parseInt(process.env.SMTP_PORT);
     const user = process.env.SMTP_USER;
@@ -61,8 +28,6 @@ export async function sendJoinNotificationEmail(applicationData) {
         pass
       }
     });
-
-    const sanitizedFilename = `Membership_Form_${fullName.replace(/[^a-zA-Z0-9_-]/g, '_')}.pdf`;
 
     const htmlBody = `
       <div style="font-family: Arial, sans-serif; padding: 25px; background: #111111; color: #ffffff; border-radius: 16px; border: 1px solid #333333; max-width: 650px; margin: 0 auto;">
@@ -106,24 +71,11 @@ export async function sendJoinNotificationEmail(applicationData) {
           </tr>
         </table>
 
-        <div style="margin-top: 25px; padding: 15px; background: rgba(227, 6, 19, 0.15); border-left: 4px solid #e30613; border-radius: 6px; font-size: 13px; color: #cccccc;">
-          📌 <strong>Attached Document:</strong> The pre-filled 2-page <strong>${sanitizedFilename}</strong> is attached to this email for instant printing and archive.
-        </div>
-
         <div style="text-align: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid #222222; font-size: 11px; color: #777777;">
           Multigym Premium Automated Registration System &bull; info@multigympremium.com
         </div>
       </div>
     `;
-
-    const attachments = [];
-    if (pdfBuffer) {
-      attachments.push({
-        filename: sanitizedFilename,
-        content: pdfBuffer,
-        contentType: 'application/pdf'
-      });
-    }
 
     const mailOptions = {
       from: `"Multigym Premium Join" <${user}>`,
@@ -131,7 +83,6 @@ export async function sendJoinNotificationEmail(applicationData) {
       cc: user,
       subject: `${fullName} - Join Now Form`,
       html: htmlBody,
-      attachments
     };
 
     const info = await transporter.sendMail(mailOptions);
