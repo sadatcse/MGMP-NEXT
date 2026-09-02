@@ -8,8 +8,9 @@ import 'swiper/css/navigation';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../../lib/variants';
 import Link from 'next/link';
-import { FaBuilding, FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa';
 import { branches } from '../../data/branches';
+import logo from "../../assets/logo.png";
 
 const HeroSlider = () => {
   const videoRef = useRef(null);
@@ -111,13 +112,19 @@ const HeroSlider = () => {
                     >
                       <div className='flex items-center gap-4 text-left'>
                         <div
-                          className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                          className={`w-12 h-12 rounded-xl flex items-center justify-center p-2 transition-all duration-300 ${
                             isMain
-                              ? "bg-red-600/20 text-red-500 group-hover:bg-red-600 group-hover:text-white"
-                              : "bg-custom-yellow/20 text-custom-yellow group-hover:bg-custom-yellow group-hover:text-black"
+                              ? "bg-red-600/20 group-hover:bg-red-600"
+                              : "bg-custom-yellow/20 group-hover:bg-custom-yellow"
                           }`}
                         >
-                          <FaBuilding className='text-xl' />
+                          <Image
+                            src={logo}
+                            alt="Logo"
+                            width={32}
+                            height={32}
+                            className="w-7 h-7 object-contain"
+                          />
                         </div>
                         <div>
                           {branch.tag && (

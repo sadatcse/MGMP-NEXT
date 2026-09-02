@@ -22,7 +22,7 @@ const servicesData = [
         "description": "Track your fitness transformation with medical-grade precision. Our advanced InBody scanner measures body fat percentage, skeletal muscle mass, visceral fat level, segmental lean mass, and basal metabolic rate (BMR) to optimize your training.",
         "icon": <FaWeight />,
 
-        "video": "https://www.youtube.com/embed/jDKiNDefTGA",
+        "video": "https://www.youtube.com/embed/mrmqZ-XQJNg",
         "accent": "bg-custom-yellow",
         "pricing": [
             { "label": "On Admission", "price": "FREE", "highlight": true },
