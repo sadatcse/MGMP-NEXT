@@ -12,7 +12,8 @@ const stripHtml = (html) => {
 };
 
 const NewsCard = ({ news, index }) => {
-    const { title, category, description, image, date, _id } = news;
+    const { title, category, description, image, date, _id, slug } = news;
+    const postSlug = slug || _id;
     const cleanDescription = stripHtml(description);
 
     return (
@@ -24,7 +25,7 @@ const NewsCard = ({ news, index }) => {
             className='group flex flex-col bg-white/5 border border-white/5 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:bg-white/10 hover:border-white/20 hover:-translate-y-2'
         >
             {/* Image Container */}
-            <Link href={`/blog/${_id}`} className="relative block h-64 overflow-hidden">
+            <Link href={`/blog/${postSlug}`} className="relative block h-64 overflow-hidden">
                 <ImageWithLoader
                     src={image}
                     className='w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110'
@@ -57,7 +58,7 @@ const NewsCard = ({ news, index }) => {
                 </div>
 
                 {/* Title */}
-                <Link href={`/blog/${_id}`}>
+                <Link href={`/blog/${postSlug}`}>
                     <h3 className='text-2xl font-black text-white uppercase tracking-tight leading-tight mb-4 group-hover:text-custom-yellow transition-colors line-clamp-2 min-h-[3.5rem]'>
                         {title}
                     </h3>
@@ -71,7 +72,7 @@ const NewsCard = ({ news, index }) => {
                 {/* Read More Link */}
                 <div className="mt-auto pt-6 border-t border-white/5">
                     <Link 
-                        href={`/blog/${_id}`} 
+                        href={`/blog/${postSlug}`} 
                         className="text-xs font-black text-white uppercase tracking-widest flex items-center gap-2 group-hover:text-red-600 transition-colors"
                     >
                         Read Full Story <FaArrowRight className="text-[10px] transition-transform group-hover:translate-x-2" />

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import connectDB from '../../../../../src/lib/db';
 import News from '../../../../../src/models/News';
 import { requireAdmin, unauthorizedResponse } from '../../../../../src/lib/auth-guard';
+import { generateUniqueNewsSlug } from '../../../../../src/lib/slugify.js';
 
 import { revalidatePath } from 'next/cache';
 
@@ -27,6 +28,16 @@ export async function PUT(req, { params }) {
       updateFields.tags = updateFields.tags.split(',').map(t => t.trim()).filter(Boolean);
     }
 
+    // Handle slug generation/update
+    if (updateFields.slug) {
+      updateFields.slug = await generateUniqueNewsSlug(updateFields.slug, id);
+    } else {
+      const existing = await News.findById(id).select('slug title');
+      if (existing && (!existing.slug || (updateFields.title && updateFields.title !== existing.title))) {
+        updateFields.slug = await generateUniqueNewsSlug(updateFields.title || existing.title, id);
+      }
+    }
+
     const updatedPost = await News.findByIdAndUpdate(id, updateFields, { new: true, runValidators: true });
     if (!updatedPost) {
       return NextResponse.json({ message: 'Blog post not found' }, { status: 404 });
@@ -35,8 +46,11 @@ export async function PUT(req, { params }) {
     try {
       revalidatePath('/blog');
       revalidatePath('/');
+      if (updatedPost.slug) {
+        revalidatePath(`/blog/${updatedPost.slug}`);
+      }
       revalidatePath(`/blog/${id}`);
-      revalidatePath('/blog/[id]', 'page');
+      revalidatePath('/blog/[slug]', 'page');
       revalidatePath('/dashboard/blog_view');
     } catch (revError) {
       console.warn('Revalidate error:', revError.message);

@@ -230,8 +230,8 @@ const NewsDetails = ({ post, related = [] }) => {
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {news.filter(n => n._id !== id).slice(0, 4).map((item) => (
-                            <Link href={`/blog/${item._id}`} key={item._id} className="group relative bg-white/5 border border-white/5 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+                        {news.filter(n => String(n._id) !== String(id)).slice(0, 4).map((item) => (
+                            <Link href={`/blog/${item.slug || item._id}`} key={item._id} className="group relative bg-white/5 border border-white/5 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
                                 <div className="relative h-56 overflow-hidden">
                                     <Image src={item.image} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw" unoptimized className="object-cover transition-transform duration-700 group-hover:scale-110" alt={item.title} />
                                 </div>

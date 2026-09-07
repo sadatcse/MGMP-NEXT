@@ -20,8 +20,11 @@ export async function DELETE(req, { params }) {
     try {
       revalidatePath('/blog');
       revalidatePath('/');
+      if (deletedPost.slug) {
+        revalidatePath(`/blog/${deletedPost.slug}`);
+      }
       revalidatePath(`/blog/${id}`);
-      revalidatePath('/blog/[id]', 'page');
+      revalidatePath('/blog/[slug]', 'page');
       revalidatePath('/dashboard/blog_view');
     } catch (revError) {
       console.warn('Revalidate error:', revError.message);

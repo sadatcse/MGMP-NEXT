@@ -19,12 +19,25 @@ const Blog_create = () => {
 
     const [formData, setFormData] = useState({
         title: '',
+        slug: '',
         description: '',
         image: '',
         category: '',
         tags: '',
         date: null,
     });
+    const [isCustomSlug, setIsCustomSlug] = useState(false);
+
+    const clientSlugify = (text) => {
+        return (text || '')
+            .toString()
+            .toLowerCase()
+            .trim()
+            .replace(/[^\p{L}\p{N}\s-]+/gu, '')
+            .replace(/[\s_]+/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    };
 
     // Use useEffect to update formData when imageurl changes
     useEffect(() => {
@@ -35,10 +48,25 @@ const Blog_create = () => {
     }, [imageurl]);
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
+        const { name, value } = e.target;
+        if (name === 'title') {
+            setFormData(prev => ({
+                ...prev,
+                title: value,
+                slug: isCustomSlug ? prev.slug : clientSlugify(value)
+            }));
+        } else if (name === 'slug') {
+            setIsCustomSlug(true);
+            setFormData(prev => ({
+                ...prev,
+                slug: clientSlugify(value)
+            }));
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                [name]: value,
+            }));
+        }
     };
 
     const handleDescriptionChange = (value) => {
@@ -128,6 +156,37 @@ const Blog_create = () => {
                             className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
+                    </div>
+                    <div className="mt-4">
+                        <div className="flex items-center gap-2 mb-1">
+                            <label htmlFor="slug" className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                                URL Slug (auto-generated from title)
+                            </label>
+                            {isCustomSlug && (
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setIsCustomSlug(false);
+                                        setFormData(prev => ({ ...prev, slug: clientSlugify(prev.title) }));
+                                    }}
+                                    className="text-[10px] text-custom-yellow underline hover:text-white transition-colors"
+                                >
+                                    Reset to auto
+                                </button>
+                            )}
+                        </div>
+                        <input
+                            type="text"
+                            id="slug"
+                            name="slug"
+                            value={formData.slug}
+                            onChange={handleChange}
+                            placeholder='post-url-slug'
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-3 px-3 text-custom-yellow font-mono placeholder:text-gray-600 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                        <p className="text-[11px] text-gray-500 mt-1 font-mono">
+                            Preview URL: <span className="text-gray-300">/blog/{formData.slug || 'post-slug'}</span>
+                        </p>
                     </div>
                     <div className="mt-6">
                         <input

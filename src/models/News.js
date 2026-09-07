@@ -24,6 +24,13 @@ const NewsSchema = new Schema({
   image: {
     type: String,
   },
+  slug: {
+    type: String,
+    unique: true,
+    sparse: true,
+    trim: true,
+    lowercase: true,
+  },
 });
 
 const News = mongoose.models.blogs || model("blogs", NewsSchema);

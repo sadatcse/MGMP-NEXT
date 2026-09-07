@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import NewsDetails from '../../../src/components/Newspage/NewsDetails';
 import { getNewsPost, getAllNews } from '../../../src/lib/server-data';
 import { siteConfig } from '../../../src/lib/site-config';
@@ -13,25 +13,26 @@ function plainText(html, length = 160) {
 }
 
 export async function generateMetadata({ params }) {
-  const { id } = await params;
-  const post = await getNewsPost(id);
+  const { slug } = await params;
+  const post = await getNewsPost(slug);
 
   if (!post) {
     return { title: 'News Not Found' };
   }
 
+  const postSlug = post.slug || post._id;
   const description = plainText(post.description);
 
   return {
     title: post.title,
     description,
     alternates: {
-      canonical: `/blog/${id}`,
+      canonical: `/blog/${postSlug}`,
     },
     openGraph: {
       title: post.title,
       description,
-      url: `${siteConfig.url}/blog/${id}`,
+      url: `${siteConfig.url}/blog/${postSlug}`,
       type: 'article',
       images: post.image ? [{ url: post.image }] : undefined,
     },
@@ -39,15 +40,20 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Page({ params }) {
-  const { id } = await params;
-  const post = await getNewsPost(id);
+  const { slug } = await params;
+  const post = await getNewsPost(slug);
 
   if (!post) {
     notFound();
   }
 
+  // If accessed by legacy MongoDB _id but post has a slug, permanently redirect to the slug URL
+  if (post.slug && post.slug !== slug) {
+    permanentRedirect(`/blog/${post.slug}`);
+  }
+
   const allNews = await getAllNews();
-  const related = allNews.filter((item) => item._id !== id).slice(0, 4);
+  const related = allNews.filter((item) => String(item._id) !== String(post._id)).slice(0, 4);
 
   return <NewsDetails post={post} related={related} />;
 }

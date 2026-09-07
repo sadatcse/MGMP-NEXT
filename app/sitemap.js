@@ -31,7 +31,7 @@ export default async function sitemap() {
   ]);
 
   const newsRoutes = news.map((post) => ({
-    url: `${siteConfig.url}/blog/${post._id}`,
+    url: `${siteConfig.url}/blog/${post.slug || post._id}`,
     lastModified: new Date(post.date),
     changeFrequency: 'monthly',
     priority: 0.6,

@@ -259,7 +259,7 @@ const Blog_list = () => {
                                         </td>
                                         <td className="px-6 py-6 text-right">
                                             <div className="flex items-center justify-end gap-3">
-                                                <button onClick={() => router.push(`/blog/${post._id}`)} className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black transition-all">
+                                                <button onClick={() => router.push(`/blog/${post.slug || post._id}`)} className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black transition-all">
                                                     <FiEye />
                                                 </button>
                                                 <button onClick={() => handleEdit(post)} className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:bg-custom-yellow hover:text-black transition-all">

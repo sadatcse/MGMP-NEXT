@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import connectDB from '../../../../src/lib/db';
 import News from '../../../../src/models/News';
 import { requireAdmin, unauthorizedResponse } from '../../../../src/lib/auth-guard';
+import { generateUniqueNewsSlug } from '../../../../src/lib/slugify.js';
 
 import { revalidatePath } from 'next/cache';
 
@@ -23,8 +24,11 @@ export async function POST(req) {
       tags = tags.split(',').map(t => t.trim()).filter(Boolean);
     }
 
+    const slug = await generateUniqueNewsSlug(data.slug || data.title);
+
     const newPost = await News.create({
       ...data,
+      slug,
       date: postDate,
       tags: tags || []
     });
@@ -32,7 +36,8 @@ export async function POST(req) {
     try {
       revalidatePath('/blog');
       revalidatePath('/');
-      revalidatePath('/blog/[id]', 'page');
+      revalidatePath(`/blog/${newPost.slug}`);
+      revalidatePath('/blog/[slug]', 'page');
       revalidatePath('/dashboard/blog_view');
     } catch (revError) {
       console.warn('Revalidate error:', revError.message);

@@ -1,4 +1,5 @@
 import { cache } from 'react';
+import mongoose from 'mongoose';
 import connectDB from './db';
 import News from '../models/News';
 import Notices from '../models/Notices';
@@ -10,9 +11,18 @@ function serialize(doc) {
   return doc ? JSON.parse(JSON.stringify(doc)) : doc;
 }
 
-export const getNewsPost = cache(async (id) => {
+export const getNewsPost = cache(async (identifier) => {
   await connectDB();
-  const post = await News.findById(id).lean().catch(() => null);
+  if (!identifier) return null;
+
+  // First try finding by slug
+  let post = await News.findOne({ slug: identifier }).lean().catch(() => null);
+
+  // If not found and identifier is a valid MongoDB ObjectId, fall back to findById
+  if (!post && mongoose.Types.ObjectId.isValid(identifier)) {
+    post = await News.findById(identifier).lean().catch(() => null);
+  }
+
   return serialize(post);
 });
 
