@@ -1,5 +1,7 @@
 import Home from "../src/views/Home";
 import { getAllNews, getAllTestimonials, getAllTrainers } from "../src/lib/server-data";
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const metadata = {
   title: {

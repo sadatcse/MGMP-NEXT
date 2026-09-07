@@ -1,5 +1,7 @@
 import PageComponent from '../../src/views/News';
 import { getAllNews } from '../../src/lib/server-data';
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const metadata = {
   title: "Fitness Blog, Gym News & Health Tips",

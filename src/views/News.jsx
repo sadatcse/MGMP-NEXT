@@ -51,7 +51,7 @@ const News = ({ initialData = [] }) => {
                 <div className="space-y-20">
                     {/* News Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {[...news].sort((a, b) => new Date(b.date) - new Date(a.date)).map((newsItem, index) => (
+                        {[...news].sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()).map((newsItem, index) => (
                             <NewsCard key={newsItem._id} news={newsItem} index={index} />
                         ))}
                     </div>

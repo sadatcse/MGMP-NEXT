@@ -11,7 +11,7 @@ import SwiperNavButtons from './SwiperNavButtons';
 import Title from './Title';
 
 const Blog = ({ initialData = [] }) => {
-  const blogData = [...initialData].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const blogData = [...initialData].sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
 
   return (
     <section className='bg-[#0a0a0a] py-24' id='blog'>

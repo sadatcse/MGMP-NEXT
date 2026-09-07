@@ -27,9 +27,38 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const signIn = (email, password) => {
+  const syncUserToken = async (email) => {
+    if (!email) return null;
+    const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL 
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/sign-in`
+      : "/api/auth/sign-in";
+
+    try {
+      const res = await axios.post(apiUrl, { email }, { withCredentials: true });
+      if (res.data?.token) {
+        localStorage.setItem("token", res.data.token);
+        return res.data.token;
+      }
+    } catch (err) {
+      console.warn("Token sync failed:", err?.response?.data || err.message);
+    }
+    return null;
+  };
+
+  const signIn = async (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      if (result?.user?.email) {
+        await syncUserToken(result.user.email);
+        setUser(result.user);
+      }
+      setLoading(false);
+      return result;
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
   };
 
   const logOut = async () => {
@@ -44,9 +73,20 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  const signInWithGoogle = () => {
+  const signInWithGoogle = async () => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider);
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      if (result?.user?.email) {
+        await syncUserToken(result.user.email);
+        setUser(result.user);
+      }
+      setLoading(false);
+      return result;
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
   };
 
   useEffect(() => {
@@ -54,19 +94,7 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
 
       if (currentUser?.email) {
-        const loggedUser = { email: currentUser.email };
-        const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL 
-          ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/sign-in`
-          : "/api/auth/sign-in";
-
-        try {
-          const res = await axios.post(apiUrl, loggedUser, { withCredentials: true });
-          if (res.data?.token) {
-            localStorage.setItem("token", res.data.token);
-          }
-        } catch (err) {
-          console.warn("Token fetch failed:", err?.response?.data || err.message);
-        }
+        await syncUserToken(currentUser.email);
       } else {
         localStorage.removeItem("token");
         try {

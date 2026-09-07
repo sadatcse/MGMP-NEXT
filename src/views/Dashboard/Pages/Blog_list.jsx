@@ -20,17 +20,21 @@ const Blog_list = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedIds, setSelectedIds] = useState([]);
 
+    const fetchData = async () => {
+        setIsLoading(true);
+        try {
+            const res = await axiosSecure.get(`/news/get-all?t=${Date.now()}`, {
+                headers: { 'Cache-Control': 'no-cache' }
+            });
+            setUsersData(res.data || []);
+            setIsLoading(false);
+        } catch (error) {
+            setIsLoading(false);
+            console.error('Error fetching data:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await axiosSecure.get('/news/get-all');
-                setUsersData(res.data || []);
-                setIsLoading(false);
-            } catch (error) {
-                setIsLoading(false);
-                console.error('Error fetching data:', error);
-            }
-        };
         fetchData();
     }, [axiosSecure]);
 
@@ -54,8 +58,7 @@ const Blog_list = () => {
         if (result.isConfirmed) {
             try {
                 await axiosSecure.delete(`/news/delete/${postId}`);
-                const res = await axiosSecure.get('/news/get-all');
-                setUsersData(res.data || []);
+                await fetchData();
                 setSelectedIds(prev => prev.filter(id => id !== postId));
                 Swal.fire({
                     title: 'Deleted!',
@@ -88,8 +91,7 @@ const Blog_list = () => {
             try {
                 setIsLoading(true);
                 await Promise.all(selectedIds.map(id => axiosSecure.delete(`/news/delete/${id}`)));
-                const res = await axiosSecure.get('/news/get-all');
-                setUsersData(res.data || []);
+                await fetchData();
                 setSelectedIds([]);
                 setIsLoading(false);
                 Swal.fire({
@@ -123,7 +125,7 @@ const Blog_list = () => {
     };
 
     const filteredData = [...usersData]
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime())
         .filter(post => 
             (post.title || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
             (post.category || "").toLowerCase().includes(searchQuery.toLowerCase())

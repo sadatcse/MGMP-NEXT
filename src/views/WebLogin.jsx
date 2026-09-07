@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Swal from "sweetalert2";
 import { FiLock, FiMail, FiArrowRight } from "react-icons/fi";
 import withReactContent from "sweetalert2-react-content";
@@ -10,47 +10,47 @@ import { motion } from "framer-motion";
 const WebLogin = () => {
   const { signIn, user } = useContext(AuthContext);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const pathname = usePathname();
   const MySwal = withReactContent(Swal);
 
   React.useEffect(() => {
-    if (user || (typeof window !== "undefined" && localStorage.getItem("token"))) {
-      router.push("/dashboard");
+    if (user && typeof window !== "undefined" && localStorage.getItem("token")) {
+      const redirectTarget = searchParams?.get("from") || "/dashboard";
+      window.location.href = redirectTarget;
     }
-  }, [user, router]);
+  }, [user, searchParams]);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    signIn(email, password)
-      .then((result) => {
-        setIsLoading(false);
-        MySwal.fire({
-          icon: "success",
-          title: "Login successful!",
-          showConfirmButton: false,
-          timer: 1500,
-          background: "#1f2937",
-          color: "#fff",
-        });
-        e.target.reset();
-        router.push(pathname?.state?.from || "/dashboard");
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        MySwal.fire({
-          icon: "error",
-          title: "Login failed",
-          text: "Please check your Email or Password.",
-          background: "#1f2937",
-          color: "#fff",
-        });
-        console.error(error);
+    try {
+      await signIn(email, password);
+      setIsLoading(false);
+      await MySwal.fire({
+        icon: "success",
+        title: "Login successful!",
+        showConfirmButton: false,
+        timer: 1200,
+        background: "#1f2937",
+        color: "#fff",
       });
+      const redirectTarget = searchParams?.get("from") || "/dashboard";
+      window.location.href = redirectTarget;
+    } catch (error) {
+      setIsLoading(false);
+      MySwal.fire({
+        icon: "error",
+        title: "Login failed",
+        text: "Please check your Email or Password.",
+        background: "#1f2937",
+        color: "#fff",
+      });
+      console.error(error);
+    }
   };
 
   return (

@@ -58,19 +58,16 @@ const Blog_create = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        formData.image = imageurl;
+        const blogDate = formData.date ? new Date(formData.date) : new Date();
+        const finalImage = imageurl || formData.image;
         
-    
-        const formattedDate = formData.date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-  
-    
         try {
             await axiosSecure.post("/news/post",
-                { ...formData, date: formattedDate },
+                { 
+                    ...formData, 
+                    image: finalImage,
+                    date: blogDate 
+                },
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -78,24 +75,26 @@ const Blog_create = () => {
                 }
             );
     
-            Swal.fire({
+            await Swal.fire({
                 icon: "success",
                 title: "Success!",
                 text: "Blog added successfully",
                 background: '#1a1a1a',
                 color: '#fff',
                 confirmButtonColor: '#dc2626'
-            }).then(() => {
-                router.push('/dashboard/blog_view');
             });
-    
+            
+            router.push('/dashboard/blog_view');
+            router.refresh();
         } catch (error) {
             console.error("Error adding Blog:", error);
     
             Swal.fire({
                 icon: "error",
                 title: "Error!",
-                text: "Failed to add Blog",
+                text: error?.response?.data?.message || "Failed to add Blog",
+                background: '#1a1a1a',
+                color: '#fff',
             });
         }
     };

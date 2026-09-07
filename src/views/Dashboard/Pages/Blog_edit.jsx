@@ -22,14 +22,21 @@ const Blog_edit = () => {
     const [imageurl, setimageurl] = useState("");
     const [previewImageUrl, setPreviewImageUrl] = useState("");
     const [formData, setFormData] = useState({
-        title: "", category: "", image: "", tags: [], date: new Date(), description: ""
+        title: "", category: "", image: "", tags: "", date: new Date(), description: ""
     });
     useEffect(() => {
-        axiosPublic.get(`/news/get-id/${_id}`).then(res => {
-            setFormData(res.data);
-            setimageurl(res.data.image);
-            setPreviewImageUrl(res.data.image);
-        }).catch(err => console.error(err));
+        if (!_id) return;
+        axiosPublic.get(`/news/get-id/${_id}?t=${Date.now()}`).then(res => {
+            const data = res.data || {};
+            const parsedDate = data.date ? new Date(data.date) : new Date();
+            setFormData({
+                ...data,
+                date: isNaN(parsedDate.getTime()) ? new Date() : parsedDate,
+                tags: Array.isArray(data.tags) ? data.tags.join(', ') : (data.tags || '')
+            });
+            setimageurl(data.image || "");
+            setPreviewImageUrl(data.image || "");
+        }).catch(err => console.error('Error fetching blog details:', err));
     }, [_id, axiosPublic]);
 
     
@@ -65,39 +72,30 @@ const Blog_edit = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const id = _id;
-        formData.image=imageurl;
-        console.log(formData);
-    
+        const blogDate = formData.date ? new Date(formData.date) : new Date();
+        const payload = {
+            ...formData,
+            image: imageurl || formData.image,
+            date: blogDate,
+        };
+
         try {
-            const response = await axiosSecure.put(`/news/put/${id}`, formData);
-            if (response.data.modifiedCount > 0) {
-                await Swal.fire({
-                    icon: 'success',
-                    title: 'Blog post updated successfully!',
-                    text: 'The blog details have been updated.',
-                    background: '#1a1a1a',
-                    color: '#fff',
-                    confirmButtonColor: '#dc2626'
-                }).then(() => {
-                    router.push('/dashboard/blog_view');
-                });
-            } else {
-                await Swal.fire({
-                    icon: 'info',
-                    title: 'No changes detected',
-                    text: 'No updates were made to the blog details.',
-                    background: '#1a1a1a',
-                    color: '#fff',
-                    confirmButtonColor: '#dc2626'
-                }).then(() => {
-                    router.push('/dashboard/blog_view');
-                });
-            }
+            await axiosSecure.put(`/news/put/${id}`, payload);
+            await Swal.fire({
+                icon: 'success',
+                title: 'Blog post updated successfully!',
+                text: 'The blog details have been updated.',
+                background: '#1a1a1a',
+                color: '#fff',
+                confirmButtonColor: '#dc2626'
+            });
+            router.push('/dashboard/blog_view');
+            router.refresh();
         } catch (error) {
             await Swal.fire({
                 icon: 'error',
                 title: 'Error updating blog post',
-                text: error.message,
+                text: error?.response?.data?.message || error.message,
                 background: '#1a1a1a',
                 color: '#fff',
                 confirmButtonColor: '#dc2626'
@@ -156,7 +154,7 @@ const Blog_edit = () => {
                     </div>
                     <div className="flex justify-between gap-5 mt-6">
                         <DatePicker
-                            selected={formData.date}
+                            selected={formData.date instanceof Date && !isNaN(formData.date.getTime()) ? formData.date : (formData.date ? new Date(formData.date) : null)}
                             onChange={handleDateChange}
                             placeholderText='Select a date'
                             className="appearance-none text-gray-300 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"

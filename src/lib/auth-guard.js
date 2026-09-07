@@ -2,8 +2,11 @@ import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
 
 export function requireAdmin(req) {
-  const authHeader = req.headers.get('authorization') || '';
-  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : null;
+  const authHeader = req.headers?.get?.('authorization') || '';
+  const headerToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : null;
+  const cookieToken = req.cookies?.get?.('token')?.value;
+  const token = headerToken || cookieToken;
+
   if (!token || !process.env.JWT_SECRET) return null;
 
   try {

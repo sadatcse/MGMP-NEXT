@@ -7,9 +7,8 @@ import ImageWithLoader from '../Utility/ImageWithLoader';
 
 // Utility function to strip HTML tags
 const stripHtml = (html) => {
-    if (typeof window === 'undefined') return "";
-    let doc = new DOMParser().parseFromString(html, 'text/html');
-    return doc.body.textContent || "";
+    if (!html) return "";
+    return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 };
 
 const NewsCard = ({ news, index }) => {

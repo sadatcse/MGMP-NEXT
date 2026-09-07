@@ -3,6 +3,9 @@ import NewsDetails from '../../../src/components/Newspage/NewsDetails';
 import { getNewsPost, getAllNews } from '../../../src/lib/server-data';
 import { siteConfig } from '../../../src/lib/site-config';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 function plainText(html, length = 160) {
   if (!html) return siteConfig.description;
   const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
