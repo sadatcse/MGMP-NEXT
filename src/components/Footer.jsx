@@ -207,6 +207,7 @@ const Footer = ({ initialStats }) => {
                                 { name: 'Our Trainers', path: '/trainers' },
                                 { name: 'Notice Board', path: '/notice' },
                                 { name: 'Explore Equipment', path: '/explore' },
+                                { name: 'Brand & Logo Kit', path: '/logo' },
                                 { name: 'Contact Us', path: '/contactus' },
 
                             ].map((link) => (
@@ -318,6 +319,8 @@ const Footer = ({ initialStats }) => {
                         <Link href="/legal/appprivacypolicy" className="hover:text-custom-yellow transition-colors">Privacy Policy</Link>
                         <span>•</span>
                         <Link href="/legal/refundpolicy" className="hover:text-custom-yellow transition-colors">Refund Policy</Link>
+                        <span>•</span>
+                        <Link href="/logo" className="hover:text-custom-yellow transition-colors">Logo Kit</Link>
                     </div>
 
                 </div>

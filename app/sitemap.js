@@ -17,6 +17,7 @@ export default async function sitemap() {
     { url: '/legal/cookiepolicy', changeFrequency: 'yearly', priority: 0.3 },
     { url: '/legal/refundpolicy', changeFrequency: 'yearly', priority: 0.3 },
     { url: '/legal/appprivacypolicy', changeFrequency: 'yearly', priority: 0.3 },
+    { url: '/logo', changeFrequency: 'monthly', priority: 0.6 },
   ].map((route) => ({
     url: `${siteConfig.url}${route.url}`,
     lastModified: new Date(),

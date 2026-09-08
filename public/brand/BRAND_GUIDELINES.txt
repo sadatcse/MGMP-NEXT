@@ -1,0 +1,49 @@
+MULTI GYM PREMIUM — BRAND & LOGO ASSET KIT
+===================================================
+Dhaka's #1 Elite Fitness Club
+
+BRAND COLOURS:
+- Frame Red:        #FF1F1F  (rgb: 255, 31, 31)
+- Brand Gold:       #F3C86E  (rgb: 243, 200, 110)
+- Bright Gold:      #F7D48C  (rgb: 247, 212, 140) - Dark backgrounds only
+- Dark Charcoal:    #141416  (rgb: 20, 20, 22)   - Tiles & profiles
+- Jet Black:        #0E0E10  (rgb: 14, 14, 16)   - Page canvas
+
+SIZING SPECIFICATIONS:
+- Primary Badge:    90px minimum screen width, 25mm in print
+- Horizontal Logo:  160px minimum screen width
+- Favicon (<24px):  Always use simplified favicon (mgp-favicon.svg), never detailed figures
+- Clear Space:      Half of the badge triangle's height on all sides
+
+USAGE RULES & RESTRICTIONS:
+1. DO NOT stretch, skew, rotate, or tilt the badge.
+2. DO NOT recolour the gold to plain yellow or orange.
+3. DO NOT place the full-colour badge directly on mid-tone photos; use the white or reverse version.
+4. DO NOT rebuild or substitute the wordmark with other fonts; it is custom outlined vector artwork.
+
+INCLUDED ASSETS (22 Vector SVG Files):
+ 1. mgp-primary.svg
+ 2. mgp-horizontal.svg
+ 3. mgp-horizontal-compact.svg
+ 4. mgp-emblem-full.svg
+ 5. mgp-emblem.svg
+ 6. mgp-figures.svg
+ 7. mgp-wordmark.svg
+ 8. mgp-gold.svg
+ 9. mgp-red.svg
+10. mgp-black.svg
+11. mgp-white.svg
+12. mgp-reverse.svg
+13. mgp-emblem-white.svg
+14. mgp-horizontal-white.svg
+15. mgp-horizontal-reverse.svg
+16. mgp-emblem-full-white.svg
+17. mgp-wordmark-white.svg
+18. mgp-app-icon.svg
+19. mgp-social-profile.svg
+20. mgp-social-profile-dark.svg
+21. mgp-favicon.svg
+22. mgp-favicon-detail.svg
+
+For full interactive kit and previews, visit:
+https://www.multigympremium.com/logo
