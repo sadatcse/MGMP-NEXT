@@ -425,3 +425,101 @@ export const brandLogos = [
     tags: ['favicon', 'detail', 'retina', 'bookmarks', 'desktop']
   }
 ];
+
+// Official QR codes — 3 branches × (Facebook, Website, Google Map).
+// Shia Masjid & Lalmatia share the Multigym Premium Facebook page and website;
+// Power Fit (Adabor) has its own. Every branch has its own Google Map pin.
+const qrLinks = {
+  facebookMgp: {
+    type: 'facebook',
+    label: 'Facebook Page',
+    url: 'https://www.facebook.com/MultiGymPremium/',
+    display: 'facebook.com/MultiGymPremium',
+    path: '/brand/qr/qr-facebook-multigym-premium.png',
+    filename: 'qr-facebook-multigym-premium.png'
+  },
+  facebookPowerfit: {
+    type: 'facebook',
+    label: 'Facebook Page',
+    url: 'https://www.facebook.com/MGPPowerFiT/',
+    display: 'facebook.com/MGPPowerFiT',
+    path: '/brand/qr/qr-facebook-powerfit.png',
+    filename: 'qr-facebook-powerfit.png'
+  },
+  websiteMgp: {
+    type: 'website',
+    label: 'Website',
+    url: 'https://www.multigympremium.com/',
+    display: 'multigympremium.com',
+    path: '/brand/qr/qr-website-multigym-premium.png',
+    filename: 'qr-website-multigym-premium.png'
+  },
+  websitePowerfit: {
+    type: 'website',
+    label: 'Website',
+    url: 'https://powerfitbd.com/',
+    display: 'powerfitbd.com',
+    path: '/brand/qr/qr-website-powerfit.png',
+    filename: 'qr-website-powerfit.png'
+  }
+};
+
+export const branchQrCodes = [
+  {
+    id: 'shia-masjid',
+    name: 'Shia Masjid',
+    brand: 'Multigym Premium',
+    area: 'Mohammadpur, Dhaka',
+    accent: 'red',
+    codes: [
+      { ...qrLinks.facebookMgp, shared: 'Shared with Lalmatia' },
+      { ...qrLinks.websiteMgp, shared: 'Shared with Lalmatia' },
+      {
+        type: 'map',
+        label: 'Google Map',
+        url: 'https://maps.app.goo.gl/ZRnkTnTfEViHgDF2A',
+        display: 'Shia Masjid Mor, Ring Road',
+        path: '/brand/qr/qr-map-shia-masjid.png',
+        filename: 'qr-map-shia-masjid.png'
+      }
+    ]
+  },
+  {
+    id: 'lalmatia',
+    name: 'Lalmatia',
+    brand: 'Multigym Premium',
+    area: 'Lalmatia, Dhaka',
+    accent: 'red',
+    codes: [
+      { ...qrLinks.facebookMgp, shared: 'Shared with Shia Masjid' },
+      { ...qrLinks.websiteMgp, shared: 'Shared with Shia Masjid' },
+      {
+        type: 'map',
+        label: 'Google Map',
+        url: 'https://maps.app.goo.gl/qZ5nUhEXEX9CjKhG9',
+        display: 'Lalmatia Shopping Center',
+        path: '/brand/qr/qr-map-lalmatia.png',
+        filename: 'qr-map-lalmatia.png'
+      }
+    ]
+  },
+  {
+    id: 'powerfit-adabor',
+    name: 'Power Fit',
+    brand: 'Power Fit',
+    area: 'Adabor, Dhaka',
+    accent: 'yellow',
+    codes: [
+      qrLinks.facebookPowerfit,
+      qrLinks.websitePowerfit,
+      {
+        type: 'map',
+        label: 'Google Map',
+        url: 'https://maps.app.goo.gl/VgPyX5Tt7nT5uKos8',
+        display: 'Ring Road, Shyamoli, Adabor',
+        path: '/brand/qr/qr-map-powerfit-adabor.png',
+        filename: 'qr-map-powerfit-adabor.png'
+      }
+    ]
+  }
+];

@@ -14,15 +14,26 @@ import {
   FaExpand,
   FaExternalLinkAlt,
   FaArrowDown,
-  FaTimes
+  FaTimes,
+  FaQrcode,
+  FaFacebookF,
+  FaGlobe,
+  FaMapMarkerAlt
 } from 'react-icons/fa';
 import {
   brandCategories,
   brandColors,
   sizingRules,
   brandRules,
-  brandLogos
+  brandLogos,
+  branchQrCodes
 } from '../data/brandLogos';
+
+const qrTypeIcons = {
+  facebook: FaFacebookF,
+  website: FaGlobe,
+  map: FaMapMarkerAlt
+};
 
 export default function LogoKitView() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -358,6 +369,119 @@ export default function LogoKitView() {
               </article>
             );
           })}
+        </section>
+
+        {/* OFFICIAL BRANCH QR CODES */}
+        <section id="qr-codes" className="pt-12 border-t border-white/10 mb-20 space-y-8">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div className="max-w-2xl space-y-2">
+              <span className="text-[11px] font-black uppercase tracking-[0.25em] text-custom-yellow flex items-center gap-2">
+                <FaQrcode /> Scan & Connect
+              </span>
+              <h2 className="text-3xl font-black italic uppercase tracking-tight text-white">
+                Official Branch QR Codes
+              </h2>
+              <p className="text-sm text-gray-400 leading-relaxed">
+                Nine print-ready QR codes — Facebook, website and Google Map for every branch. Shia Masjid and Lalmatia share the Multigym Premium page and website; Power Fit has its own. Each branch has its own map pin.
+              </p>
+            </div>
+            <a
+              href="/brand/qr/multigym-qr-codes.zip"
+              download="multigym-qr-codes.zip"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-extrabold text-xs uppercase tracking-wider transition-all"
+            >
+              <FaFileArchive className="text-custom-yellow" />
+              <span>Download All QR (.ZIP)</span>
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {branchQrCodes.map((branch) => {
+              const isYellow = branch.accent === 'yellow';
+              return (
+                <div
+                  key={branch.id}
+                  className="bg-[#141416] rounded-2xl border border-white/10 overflow-hidden flex flex-col"
+                >
+                  {/* Branch Header */}
+                  <div
+                    className={`px-5 py-4 border-b border-white/10 flex items-center justify-between gap-3 border-t-4 ${
+                      isYellow ? 'border-t-custom-yellow' : 'border-t-red-600'
+                    }`}
+                  >
+                    <div>
+                      <h3 className="text-lg font-black uppercase italic tracking-tight text-white">
+                        {branch.name}
+                      </h3>
+                      <span className="text-[11px] text-gray-400">{branch.area}</span>
+                    </div>
+                    <span
+                      className={`px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider ${
+                        isYellow ? 'bg-custom-yellow text-black' : 'bg-red-600 text-white'
+                      }`}
+                    >
+                      {branch.brand}
+                    </span>
+                  </div>
+
+                  {/* QR Cards */}
+                  <div className="p-4 space-y-3 flex-1">
+                    {branch.codes.map((qr) => {
+                      const Icon = qrTypeIcons[qr.type];
+                      return (
+                        <div
+                          key={qr.filename}
+                          className="group flex items-center gap-4 p-3 rounded-xl bg-[#121215] border border-white/5 hover:border-custom-yellow/40 transition-colors"
+                        >
+                          <div className="w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 bg-white rounded-lg p-1">
+                            <img
+                              src={qr.path}
+                              alt={`${branch.name} ${qr.label} QR code`}
+                              loading="lazy"
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+
+                          <div className="min-w-0 flex-1 space-y-2">
+                            <div className="flex items-center gap-1.5 text-sm font-extrabold text-white group-hover:text-custom-yellow transition-colors">
+                              <Icon className="text-xs text-custom-yellow flex-shrink-0" />
+                              <span>{qr.label}</span>
+                            </div>
+                            <a
+                              href={qr.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-[11px] text-gray-400 hover:text-white flex items-center gap-1 min-w-0"
+                              title={qr.url}
+                            >
+                              <span className="truncate">{qr.display}</span>
+                              <FaExternalLinkAlt className="text-[8px] flex-shrink-0" />
+                            </a>
+                            {qr.shared && (
+                              <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-gray-500 bg-white/5 px-1.5 py-0.5 rounded">
+                                {qr.shared}
+                              </span>
+                            )}
+                            <div>
+                              <a
+                                href={qr.path}
+                                download={qr.filename}
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-extrabold text-[11px] transition-all"
+                                title={`Download ${qr.filename}`}
+                              >
+                                <FaDownload className="text-[9px]" />
+                                <span>PNG</span>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </section>
 
         {/* BRAND GUIDELINES & SPECIFICATIONS */}
