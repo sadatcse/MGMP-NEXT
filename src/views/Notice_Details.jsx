@@ -22,7 +22,7 @@ const Notice_Details = ({ notice, notices = [], currentId }) => {
             </div>
             <div className="container mx-auto px-4 flex flex-col-reverse md:flex-row gap-6 py-4 justify-between">
                 {/* routes */}
-                <section className="min-w-0 md:min-w-80 max-h-min p-5 md:pr-0 md:border-r rounded">
+                <section className="min-w-0 md:min-w-80 max-h-min p-5 md:pr-0 md:border-r rounded-sm">
                     <div className="flex flex-col">
                         {notices &&
                             notices.map((item) => (
@@ -36,7 +36,7 @@ const Notice_Details = ({ notice, notices = [], currentId }) => {
 
 
                 {/* notice details */}
-                <section className="rounded-xl shadow pb-5 bg-white">
+                <section className="rounded-xl shadow-sm pb-5 bg-white">
                     <div className="">
 
                         <Image

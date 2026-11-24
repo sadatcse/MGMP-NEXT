@@ -104,7 +104,7 @@ const NutritionNowForm = ({ onSuccess, isModal = false, onClose }) => {
               {...register('full_name')}
               className={`w-full pl-10 pr-4 py-3 bg-zinc-900/90 border ${
                 errors.full_name ? 'border-red-500' : 'border-zinc-700 focus:border-custom-yellow'
-              } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-custom-yellow transition-all`}
+              } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-hidden focus:ring-1 focus:ring-custom-yellow transition-all`}
             />
           </div>
           {errors.full_name && (
@@ -127,7 +127,7 @@ const NutritionNowForm = ({ onSuccess, isModal = false, onClose }) => {
               {...register('mobile_number')}
               className={`w-full pl-10 pr-4 py-3 bg-zinc-900/90 border ${
                 errors.mobile_number ? 'border-red-500' : 'border-zinc-700 focus:border-custom-yellow'
-              } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-custom-yellow transition-all`}
+              } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-hidden focus:ring-1 focus:ring-custom-yellow transition-all`}
             />
           </div>
           {errors.mobile_number && (
@@ -150,7 +150,7 @@ const NutritionNowForm = ({ onSuccess, isModal = false, onClose }) => {
               {...register('email')}
               className={`w-full pl-10 pr-4 py-3 bg-zinc-900/90 border ${
                 errors.email ? 'border-red-500' : 'border-zinc-700 focus:border-custom-yellow'
-              } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-custom-yellow transition-all`}
+              } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-hidden focus:ring-1 focus:ring-custom-yellow transition-all`}
             />
           </div>
           {errors.email && (
@@ -162,7 +162,7 @@ const NutritionNowForm = ({ onSuccess, isModal = false, onClose }) => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-3.5 px-6 text-white font-black uppercase tracking-widest bg-gradient-to-r from-red-600 via-red-700 to-red-600 hover:from-red-500 hover:to-red-600 rounded-xl shadow-xl shadow-red-900/40 hover:shadow-red-600/50 transition-all duration-300 focus:outline-none active:scale-[0.99] disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2 text-sm sm:text-base mt-2"
+          className="w-full py-3.5 px-6 text-white font-black uppercase tracking-widest bg-gradient-to-r from-red-600 via-red-700 to-red-600 hover:from-red-500 hover:to-red-600 rounded-xl shadow-xl shadow-red-900/40 hover:shadow-red-600/50 transition-all duration-300 focus:outline-hidden active:scale-[0.99] disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2 text-sm sm:text-base mt-2"
         >
           {isSubmitting ? (
             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>

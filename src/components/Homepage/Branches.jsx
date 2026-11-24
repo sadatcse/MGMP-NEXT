@@ -43,7 +43,7 @@ const Branches = () => {
                     </span>
                   </div>
                 </div>
-                <FaArrowRight className="text-custom-yellow group-hover:translate-x-2 transition-transform duration-300 flex-shrink-0 ml-2" />
+                <FaArrowRight className="text-custom-yellow group-hover:translate-x-2 transition-transform duration-300 shrink-0 ml-2" />
               </Link>
             );
           })}

@@ -19,7 +19,7 @@ function MemberRegisterSelect({
       <select
         type={type}
         id={label}
-        className={`focus:border-yellow-400 appearance-none text-gray-700 text-sm border  rounded-xl w-full md:py-3 md:px-3 py-2 px-2 leading-tight focus:outline-none focus:shadow-outline`}
+        className={`focus:border-yellow-400 appearance-none text-gray-700 text-sm border  rounded-xl w-full md:py-3 md:px-3 py-2 px-2 leading-tight focus:outline-hidden focus:shadow-outline`}
         {...register(name, { required: isRequired, onChange: onChange })}
         {...res}
       >

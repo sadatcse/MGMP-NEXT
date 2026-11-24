@@ -141,7 +141,7 @@ export default function ChatHistoryPage() {
               placeholder="Search by name, email, phone..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-amber-500 rounded-2xl pl-12 pr-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300"
+              className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-amber-500 rounded-2xl pl-12 pr-4 py-3 text-sm text-white placeholder:text-gray-500 outline-hidden transition-all duration-300"
             />
             <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm" />
           </div>
@@ -154,7 +154,7 @@ export default function ChatHistoryPage() {
               <button
                 onClick={exportAllLeadsToCSV}
                 title="Export all leads to CSV"
-                className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-amber-500 hover:text-amber-400 transition-colors focus:outline-none"
+                className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-amber-500 hover:text-amber-400 transition-colors focus:outline-hidden"
               >
                 <FaDownload className="text-[8px]" /> Export CSV
               </button>
@@ -227,30 +227,30 @@ export default function ChatHistoryPage() {
                 className="flex flex-col h-full overflow-hidden"
               >
                 {/* Right Pane Header */}
-                <div className="flex items-center justify-between mb-4 flex-shrink-0">
+                <div className="flex items-center justify-between mb-4 shrink-0">
                   <p className="text-xs font-black uppercase tracking-widest text-gray-400">
                     Lead Profile & Transcript
                   </p>
                   <button
                     onClick={exportSelectedTranscript}
-                    className="flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-amber-500 hover:text-black border border-white/10 rounded-xl text-gray-300 text-xs font-bold transition-all duration-300 focus:outline-none"
+                    className="flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-amber-500 hover:text-black border border-white/10 rounded-xl text-gray-300 text-xs font-bold transition-all duration-300 focus:outline-hidden"
                   >
                     <FaDownload size={10} /> Export Transcript
                   </button>
                 </div>
 
                 {/* Selected Lead Details Grid Card */}
-                <div className="bg-black/40 border border-white/5 rounded-3xl p-5 mb-6 grid grid-cols-1 md:grid-cols-2 gap-4 flex-shrink-0">
+                <div className="bg-black/40 border border-white/5 rounded-3xl p-5 mb-6 grid grid-cols-1 md:grid-cols-2 gap-4 shrink-0">
                   <div className="space-y-2.5">
                     <div className="flex items-center gap-3 text-sm text-gray-300">
-                      <FaUser className="text-amber-500 flex-shrink-0" />
+                      <FaUser className="text-amber-500 shrink-0" />
                       <div>
                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-500">Full Name</p>
                         <p className="font-bold text-white uppercase tracking-wide">{selectedSession.name}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 text-sm text-gray-300">
-                      <FaPhoneAlt className="text-amber-500 flex-shrink-0" />
+                      <FaPhoneAlt className="text-amber-500 shrink-0" />
                       <div>
                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-500">Mobile Number</p>
                         <p className="font-bold text-white">{selectedSession.mobile}</p>
@@ -260,14 +260,14 @@ export default function ChatHistoryPage() {
                   
                   <div className="space-y-2.5">
                     <div className="flex items-center gap-3 text-sm text-gray-300">
-                      <FaEnvelope className="text-amber-500 flex-shrink-0" />
+                      <FaEnvelope className="text-amber-500 shrink-0" />
                       <div>
                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-500">Email Address</p>
                         <p className="font-bold text-white">{selectedSession.email}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 text-sm text-gray-300">
-                      <FaLaptop className="text-amber-500 flex-shrink-0" />
+                      <FaLaptop className="text-amber-500 shrink-0" />
                       <div>
                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-500">IP & Timestamp</p>
                         <p className="font-bold text-white text-xs">{selectedSession.ip || '127.0.0.1'} | {moment(selectedSession.createdAt).format('lll')}</p>
@@ -288,7 +288,7 @@ export default function ChatHistoryPage() {
                         >
                           <div className={`flex gap-3 max-w-[80%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
                             {/* Avatar */}
-                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs flex-shrink-0 border mt-1
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs shrink-0 border mt-1
                               ${isUser 
                                 ? 'bg-amber-500/20 border-amber-500 text-amber-500' 
                                 : 'bg-red-600/20 border-red-500 text-red-500'

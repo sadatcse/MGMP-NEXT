@@ -305,7 +305,7 @@ const TrafficAnalytics = () => {
                                 value={searchQuery}
                                 onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(0); }}
                                 placeholder="Search IP, Country, Referrer..."
-                                className="w-full pl-12 pr-6 py-3 bg-white/5 border border-white/5 rounded-2xl text-white font-bold placeholder-gray-500 focus:outline-none focus:border-custom-yellow transition-all duration-300 text-xs uppercase tracking-wider dashboard-theme-input"
+                                className="w-full pl-12 pr-6 py-3 bg-white/5 border border-white/5 rounded-2xl text-white font-bold placeholder-gray-500 focus:outline-hidden focus:border-custom-yellow transition-all duration-300 text-xs uppercase tracking-wider dashboard-theme-input"
                             />
                             <TfiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm" />
                         </div>
@@ -314,7 +314,7 @@ const TrafficAnalytics = () => {
                         <select
                             value={sourceFilter}
                             onChange={(e) => { setSourceFilter(e.target.value); setCurrentPage(0); }}
-                            className="w-full sm:w-48 px-5 py-3 bg-white/5 border border-white/5 rounded-2xl text-white font-bold focus:outline-none focus:border-custom-yellow transition-all duration-300 text-xs uppercase tracking-wider cursor-pointer dashboard-theme-input"
+                            className="w-full sm:w-48 px-5 py-3 bg-white/5 border border-white/5 rounded-2xl text-white font-bold focus:outline-hidden focus:border-custom-yellow transition-all duration-300 text-xs uppercase tracking-wider cursor-pointer dashboard-theme-input"
                         >
                             <option value="All" className="bg-[#0f0f0f] text-white">All Sources</option>
                             <option value="Direct" className="bg-[#0f0f0f] text-white">Direct Traffic</option>
@@ -354,7 +354,7 @@ const TrafficAnalytics = () => {
                                     </td>
                                     <td className="py-4">
                                         <span className="flex items-center gap-2">
-                                            <FaMapMarkerAlt className="text-red-500 text-xs flex-shrink-0" />
+                                            <FaMapMarkerAlt className="text-red-500 text-xs shrink-0" />
                                             <span className="truncate max-w-[120px]" title={visitor.country}>{visitor.country}</span>
                                         </span>
                                     </td>

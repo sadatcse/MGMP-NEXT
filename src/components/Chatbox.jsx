@@ -190,7 +190,7 @@ const Chatbox = () => {
         whileHover={{ scale: 1.1, rotate: 5 }}
         whileTap={{ scale: 0.9 }}
         aria-label={isOpen ? "Close chat" : "Open chat"}
-        className="w-16 h-16 rounded-full bg-gradient-to-r from-red-600 to-amber-500 text-white flex items-center justify-center shadow-[0_8px_30px_rgb(239,68,68,0.4)] border border-white/20 relative group overflow-hidden focus:outline-none"
+        className="w-16 h-16 rounded-full bg-gradient-to-r from-red-600 to-amber-500 text-white flex items-center justify-center shadow-[0_8px_30px_rgb(239,68,68,0.4)] border border-white/20 relative group overflow-hidden focus:outline-hidden"
       >
         <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
         <AnimatePresence mode="wait">
@@ -252,14 +252,14 @@ const Chatbox = () => {
                   onClick={handleClearChat}
                   title="Clear chat history"
                   aria-label="Clear chat history"
-                  className="p-2.5 rounded-xl bg-white/5 hover:bg-red-600/20 text-gray-400 hover:text-red-500 transition-all duration-300 focus:outline-none"
+                  className="p-2.5 rounded-xl bg-white/5 hover:bg-red-600/20 text-gray-400 hover:text-red-500 transition-all duration-300 focus:outline-hidden"
                 >
                   <FaTrash className="text-xs" />
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
                   aria-label="Close chat"
-                  className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-300 focus:outline-none"
+                  className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-300 focus:outline-hidden"
                 >
                   <FaTimes className="text-xs" />
                 </button>
@@ -289,7 +289,7 @@ const Chatbox = () => {
                         value={leadForm.name}
                         onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
                         placeholder="John Doe"
-                        className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-amber-500 rounded-2xl px-4 py-3 text-sm text-white placeholder:text-gray-600 outline-none transition-all duration-300"
+                        className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-amber-500 rounded-2xl px-4 py-3 text-sm text-white placeholder:text-gray-600 outline-hidden transition-all duration-300"
                       />
                     </div>
                     <div className="space-y-1.5">
@@ -300,7 +300,7 @@ const Chatbox = () => {
                         value={leadForm.mobile}
                         onChange={(e) => setLeadForm({ ...leadForm, mobile: e.target.value })}
                         placeholder="017XXXXXXXX"
-                        className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-amber-500 rounded-2xl px-4 py-3 text-sm text-white placeholder:text-gray-600 outline-none transition-all duration-300"
+                        className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-amber-500 rounded-2xl px-4 py-3 text-sm text-white placeholder:text-gray-600 outline-hidden transition-all duration-300"
                       />
                     </div>
                     <div className="space-y-1.5">
@@ -310,7 +310,7 @@ const Chatbox = () => {
                         value={leadForm.email}
                         onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
                         placeholder="john@example.com (optional)"
-                        className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-amber-500 rounded-2xl px-4 py-3 text-sm text-white placeholder:text-gray-600 outline-none transition-all duration-300"
+                        className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-amber-500 rounded-2xl px-4 py-3 text-sm text-white placeholder:text-gray-600 outline-hidden transition-all duration-300"
                       />
                     </div>
                     
@@ -345,7 +345,7 @@ const Chatbox = () => {
                     >
                       <div className={`flex gap-2 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                         {/* Icon/Avatar */}
-                        <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-1 border ${msg.role === 'user'
+                        <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs shrink-0 mt-1 border ${msg.role === 'user'
                           ? 'bg-amber-500/20 border-amber-500 text-amber-500'
                           : 'bg-red-600/20 border-red-500 text-red-500'
                           }`}>
@@ -397,7 +397,7 @@ const Chatbox = () => {
                         <button
                           key={index}
                           onClick={() => handleSend(faq.question)}
-                          className="text-left text-xs bg-white/5 hover:bg-amber-500 hover:text-black border border-white/10 rounded-2xl px-3.5 py-2 text-gray-300 font-bold transition-all duration-300 focus:outline-none"
+                          className="text-left text-xs bg-white/5 hover:bg-amber-500 hover:text-black border border-white/10 rounded-2xl px-3.5 py-2 text-gray-300 font-bold transition-all duration-300 focus:outline-hidden"
                         >
                           {faq.question}
                         </button>
@@ -420,13 +420,13 @@ const Chatbox = () => {
                     onChange={(e) => setInputText(e.target.value)}
                     disabled={isLoading}
                     placeholder="Type your question..."
-                    className="flex-1 bg-white/5 border border-white/10 hover:border-white/20 focus:border-amber-500 rounded-2xl px-4 py-3.5 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 disabled:opacity-55"
+                    className="flex-1 bg-white/5 border border-white/10 hover:border-white/20 focus:border-amber-500 rounded-2xl px-4 py-3.5 text-sm text-white placeholder:text-gray-500 outline-hidden transition-all duration-300 disabled:opacity-55"
                   />
                   <button
                     type="submit"
                     disabled={isLoading || !inputText.trim()}
                     aria-label="Send message"
-                    className="w-12 h-12 rounded-2xl bg-amber-500 text-black flex items-center justify-center transition-all duration-300 hover:bg-amber-400 disabled:opacity-55 disabled:hover:bg-amber-500 focus:outline-none shadow-lg shadow-amber-500/10 flex-shrink-0"
+                    className="w-12 h-12 rounded-2xl bg-amber-500 text-black flex items-center justify-center transition-all duration-300 hover:bg-amber-400 disabled:opacity-55 disabled:hover:bg-amber-500 focus:outline-hidden shadow-lg shadow-amber-500/10 shrink-0"
                   >
                     <FaPaperPlane className="text-sm" />
                   </button>

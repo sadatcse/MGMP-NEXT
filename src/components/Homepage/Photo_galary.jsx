@@ -99,7 +99,7 @@ const PhotoGallery = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="fixed inset-0 flex items-center justify-center bg-black/95 backdrop-blur-sm z-[100] p-4 md:p-10"
+                            className="fixed inset-0 flex items-center justify-center bg-black/95 backdrop-blur-xs z-[100] p-4 md:p-10"
                             onClick={closeModal}
                         >
                             <motion.div

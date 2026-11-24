@@ -158,7 +158,7 @@ const Testimonial_edit = () => {
                             name="title"
                             value={formData.title}
                             onChange={handleChange}
-                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-xs rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-hidden focus:shadow-outline"
                             placeholder="Testimonial Title"
                             required
                         />
@@ -170,7 +170,7 @@ const Testimonial_edit = () => {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-xs rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-hidden focus:shadow-outline"
                             placeholder="Testimonial Person Name"
                             required
                         />
@@ -181,7 +181,7 @@ const Testimonial_edit = () => {
                             name="comment"
                             value={formData.comment}
                             onChange={(e) => handleCommentChange(e.target.value)}
-                            className="appearance-none resize-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl h-52 w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none resize-none text-sm border border-white/10 bg-black/40 shadow-xs rounded-xl h-52 w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-hidden focus:shadow-outline"
                             placeholder="Enter testimonial comment"
                             required
                         />
@@ -197,7 +197,7 @@ const Testimonial_edit = () => {
                                 name="image"
                                 value={imageurl}
                                 onChange={(e) => { setimageurl(e.target.value); setPreviewImageUrl(e.target.value); }}
-                                className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 focus:outline-none focus:shadow-outline"
+                                className="appearance-none text-sm border border-white/10 bg-black/40 shadow-xs rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 focus:outline-hidden focus:shadow-outline"
                                 placeholder="Enter image URL"
                             />
                         </div>
@@ -206,7 +206,7 @@ const Testimonial_edit = () => {
                         <div className="flex items-center justify-end">
                             <button
                                 type="submit"
-                                className="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+                                className="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg focus:outline-hidden focus:shadow-outline"
                             >
                                 Update Testimonial
                             </button>

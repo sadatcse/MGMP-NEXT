@@ -219,7 +219,7 @@ const JoinApplications = () => {
             placeholder="Search name, phone, email, package..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-zinc-900 border border-zinc-700 rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:border-custom-yellow transition-all"
+            className="w-full pl-10 pr-4 py-2.5 bg-zinc-900 border border-zinc-700 rounded-xl text-white placeholder-gray-500 text-sm focus:outline-hidden focus:border-custom-yellow transition-all"
           />
         </div>
 
@@ -303,7 +303,7 @@ const JoinApplications = () => {
                         <FaPhoneAlt className="text-red-500 text-[10px]" /> {item.telephone_number}
                       </p>
                       <p className="text-gray-400 mt-1 max-w-xs truncate flex items-center gap-1">
-                        <FaMapMarkerAlt className="text-custom-yellow text-[10px] flex-shrink-0" /> {item.address}
+                        <FaMapMarkerAlt className="text-custom-yellow text-[10px] shrink-0" /> {item.address}
                       </p>
                     </td>
 

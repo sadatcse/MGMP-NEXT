@@ -5,8 +5,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import dynamic from 'next/dynamic';
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
-import 'react-quill/dist/quill.snow.css';
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+import 'react-quill-new/dist/quill.snow.css';
 
 import UseAxioSecure from '../../../Hook/UseAxioSecure';
 import Swal from 'sweetalert2';
@@ -135,7 +135,7 @@ const Notice_edit = () => {
                             value={formData.title}
                             onChange={handleChange}
                             placeholder="Notice Title"
-                            className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-none focus:border-red-600/50 transition-all font-bold"
+                            className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-hidden focus:border-red-600/50 transition-all font-bold"
                             required
                         />
                     </div>
@@ -150,7 +150,7 @@ const Notice_edit = () => {
                                 value={formData.author}
                                 onChange={handleChange}
                                 placeholder="Author"
-                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-none focus:border-red-600/50 transition-all font-bold"
+                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-hidden focus:border-red-600/50 transition-all font-bold"
                                 required
                             />
                         </div>
@@ -161,7 +161,7 @@ const Notice_edit = () => {
                                 selected={formData.date ? new Date(formData.date) : null}
                                 onChange={handleDateChange}
                                 placeholderText="Select Date"
-                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-none focus:border-red-600/50 transition-all font-bold cursor-pointer"
+                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-hidden focus:border-red-600/50 transition-all font-bold cursor-pointer"
                                 required
                             />
                         </div>
@@ -173,7 +173,7 @@ const Notice_edit = () => {
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-gray-400 outline-none focus:border-red-600/50 transition-all font-bold cursor-pointer"
+                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-gray-400 outline-hidden focus:border-red-600/50 transition-all font-bold cursor-pointer"
                                 required
                             >
                                 <option value="" className="text-gray-400">Select Category</option>
@@ -216,7 +216,7 @@ const Notice_edit = () => {
                                 name="image"
                                 value={imageurl}
                                 onChange={(e) => { setimageurl(e.target.value); setPreviewImageUrl(e.target.value); }}
-                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-none focus:border-red-600/50 transition-all font-bold"
+                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-hidden focus:border-red-600/50 transition-all font-bold"
                                 placeholder="Enter direct image url"
                             />
                         </div>

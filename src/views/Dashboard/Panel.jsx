@@ -337,7 +337,7 @@ const Panel = () => {
                                         </td>
                                         <td className="py-4">
                                             <span className="flex items-center gap-2">
-                                                <FaMapMarkerAlt className="text-red-500 text-xs flex-shrink-0" />
+                                                <FaMapMarkerAlt className="text-red-500 text-xs shrink-0" />
                                                 <span className="truncate max-w-[120px]" title={visitor.country}>{visitor.country}</span>
                                             </span>
                                         </td>

@@ -212,7 +212,7 @@ const JoinNowForm = ({ onSuccess }) => {
                   placeholder="e.g. John Doe"
                   {...register('full_name')}
                   className={`w-full pl-10 pr-4 py-3 bg-zinc-900/90 border ${errors.full_name ? 'border-red-500' : 'border-zinc-700 focus:border-custom-yellow'
-                    } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-custom-yellow transition-all`}
+                    } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-hidden focus:ring-1 focus:ring-custom-yellow transition-all`}
                 />
               </div>
               {errors.full_name && (
@@ -234,7 +234,7 @@ const JoinNowForm = ({ onSuccess }) => {
                   placeholder="name@example.com"
                   {...register('email')}
                   className={`w-full pl-10 pr-4 py-3 bg-zinc-900/90 border ${errors.email ? 'border-red-500' : 'border-zinc-700 focus:border-custom-yellow'
-                    } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-custom-yellow transition-all`}
+                    } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-hidden focus:ring-1 focus:ring-custom-yellow transition-all`}
                 />
               </div>
               {errors.email && (
@@ -256,7 +256,7 @@ const JoinNowForm = ({ onSuccess }) => {
                   placeholder="e.g. 01700000000"
                   {...register('telephone_number')}
                   className={`w-full pl-10 pr-4 py-3 bg-zinc-900/90 border ${errors.telephone_number ? 'border-red-500' : 'border-zinc-700 focus:border-custom-yellow'
-                    } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-custom-yellow transition-all`}
+                    } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-hidden focus:ring-1 focus:ring-custom-yellow transition-all`}
                 />
               </div>
               {errors.telephone_number && (
@@ -278,7 +278,7 @@ const JoinNowForm = ({ onSuccess }) => {
                   <select
                     {...register('feet')}
                     className={`w-full pl-10 pr-4 py-3 bg-zinc-900/90 border ${errors.feet ? 'border-red-500' : 'border-zinc-700 focus:border-custom-yellow'
-                      } rounded-xl text-white text-sm focus:outline-none focus:ring-1 focus:ring-custom-yellow transition-all appearance-none cursor-pointer`}
+                      } rounded-xl text-white text-sm focus:outline-hidden focus:ring-1 focus:ring-custom-yellow transition-all appearance-none cursor-pointer`}
                   >
                     <option value="" disabled>Select Feet</option>
                     {feetOptions.map((option) => (
@@ -297,7 +297,7 @@ const JoinNowForm = ({ onSuccess }) => {
                   <select
                     {...register('inch')}
                     className={`w-full pl-10 pr-4 py-3 bg-zinc-900/90 border ${errors.inch ? 'border-red-500' : 'border-zinc-700 focus:border-custom-yellow'
-                      } rounded-xl text-white text-sm focus:outline-none focus:ring-1 focus:ring-custom-yellow transition-all appearance-none cursor-pointer`}
+                      } rounded-xl text-white text-sm focus:outline-hidden focus:ring-1 focus:ring-custom-yellow transition-all appearance-none cursor-pointer`}
                   >
                     <option value="" disabled>Select Inch</option>
                     {inchOptions.map((option) => (
@@ -329,7 +329,7 @@ const JoinNowForm = ({ onSuccess }) => {
                   placeholder="e.g. 70 kg"
                   {...register('weight')}
                   className={`w-full pl-10 pr-4 py-3 bg-zinc-900/90 border ${errors.weight ? 'border-red-500' : 'border-zinc-700 focus:border-custom-yellow'
-                    } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-custom-yellow transition-all`}
+                    } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-hidden focus:ring-1 focus:ring-custom-yellow transition-all`}
                 />
               </div>
               {errors.weight && (
@@ -349,7 +349,7 @@ const JoinNowForm = ({ onSuccess }) => {
                 <select
                   {...register('age')}
                   className={`w-full pl-10 pr-4 py-3 bg-zinc-900/90 border ${errors.age ? 'border-red-500' : 'border-zinc-700 focus:border-custom-yellow'
-                    } rounded-xl text-white text-sm focus:outline-none focus:ring-1 focus:ring-custom-yellow transition-all appearance-none cursor-pointer`}
+                    } rounded-xl text-white text-sm focus:outline-hidden focus:ring-1 focus:ring-custom-yellow transition-all appearance-none cursor-pointer`}
                 >
                   <option value="" disabled>Select Age</option>
                   {ageOptions.map((ageVal) => (
@@ -378,7 +378,7 @@ const JoinNowForm = ({ onSuccess }) => {
                   placeholder="e.g. House #12, Road #4, Dhanmondi, Dhaka"
                   {...register('address')}
                   className={`w-full pl-10 pr-4 py-3 bg-zinc-900/90 border ${errors.address ? 'border-red-500' : 'border-zinc-700 focus:border-custom-yellow'
-                    } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-custom-yellow transition-all resize-none`}
+                    } rounded-xl text-white placeholder-gray-500 text-sm focus:outline-hidden focus:ring-1 focus:ring-custom-yellow transition-all resize-none`}
                 />
               </div>
               {errors.address && (
@@ -426,7 +426,7 @@ const JoinNowForm = ({ onSuccess }) => {
                       <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">{plan.note}</p>
                     </div>
 
-                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${isSelected ? 'border-custom-yellow bg-custom-yellow text-black' : 'border-gray-500'
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 ${isSelected ? 'border-custom-yellow bg-custom-yellow text-black' : 'border-gray-500'
                       }`}>
                       {isSelected && <FaCheckCircle className="text-sm" />}
                     </div>
@@ -449,7 +449,7 @@ const JoinNowForm = ({ onSuccess }) => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-4 px-6 text-white font-black uppercase tracking-widest bg-gradient-to-r from-red-600 via-red-700 to-red-600 hover:from-red-500 hover:to-red-600 rounded-xl shadow-xl shadow-red-900/40 hover:shadow-red-600/50 transition-all duration-300 focus:outline-none active:scale-[0.99] disabled:opacity-50 cursor-pointer flex items-center justify-center gap-3 text-base sm:text-lg"
+          className="w-full py-4 px-6 text-white font-black uppercase tracking-widest bg-gradient-to-r from-red-600 via-red-700 to-red-600 hover:from-red-500 hover:to-red-600 rounded-xl shadow-xl shadow-red-900/40 hover:shadow-red-600/50 transition-all duration-300 focus:outline-hidden active:scale-[0.99] disabled:opacity-50 cursor-pointer flex items-center justify-center gap-3 text-base sm:text-lg"
         >
           {isSubmitting ? (
             <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>

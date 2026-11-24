@@ -167,13 +167,13 @@ const Team_list = () => {
                         placeholder="Search instructors..." 
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full bg-black/40 border border-white/10 rounded-2xl py-4 pl-14 pr-6 outline-none focus:border-red-600 transition-all font-bold text-sm text-white"
+                        className="w-full bg-black/40 border border-white/10 rounded-2xl py-4 pl-14 pr-6 outline-hidden focus:border-red-600 transition-all font-bold text-sm text-white"
                     />
                 </div>
                 <select 
                     value={itemsPerPage}
                     onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-                    className="bg-black/40 border border-white/10 text-gray-400 font-bold text-xs uppercase tracking-widest px-6 py-4 rounded-2xl outline-none"
+                    className="bg-black/40 border border-white/10 text-gray-400 font-bold text-xs uppercase tracking-widest px-6 py-4 rounded-2xl outline-hidden"
                 >
                     <option value="10">10 Per Page</option>
                     <option value="25">25 Per Page</option>
@@ -266,7 +266,7 @@ const Team_list = () => {
 
 const Skeleton = () => (
     <tr className="animate-pulse">
-        <td className="px-6 py-6 border-r border-white/5"><div className="w-5 h-5 bg-white/5 rounded mx-auto"></div></td>
+        <td className="px-6 py-6 border-r border-white/5"><div className="w-5 h-5 bg-white/5 rounded-sm mx-auto"></div></td>
         <td className="px-6 py-6"><div className="flex gap-4"><div className="w-12 h-12 bg-white/5 rounded-2xl"></div><div className="space-y-2"><div className="w-32 h-4 bg-white/5 rounded-full"></div><div className="w-20 h-3 bg-white/5 rounded-full"></div></div></div></td>
         <td className="px-6 py-6"><div className="w-48 h-4 bg-white/5 rounded-full"></div></td>
         <td className="px-6 py-6"><div className="w-20 h-6 bg-white/5 rounded-full"></div></td>

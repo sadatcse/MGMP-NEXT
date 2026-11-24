@@ -10,7 +10,7 @@ const CouplesMem = () => {
                 </div>
 
                 {/* table*/}
-                <div className="overflow-x-auto shadow">
+                <div className="overflow-x-auto shadow-sm">
                     <table className="table">
                         {/* head */}
                         <thead>

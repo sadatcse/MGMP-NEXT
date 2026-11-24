@@ -194,14 +194,14 @@ const Contact_us = () => {
                                                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                                                     />
                                                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                                                    <span className="absolute bottom-3 left-4 text-[10px] font-black text-custom-yellow uppercase tracking-[0.3em] bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-md border border-custom-yellow/20">
+                                                    <span className="absolute bottom-3 left-4 text-[10px] font-black text-custom-yellow uppercase tracking-[0.3em] bg-black/50 backdrop-blur-xs px-2.5 py-1 rounded-md border border-custom-yellow/20">
                                                         {branch.tag}
                                                     </span>
                                                 </div>
                                             )}
                                             <div className="p-8">
                                                 <div className="flex items-center gap-4 mb-6">
-                                                    <div className={`w-12 h-12 rounded-2xl ${branch.iconBg} flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                                                    <div className={`w-12 h-12 rounded-2xl ${branch.iconBg} flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                                                         <FaMapMarkerAlt />
                                                     </div>
                                                     <div>
@@ -209,7 +209,7 @@ const Contact_us = () => {
                                                             {branch.name}
                                                         </h3>
                                                         {!branch.image && (
-                                                            <span className="inline-block mt-1 text-[9px] font-black text-custom-yellow uppercase tracking-[0.2em] bg-custom-yellow/10 px-2 py-0.5 rounded border border-custom-yellow/30">
+                                                            <span className="inline-block mt-1 text-[9px] font-black text-custom-yellow uppercase tracking-[0.2em] bg-custom-yellow/10 px-2 py-0.5 rounded-sm border border-custom-yellow/30">
                                                                 {branch.tag}
                                                             </span>
                                                         )}
@@ -347,7 +347,7 @@ const Contact_us = () => {
                                         required
                                         value={formData.fullName}
                                         onChange={handleChange}
-                                        className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20 font-medium"
+                                        className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-hidden focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20 font-medium"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -361,7 +361,7 @@ const Contact_us = () => {
                                         required
                                         value={formData.phone}
                                         onChange={handleChange}
-                                        className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20 font-medium"
+                                        className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-hidden focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20 font-medium"
                                     />
                                 </div>
                             </div>
@@ -377,7 +377,7 @@ const Contact_us = () => {
                                     placeholder="john@example.com"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20 font-medium"
+                                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-hidden focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20 font-medium"
                                 />
                             </div>
 
@@ -391,7 +391,7 @@ const Contact_us = () => {
                                     placeholder="Tell us about your fitness goals or questions..."
                                     value={formData.comments}
                                     onChange={handleChange}
-                                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-none focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20 resize-none h-32 font-medium"
+                                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl p-4 outline-hidden focus:border-custom-yellow transition-all duration-300 text-white placeholder:text-white/20 resize-none h-32 font-medium"
                                 ></textarea>
                             </div>
 
@@ -432,7 +432,7 @@ const Contact_us = () => {
                             {/* Modal Header */}
                             <div className="p-6 md:p-8 border-b border-white/10 flex items-center justify-between bg-white/5">
                                 <div className="flex items-center gap-4">
-                                    <div className={`w-12 h-12 rounded-2xl ${selectedMapBranch.iconBg} flex items-center justify-center text-xl flex-shrink-0`}>
+                                    <div className={`w-12 h-12 rounded-2xl ${selectedMapBranch.iconBg} flex items-center justify-center text-xl shrink-0`}>
                                         <FaMapMarkerAlt />
                                     </div>
                                     <div>

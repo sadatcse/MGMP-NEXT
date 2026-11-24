@@ -38,8 +38,8 @@ const Team = () => {
     return (
       <div className="container mx-auto px-4 mb-24 animate-pulse">
         <div className="max-w-3xl mx-auto text-center mb-12 flex flex-col items-center">
-          <div className="h-4 bg-red-600/30 rounded w-24 mb-4"></div>
-          <div className="h-10 bg-white/10 rounded w-64"></div>
+          <div className="h-4 bg-red-600/30 rounded-sm w-24 mb-4"></div>
+          <div className="h-10 bg-white/10 rounded-sm w-64"></div>
           <div className="w-20 h-1.5 bg-red-600/50 mx-auto mt-4 rounded-full"></div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">

@@ -167,13 +167,13 @@ const Notice_list = () => {
                         placeholder="Search notices..." 
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 pl-14 pr-6 outline-none focus:border-red-600/50 transition-all font-bold text-sm text-white placeholder:text-gray-600"
+                        className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 pl-14 pr-6 outline-hidden focus:border-red-600/50 transition-all font-bold text-sm text-white placeholder:text-gray-600"
                     />
                 </div>
                 <select 
                     value={itemsPerPage}
                     onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-                    className="bg-black/40 border border-white/5 text-gray-400 font-bold text-xs uppercase tracking-widest px-6 py-4 rounded-2xl outline-none"
+                    className="bg-black/40 border border-white/5 text-gray-400 font-bold text-xs uppercase tracking-widest px-6 py-4 rounded-2xl outline-hidden"
                 >
                     <option value="10">10 Per Page</option>
                     <option value="25">25 Per Page</option>
@@ -260,7 +260,7 @@ const Notice_list = () => {
 
 const Skeleton = () => (
     <tr className="animate-pulse">
-        <td className="px-8 py-6 border-r border-white/5"><div className="w-6 h-6 bg-white/5 rounded mx-auto"></div></td>
+        <td className="px-8 py-6 border-r border-white/5"><div className="w-6 h-6 bg-white/5 rounded-sm mx-auto"></div></td>
         <td className="px-8 py-6"><div className="w-64 h-4 bg-white/5 rounded-full"></div></td>
         <td className="px-8 py-6"><div className="w-20 h-4 bg-white/5 rounded-full"></div></td>
         <td className="px-8 py-6"><div className="w-24 h-4 bg-white/5 rounded-full"></div></td>

@@ -105,7 +105,7 @@ const MembershipPlans = () => {
 
             <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-8" />
 
-            <ul className="flex flex-col gap-5 mb-10 flex-grow">
+            <ul className="flex flex-col gap-5 mb-10 grow">
               {item.benefits.map((benefit, bIndex) => (
                 <li
                   key={bIndex}
@@ -114,7 +114,7 @@ const MembershipPlans = () => {
                   }`}
                 >
                   <div
-                    className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] flex-shrink-0 ${
+                    className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] shrink-0 ${
                       benefit.included ? 'bg-red-600/20 text-red-600' : 'bg-gray-800 text-gray-500'
                     }`}
                   >
