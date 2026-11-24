@@ -204,7 +204,7 @@ const NewsDetails = ({ post, related = [] }) => {
                                             <input 
                                                 type="text" 
                                                 placeholder="ENTER EMAIL" 
-                                                className="w-full bg-[#0a0a0a] border border-white/10 p-5 rounded-2xl outline-none focus:border-custom-yellow transition-colors text-xs font-black tracking-widest uppercase" 
+                                                className="w-full bg-[#0a0a0a] border border-white/10 p-5 rounded-2xl outline-hidden focus:border-custom-yellow transition-colors text-xs font-black tracking-widest uppercase" 
                                             />
                                             <button className="w-full py-5 bg-red-600 text-white font-black uppercase tracking-[0.3em] rounded-2xl hover:bg-white hover:text-red-600 transition-all duration-500 shadow-xl shadow-red-600/20">
                                                 Subscribe

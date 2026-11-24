@@ -131,7 +131,7 @@ export default function LogoKitView() {
               >
                 <FaFileArchive className="text-base" />
                 <span>Download All (.ZIP)</span>
-                <span className="text-[10px] opacity-80 px-1.5 py-0.5 rounded bg-black/30 font-mono">378 KB</span>
+                <span className="text-[10px] opacity-80 px-1.5 py-0.5 rounded-sm bg-black/30 font-mono">378 KB</span>
               </a>
 
               <a
@@ -205,7 +205,7 @@ export default function LogoKitView() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search 22 assets..."
-                  className="w-full bg-black/50 border border-white/10 rounded-xl pl-9 pr-8 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-custom-yellow transition-colors"
+                  className="w-full bg-black/50 border border-white/10 rounded-xl pl-9 pr-8 py-2 text-xs text-white placeholder-gray-500 focus:outline-hidden focus:border-custom-yellow transition-colors"
                 />
                 {searchQuery && (
                   <button
@@ -325,7 +325,7 @@ export default function LogoKitView() {
 
                   {/* Filename & Actions */}
                   <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between gap-2">
-                    <code className="text-[11px] font-mono text-gray-400 bg-white/5 px-2.5 py-1 rounded border border-white/5 truncate max-w-[140px] sm:max-w-[180px]">
+                    <code className="text-[11px] font-mono text-gray-400 bg-white/5 px-2.5 py-1 rounded-sm border border-white/5 truncate max-w-[140px] sm:max-w-[180px]">
                       {logo.filename}
                     </code>
 
@@ -433,7 +433,7 @@ export default function LogoKitView() {
                           key={qr.filename}
                           className="group flex items-center gap-4 p-3 rounded-xl bg-[#121215] border border-white/5 hover:border-custom-yellow/40 transition-colors"
                         >
-                          <div className="w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 bg-white rounded-lg p-1">
+                          <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 bg-white rounded-lg p-1">
                             <img
                               src={qr.path}
                               alt={`${branch.name} ${qr.label} QR code`}
@@ -444,7 +444,7 @@ export default function LogoKitView() {
 
                           <div className="min-w-0 flex-1 space-y-2">
                             <div className="flex items-center gap-1.5 text-sm font-extrabold text-white group-hover:text-custom-yellow transition-colors">
-                              <Icon className="text-xs text-custom-yellow flex-shrink-0" />
+                              <Icon className="text-xs text-custom-yellow shrink-0" />
                               <span>{qr.label}</span>
                             </div>
                             <a
@@ -455,10 +455,10 @@ export default function LogoKitView() {
                               title={qr.url}
                             >
                               <span className="truncate">{qr.display}</span>
-                              <FaExternalLinkAlt className="text-[8px] flex-shrink-0" />
+                              <FaExternalLinkAlt className="text-[8px] shrink-0" />
                             </a>
                             {qr.shared && (
-                              <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-gray-500 bg-white/5 px-1.5 py-0.5 rounded">
+                              <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-gray-500 bg-white/5 px-1.5 py-0.5 rounded-sm">
                                 {qr.shared}
                               </span>
                             )}
@@ -618,7 +618,7 @@ export default function LogoKitView() {
                 <ul className="space-y-3 text-xs text-gray-300">
                   {brandRules.dos.map((item, i) => (
                     <li key={i} className="flex items-start gap-2.5 leading-relaxed">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -633,7 +633,7 @@ export default function LogoKitView() {
                 <ul className="space-y-3 text-xs text-gray-300">
                   {brandRules.donts.map((item, i) => (
                     <li key={i} className="flex items-start gap-2.5 leading-relaxed">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-600 mt-1.5 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-red-600 mt-1.5 shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}

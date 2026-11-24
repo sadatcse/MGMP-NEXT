@@ -58,7 +58,7 @@ const Navbar = () => {
             <Image alt="User Avatar" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" width={40} height={40} />
           </div>
         </div>
-        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[100] p-2 shadow bg-base-100 rounded-box w-52 text-black">
+        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[100] p-2 shadow-sm bg-base-100 rounded-box w-52 text-black">
           <li>
             <a className="justify-between">
               Profile
@@ -153,7 +153,7 @@ const Navbar = () => {
               </ul>
             )}
           </div>
-          <Link href="/" className="z-[100] py-1 flex items-center focus:outline-none">
+          <Link href="/" className="z-[100] py-1 flex items-center focus:outline-hidden">
             <Image 
               className='h-12 sm:h-14 md:h-16 w-auto object-contain transition-transform duration-200 hover:scale-105' 
               src={Logo} 

@@ -44,7 +44,7 @@ const NewsCard = ({ news, index }) => {
             </Link>
 
             {/* Content Container */}
-            <div className='p-8 flex flex-col flex-grow'>
+            <div className='p-8 flex flex-col grow'>
                 {/* Date */}
                 <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 mb-4">
                     <FaCalendarAlt className="text-red-600" />

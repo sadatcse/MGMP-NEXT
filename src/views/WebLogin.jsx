@@ -91,7 +91,7 @@ const WebLogin = () => {
                 name="email"
                 placeholder="Enter your email"
                 required
-                className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-custom-yellow/50 focus:border-transparent transition-all"
+                className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-xl py-3 pl-12 pr-4 focus:outline-hidden focus:ring-2 focus:ring-custom-yellow/50 focus:border-transparent transition-all"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -110,7 +110,7 @@ const WebLogin = () => {
                 name="password"
                 placeholder="Enter your password"
                 required
-                className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-custom-yellow/50 focus:border-transparent transition-all"
+                className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-xl py-3 pl-12 pr-4 focus:outline-hidden focus:ring-2 focus:ring-custom-yellow/50 focus:border-transparent transition-all"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>

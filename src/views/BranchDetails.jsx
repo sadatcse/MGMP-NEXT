@@ -61,7 +61,7 @@ const BranchDetails = ({ branch, image }) => {
             className="bg-white/5 border border-white/10 p-8 md:p-10 rounded-[2.5rem] shadow-2xl"
           >
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-14 h-14 rounded-2xl bg-red-600 text-white shadow-lg shadow-red-600/20 flex items-center justify-center text-2xl flex-shrink-0">
+              <div className="w-14 h-14 rounded-2xl bg-red-600 text-white shadow-lg shadow-red-600/20 flex items-center justify-center text-2xl shrink-0">
                 <FaMapMarkerAlt />
               </div>
               <h2 className="text-2xl font-black uppercase tracking-tight">

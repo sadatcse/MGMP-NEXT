@@ -54,7 +54,7 @@ function AboutHero() {
             </div>
 
             {showModal && (
-                <div className="fixed z-[100] inset-0 overflow-y-auto flex justify-center items-center bg-black/90 backdrop-blur-sm p-4">
+                <div className="fixed z-[100] inset-0 overflow-y-auto flex justify-center items-center bg-black/90 backdrop-blur-xs p-4">
                     <div className="relative w-full max-w-4xl bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10">
                         <div className="aspect-video">
                             <iframe className="w-full h-full" src="https://www.youtube.com/embed/utyNnoUfJXI?autoplay=1" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>

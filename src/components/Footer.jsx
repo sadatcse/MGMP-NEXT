@@ -183,11 +183,11 @@ const Footer = ({ initialStats }) => {
 
                             <div className="pt-2 border-t border-white/5 space-y-2">
                                 <div className="flex items-center gap-3 text-xs text-gray-300">
-                                    <FaPhoneAlt className="text-custom-yellow flex-shrink-0" />
+                                    <FaPhoneAlt className="text-custom-yellow shrink-0" />
                                     <span className="font-bold">01313-197435, 01313-197427, 01313-197426</span>
                                 </div>
                                 <div className="flex items-center gap-3 text-xs text-gray-300">
-                                    <FaEnvelope className="text-custom-yellow flex-shrink-0" />
+                                    <FaEnvelope className="text-custom-yellow shrink-0" />
                                     <span>info@multigympremium.com</span>
                                 </div>
                             </div>

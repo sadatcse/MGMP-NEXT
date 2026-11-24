@@ -1,19 +1,11 @@
 "use client";
 import { useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import { usePathname } from 'next/navigation';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Advertisement1 from './Advertisement/Advertisement1';
 import Chatbox from './Chatbox';
 import AuthProvider from '../providers/AuthProvider';
-
-// Polyfill for react-quill and other legacy libraries expecting findDOMNode.
-if (typeof window !== 'undefined' && !ReactDOM.findDOMNode) {
-  ReactDOM.findDOMNode = (el) => {
-    return el || null;
-  };
-}
 
 export default function AppShell({ children, initialVisitorStats }) {
   const pathname = usePathname();

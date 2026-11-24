@@ -5,8 +5,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import dynamic from 'next/dynamic';
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
-import 'react-quill/dist/quill.snow.css';
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+import 'react-quill-new/dist/quill.snow.css';
 
 import UseAxioSecure from '../../../Hook/UseAxioSecure';
 import useAxiosPublic from '../../../Hook/useAxiosPublic';
@@ -142,9 +142,9 @@ const Blog_edit = () => {
                     </div>
                 </div>
                 {previewImageUrl ? (
-                    <Image src={previewImageUrl} alt="Image Preview" width={256} height={192} unoptimized className="w-64 h-full border rounded mt-2" />
+                    <Image src={previewImageUrl} alt="Image Preview" width={256} height={192} unoptimized className="w-64 h-full border rounded-sm mt-2" />
                 ) : (
-                    <div className="w-64 h-32 border rounded mt-2 flex items-center justify-center text-xs text-gray-500 bg-black/40">No Image</div>
+                    <div className="w-64 h-32 border rounded-sm mt-2 flex items-center justify-center text-xs text-gray-500 bg-black/40">No Image</div>
                 )}
             </div>
             <div className="ml-4">
@@ -158,7 +158,7 @@ const Blog_edit = () => {
                             value={formData.title}
                             onChange={handleChange}
                             placeholder='Blog title'
-                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-xs rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-hidden focus:shadow-outline"
                             required
                         />
                     </div>
@@ -184,7 +184,7 @@ const Blog_edit = () => {
                             value={formData.slug || ''}
                             onChange={handleChange}
                             placeholder='post-url-slug'
-                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-3 px-3 text-custom-yellow font-mono placeholder:text-gray-600 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-xs rounded-xl w-full py-3 px-3 text-custom-yellow font-mono placeholder:text-gray-600 leading-tight focus:outline-hidden focus:shadow-outline"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 font-mono">
                             Live URL: <span className="text-gray-300">/blog/{formData.slug || 'post-slug'}</span>
@@ -198,7 +198,7 @@ const Blog_edit = () => {
                             placeholder='Blog tags'
                             value={formData.tags}
                             onChange={handleChange}
-                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-xs rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 leading-tight focus:outline-hidden focus:shadow-outline"
                             required
                         />
                     </div>
@@ -207,7 +207,7 @@ const Blog_edit = () => {
                             selected={formData.date instanceof Date && !isNaN(formData.date.getTime()) ? formData.date : (formData.date ? new Date(formData.date) : null)}
                             onChange={handleDateChange}
                             placeholderText='Select a date'
-                            className="appearance-none text-gray-300 text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-gray-300 text-sm border border-white/10 bg-black/40 shadow-xs rounded-xl w-full py-4 px-3 leading-tight focus:outline-hidden focus:shadow-outline"
                             required
                         />
                         <select
@@ -215,7 +215,7 @@ const Blog_edit = () => {
                             name="category"
                             value={formData.category}
                             onChange={handleChange}
-                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl cursor-pointer w-full py-4 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none text-sm border border-white/10 bg-black/40 shadow-xs rounded-xl cursor-pointer w-full py-4 px-3 text-gray-300 leading-tight focus:outline-hidden focus:shadow-outline"
                             required
                         >
                             <option value="" className='text-gray-400'>Category</option>
@@ -253,13 +253,13 @@ const Blog_edit = () => {
                                 name="image"
                                 value={imageurl}
                                 onChange={(e) => { setimageurl(e.target.value); setPreviewImageUrl(e.target.value); }}
-                                className="appearance-none text-sm border border-white/10 bg-black/40 shadow-sm rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 focus:outline-none focus:shadow-outline"
+                                className="appearance-none text-sm border border-white/10 bg-black/40 shadow-xs rounded-xl w-full py-4 px-3 text-white placeholder:text-gray-500 focus:outline-hidden focus:shadow-outline"
                                 placeholder="Enter image URL"
                             />
                         </div>
                     </div>
                     <div className="text-right mt-6">
-                        <button type="submit" className="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
+                        <button type="submit" className="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg focus:outline-hidden focus:shadow-outline">
                             Update Blog Post
                         </button>
                     </div>

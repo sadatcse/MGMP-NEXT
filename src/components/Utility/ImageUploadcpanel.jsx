@@ -69,7 +69,7 @@ const ImageUpload = ({ setImageUrl, setPreviewImageUrl, folder = 'general' }) =>
                 type="file" 
                 disabled={uploading}
                 accept="image/*"
-                className="file-input file-input-bordered bg-transparent text-white w-full outline-none focus:outline-none cursor-pointer disabled:opacity-50" 
+                className="file-input file-input-bordered bg-transparent text-white w-full outline-hidden focus:outline-hidden cursor-pointer disabled:opacity-50" 
             />
             {uploading && (
                 <div className="text-xs text-custom-yellow font-bold mt-1 px-2 animate-pulse">

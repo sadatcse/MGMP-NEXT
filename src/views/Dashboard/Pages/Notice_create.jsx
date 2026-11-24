@@ -3,8 +3,8 @@ import { useRouter } from 'next/navigation';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import dynamic from 'next/dynamic';
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
-import 'react-quill/dist/quill.snow.css';
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+import 'react-quill-new/dist/quill.snow.css';
 import UseAxioSecure from '../../../Hook/UseAxioSecure';
 import Swal from 'sweetalert2';
 import useAxiosPublic from '../../../Hook/useAxiosPublic';
@@ -150,7 +150,7 @@ const Notice_create = () => {
                             value={formData.title}
                             onChange={handleChange}
                             placeholder="e.g. Eid Holidays Gym Operating Hours"
-                            className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-none focus:border-red-600/50 transition-all font-bold"
+                            className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-hidden focus:border-red-600/50 transition-all font-bold"
                             required
                         />
                     </div>
@@ -165,7 +165,7 @@ const Notice_create = () => {
                                 value={formData.author}
                                 onChange={handleChange}
                                 placeholder="Admin Name"
-                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-none focus:border-red-600/50 transition-all font-bold"
+                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-hidden focus:border-red-600/50 transition-all font-bold"
                                 required
                             />
                         </div>
@@ -176,7 +176,7 @@ const Notice_create = () => {
                                 selected={formData.date}
                                 onChange={handleDateChange}
                                 placeholderText="Select Date"
-                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-none focus:border-red-600/50 transition-all font-bold cursor-pointer"
+                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-hidden focus:border-red-600/50 transition-all font-bold cursor-pointer"
                                 required
                             />
                         </div>
@@ -188,7 +188,7 @@ const Notice_create = () => {
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-gray-400 outline-none focus:border-red-600/50 transition-all font-bold cursor-pointer"
+                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-gray-400 outline-hidden focus:border-red-600/50 transition-all font-bold cursor-pointer"
                                 required
                             >
                                 <option value="" className="text-gray-400">Select Category</option>
@@ -231,7 +231,7 @@ const Notice_create = () => {
                                 name="image"
                                 value={imageurl}
                                 onChange={(e) => setImageUrl(e.target.value)}
-                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-none focus:border-red-600/50 transition-all font-bold"
+                                className="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-6 text-sm text-white placeholder:text-gray-600 outline-hidden focus:border-red-600/50 transition-all font-bold"
                                 placeholder="Enter direct image url"
                             />
                         </div>

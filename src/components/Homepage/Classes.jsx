@@ -38,7 +38,7 @@ const Classes = () => {
             height={600}
             className='w-full h-96 object-cover'
           />
-          <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white p-4'>
+          <div className='absolute top-0 left-0 w-full h-full bg-black/50 flex flex-col justify-center items-center text-center text-white p-4'>
             <h3 className='text-xl md:text-3xl text-accent'>{item.name}</h3>
             <p className='text-white text-sm md:text-base'>{item.description}</p>
           </div>

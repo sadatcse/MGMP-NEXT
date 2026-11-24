@@ -42,7 +42,7 @@ const Blog = ({ initialData = [] }) => {
                 return (
                   <SwiperSlide key={index} className="!h-auto flex flex-col">
                     <div className='group flex flex-col h-full w-full bg-white/5 border border-white/5 rounded-[2.5rem] overflow-hidden premium-card'>
-                      <Link href={`/blog/${postSlug}`} className="relative block h-64 overflow-hidden flex-shrink-0">
+                      <Link href={`/blog/${postSlug}`} className="relative block h-64 overflow-hidden shrink-0">
                         <ImageWithLoader
                           src={post.image}
                           alt={post.title}
@@ -54,7 +54,7 @@ const Blog = ({ initialData = [] }) => {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
                       </Link>
 
-                      <div className='p-8 flex flex-col flex-grow justify-between'>
+                      <div className='p-8 flex flex-col grow justify-between'>
                         <div>
                           <p className='uppercase text-[10px] font-black tracking-[0.2em] text-custom-yellow mb-3'>
                             {new Date(post.date).toLocaleDateString('en-US', {

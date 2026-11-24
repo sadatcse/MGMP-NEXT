@@ -144,7 +144,7 @@ const HeroSlider = () => {
                         </div>
                       </div>
                       <FaArrowRight
-                        className={`text-xl transition-all duration-300 group-hover:translate-x-2 flex-shrink-0 ml-3 ${
+                        className={`text-xl transition-all duration-300 group-hover:translate-x-2 shrink-0 ml-3 ${
                           isMain ? "text-red-500 group-hover:text-white" : "text-custom-yellow"
                         }`}
                       />

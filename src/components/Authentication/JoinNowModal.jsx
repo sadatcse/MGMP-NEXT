@@ -49,7 +49,7 @@ const JoinNowModal = ({ isOpen, onClose }) => {
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white bg-zinc-900 hover:bg-red-600/80 p-2 rounded-full transition-colors duration-200 focus:outline-none"
+              className="absolute top-4 right-4 text-gray-400 hover:text-white bg-zinc-900 hover:bg-red-600/80 p-2 rounded-full transition-colors duration-200 focus:outline-hidden"
               aria-label="Close modal"
             >
               <FaTimes className="text-base" />

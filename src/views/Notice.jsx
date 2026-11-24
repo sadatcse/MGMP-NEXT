@@ -99,7 +99,7 @@ const Notice = () => {
                             {notices.slice(1, visibleNotices).map((notice, index) => (
                                 <div
                                     key={index}
-                                    className="flex flex-col justify-between h-full shadow rounded-lg overflow-hidden"
+                                    className="flex flex-col justify-between h-full shadow-sm rounded-lg overflow-hidden"
                                 >
                                     <Image
                                         src={notice.image}
@@ -109,7 +109,7 @@ const Notice = () => {
                                         height={240}
                                         unoptimized
                                     />
-                                    <div className="flex flex-col flex-grow">
+                                    <div className="flex flex-col grow">
                                         <h3 className="text-lg text-center font-semibold px-2 mb-1 mt-5 text-yellow-600">{notice.title}</h3>
                                         <p className="text-gray-600 text-center text-sm mt-2 px-4">
                                             {notice.description.replace(/<[^>]+>/g, '').slice(0, 200)}{notice.description.length > 200 ? '...' : ''}
@@ -137,14 +137,14 @@ const Notice = () => {
                         <div className="w-full lg:w-1/2 bg-gray-300 h-64 lg:h-auto"></div>
                         <div className="flex flex-col justify-between lg:w-1/2 p-4 bg-gray-200">
                             <div>
-                                <div className="h-8 bg-gray-300 rounded mb-4"></div>
-                                <div className="h-6 bg-gray-300 rounded mb-4"></div>
-                                <div className="h-4 bg-gray-300 rounded"></div>
+                                <div className="h-8 bg-gray-300 rounded-sm mb-4"></div>
+                                <div className="h-6 bg-gray-300 rounded-sm mb-4"></div>
+                                <div className="h-4 bg-gray-300 rounded-sm"></div>
                             </div>
                             <div className="text-xs text-gray-500 flex flex-col lg:flex-row gap-2 mt-4">
-                                <div className="w-1/3 h-4 bg-gray-300 rounded"></div>
-                                <div className="w-1/3 h-4 bg-gray-300 rounded"></div>
-                                <div className="w-1/3 h-4 bg-gray-300 rounded"></div>
+                                <div className="w-1/3 h-4 bg-gray-300 rounded-sm"></div>
+                                <div className="w-1/3 h-4 bg-gray-300 rounded-sm"></div>
+                                <div className="w-1/3 h-4 bg-gray-300 rounded-sm"></div>
                             </div>
                         </div>
                     </div>
@@ -154,13 +154,13 @@ const Notice = () => {
                         {[...Array(6)].map((_, index) => (
                             <div key={index} className="bg-gray-200 border rounded-lg overflow-hidden flex flex-col animate-pulse">
                                 <div className="w-full h-60 bg-gray-300"></div>
-                                <div className="p-4 flex flex-col flex-grow bg-gray-200">
-                                    <div className="h-6 bg-gray-300 rounded mb-2"></div>
-                                    <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                                    <div className="h-4 bg-gray-300 rounded"></div>
+                                <div className="p-4 flex flex-col grow bg-gray-200">
+                                    <div className="h-6 bg-gray-300 rounded-sm mb-2"></div>
+                                    <div className="h-4 bg-gray-300 rounded-sm mb-2"></div>
+                                    <div className="h-4 bg-gray-300 rounded-sm"></div>
                                 </div>
                                 <div className="p-4 bg-gray-200">
-                                    <button className="w-full h-10 bg-gray-300 rounded"></button>
+                                    <button className="w-full h-10 bg-gray-300 rounded-sm"></button>
                                 </div>
                             </div>
                         ))}

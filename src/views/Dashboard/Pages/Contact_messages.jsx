@@ -198,7 +198,7 @@ const Contact_messages = () => {
             placeholder="Search by name, email, phone..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none focus:border-custom-yellow transition-all"
+            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-3 text-sm text-white placeholder:text-gray-500 outline-hidden focus:border-custom-yellow transition-all"
           />
           <FaSearch className="absolute left-4 top-4 text-gray-500" />
         </form>
@@ -210,7 +210,7 @@ const Contact_messages = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="bg-white/5 border border-white/10 rounded-2xl px-4 py-2.5 text-xs text-white outline-none cursor-pointer focus:border-custom-yellow"
+              className="bg-white/5 border border-white/10 rounded-2xl px-4 py-2.5 text-xs text-white outline-hidden cursor-pointer focus:border-custom-yellow"
             >
               <option value="all" className="bg-[#1a1a1a]">All Status</option>
               <option value="unread" className="bg-[#1a1a1a]">Unread</option>
@@ -225,7 +225,7 @@ const Contact_messages = () => {
             <select
               value={branchFilter}
               onChange={(e) => setBranchFilter(e.target.value)}
-              className="bg-white/5 border border-white/10 rounded-2xl px-4 py-2.5 text-xs text-white outline-none cursor-pointer focus:border-custom-yellow"
+              className="bg-white/5 border border-white/10 rounded-2xl px-4 py-2.5 text-xs text-white outline-hidden cursor-pointer focus:border-custom-yellow"
             >
               <option value="all" className="bg-[#1a1a1a]">All Branches</option>
               <option value="Shiya Masjid Branch" className="bg-[#1a1a1a]">Shiya Masjid Branch</option>
@@ -422,7 +422,7 @@ const Contact_messages = () => {
                   <select
                     value={selectedMessage.status}
                     onChange={(e) => handleStatusChange(selectedMessage._id, e.target.value)}
-                    className="bg-white/10 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white outline-none cursor-pointer"
+                    className="bg-white/10 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white outline-hidden cursor-pointer"
                   >
                     <option value="unread" className="bg-[#1a1a1a]">Unread</option>
                     <option value="read" className="bg-[#1a1a1a]">Read</option>

@@ -56,7 +56,7 @@ const WorkoutSetup = () => {
             <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {gymMachines.map(machine => (
                     <li key={machine._id} className="bg-white shadow-lg rounded-lg p-4">
-                        <Image src={machine.image} alt={machine.name} width={400} height={192} unoptimized className="w-full h-48 object-cover rounded" />
+                        <Image src={machine.image} alt={machine.name} width={400} height={192} unoptimized className="w-full h-48 object-cover rounded-sm" />
                         <div className="mt-2">
                             <p className="text-xl font-semibold">{machine.name}</p>
                             <p className="text-gray-600">{machine.category}</p>
@@ -88,7 +88,7 @@ const WorkoutSetup = () => {
                         placeholder="Name" 
                         value={newMachine.name} 
                         onChange={(e) => setNewMachine({ ...newMachine, name: e.target.value })} 
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded-sm"
                     />
                 </div>
                 <div className="mb-2">
@@ -97,7 +97,7 @@ const WorkoutSetup = () => {
                         placeholder="Image URL" 
                         value={newMachine.image} 
                         onChange={(e) => setNewMachine({ ...newMachine, image: e.target.value })} 
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded-sm"
                     />
                 </div>
                 <div className="mb-2">
@@ -106,7 +106,7 @@ const WorkoutSetup = () => {
                         placeholder="Category" 
                         value={newMachine.category} 
                         onChange={(e) => setNewMachine({ ...newMachine, category: e.target.value })} 
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded-sm"
                     />
                 </div>
                 <div className="mb-2">
@@ -115,12 +115,12 @@ const WorkoutSetup = () => {
                         placeholder="Branch" 
                         value={newMachine.branch} 
                         onChange={(e) => setNewMachine({ ...newMachine, branch: e.target.value })} 
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded-sm"
                     />
                 </div>
                 <button 
                     onClick={handleAddMachine} 
-                    className="flex items-center justify-center w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                    className="flex items-center justify-center w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-sm"
                 >
                     <FaPlus className="mr-2" /> Add Machine
                 </button>
@@ -135,7 +135,7 @@ const WorkoutSetup = () => {
                             placeholder="Name" 
                             value={editMachine.name} 
                             onChange={(e) => setEditMachine({ ...editMachine, name: e.target.value })} 
-                            className="w-full p-2 border rounded"
+                            className="w-full p-2 border rounded-sm"
                         />
                     </div>
                     <div className="mb-2">
@@ -144,7 +144,7 @@ const WorkoutSetup = () => {
                             placeholder="Image URL" 
                             value={editMachine.image} 
                             onChange={(e) => setEditMachine({ ...editMachine, image: e.target.value })} 
-                            className="w-full p-2 border rounded"
+                            className="w-full p-2 border rounded-sm"
                         />
                     </div>
                     <div className="mb-2">
@@ -153,7 +153,7 @@ const WorkoutSetup = () => {
                             placeholder="Category" 
                             value={editMachine.category} 
                             onChange={(e) => setEditMachine({ ...editMachine, category: e.target.value })} 
-                            className="w-full p-2 border rounded"
+                            className="w-full p-2 border rounded-sm"
                         />
                     </div>
                     <div className="mb-2">
@@ -162,19 +162,19 @@ const WorkoutSetup = () => {
                             placeholder="Branch" 
                             value={editMachine.branch} 
                             onChange={(e) => setEditMachine({ ...editMachine, branch: e.target.value })} 
-                            className="w-full p-2 border rounded"
+                            className="w-full p-2 border rounded-sm"
                         />
                     </div>
                     <div className="flex justify-end space-x-2">
                         <button 
                             onClick={handleEditMachine} 
-                            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-sm"
                         >
                             Save Changes
                         </button>
                         <button 
                             onClick={() => setEditMachine(null)} 
-                            className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+                            className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-sm"
                         >
                             Cancel
                         </button>
