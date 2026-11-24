@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compress: true,
+  // pdfkit (and its fontkit/unicode deps) read bundled data files via
+  // `new URL(..., import.meta.url)`; webpack rewrites that URL and breaks fs reads.
+  // Load them from node_modules at runtime instead of bundling.
+  serverExternalPackages: ['pdfkit', 'fontkit', 'unicode-properties', 'linebreak'],
   allowedDevOrigins: [
     'localhost:3000',
     'multigympremium.com',
