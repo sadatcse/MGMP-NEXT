@@ -5,6 +5,12 @@ const nextConfig = {
   // `new URL(..., import.meta.url)`; webpack rewrites that URL and breaks fs reads.
   // Load them from node_modules at runtime instead of bundling.
   serverExternalPackages: ['pdfkit', 'fontkit', 'unicode-properties', 'linebreak'],
+  experimental: {
+    // The deploy server reports ~63 CPUs but has a low process/thread limit, so
+    // spawning one build worker per CPU fails with "OS can't spawn worker thread
+    // (os error 11)". ~50 pages build fine with 2 workers.
+    cpus: 2,
+  },
   allowedDevOrigins: [
     'localhost:3000',
     'multigympremium.com',
